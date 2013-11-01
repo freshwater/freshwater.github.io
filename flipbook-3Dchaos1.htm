@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+    <head>
+        <title> oftenpaper.net/3Dchaos1.htm </title>
+
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.9.0/build/reset-fonts-grids/reset-fonts-grids.css" />
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.9.0/build/base/base-min.css" />
+        <link rel="stylesheet" type="text/css" href="oftencss.css" />
+
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+
+        <script type="text/javascript" id="mathjax" src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax:{inlineMath:[['$','$']]}})</script>
+
+        <script type="text/javascript" src="flipbook.js"></script>
+    </head>
+
+<body>
+    <h1><a href="/"> oftenpaper.net </a></h1>
+    <h3>3D chaos 1 &#0153;</h3>
+
+    <br />
+
+    <center class="consumable" style="margin-top: 20px; margin-bottom: 25px;">
+        <a href="sierpinski.htm">
+            <img src="img/siermasterlock22.png" width="181" height="157" />
+        </a>
+    </center>
+
+    <div class="content">
+
+        <div class="section">
+
+            <ol class='flipbook static consumable'
+    name='3D chaos 1'>
+ <li>
+            <img src='img/sier3Dchaos15.png' width='640' height='555' />
+            </li>
+ <li>
+            <img src='img/sier3Dchaos23.png' width='640' height='554' />
+            </li>
+ <li>
+            <img src='img/siergenetics21.png' width='505' height='519' />
+            </li>
+ <li>
+            <img src='img/sier3Dchaos16.png' width='640' height='660' />
+            </li>
+ <li>
+            <img src='img/sier3Dchaos18.png' width='546' height='660' />
+            </li>
+ <li>
+            <img src='img/sier3Dchaos20.png' width='640' height='482' />
+            </li>
+ <li>
+            <img src='img/sier3Dchaos21.png' width='640' height='638' />
+            </li>
+ <li name='source'>
+<pre>
+<span class='Identifier'>draw</span>[<span class='Type'>vertices_</span>, <span class='Type'>numPoints_</span>, <span class='Type'>options___</span>] <span class='Statement'>:=</span>
+  <span class='Identifier'>Graphics3D</span>[{<span class='Identifier'>Lighter</span>[<span class='Identifier'>Green</span>],
+    <span class='Identifier'>Sphere</span>[<span class='Identifier'>FoldList</span>[(<span class='Statement'>#1</span> <span class='Statement'>+</span> <span class='Statement'>#2</span>)<span class='Statement'>/</span><span class='Type'>2</span> <span class='Statement'>&amp;</span>, <span class='Identifier'>First</span>[<span class='Identifier'>N</span><span class='Statement'>@</span>vertices],
+      <span class='Identifier'>RandomChoice</span>[<span class='Identifier'>N</span><span class='Statement'>@</span>vertices, numPoints]], <span class='Statement'>.</span><span class='Type'>001</span>]},
+   Lighting <span class='Statement'>-&gt;</span> {{<span class='String'>&quot;Point&quot;</span>, LightYellow, <span class='Identifier'>Scaled</span>[{<span class='Type'>1</span>, <span class='Type'>1</span>, <span class='Type'>1</span>}], <span class='Type'>5</span>}},
+   options, Boxed <span class='Statement'>-&gt;</span> <span class='Identifier'>False</span>];
+
+vertices <span class='Statement'>=</span> <span class='Identifier'>PolyhedronData</span>[{<span class='String'>&quot;Pyramid&quot;</span>, <span class='Type'>3</span>}, <span class='String'>&quot;VertexCoordinates&quot;</span>];
+<span class='Identifier'>draw</span>[vertices, <span class='Type'>100000</span>,
+ ViewPoint <span class='Statement'>-&gt;</span> {<span class='Type'>0</span>, <span class='Type'>0</span>, <span class='Identifier'>Infinity</span>},
+ ViewVertical <span class='Statement'>-&gt;</span> {<span class='Type'>1</span>, <span class='Type'>0</span>, <span class='Type'>0</span>}]
+</pre>
+            </li>
+ <li name='?'>
+        <pre style='font-size: 14px'>
+<span class='Identifier'>draw1</span>[<span class='Type'>vertices_</span>, <span class='Type'>numPoints_</span>, <span class='Type'>options___</span>] <span class='Statement'>:=</span>
+  <span class='Identifier'>Graphics3D</span>[{<span class='Identifier'>Lighter</span>[<span class='Identifier'>Green</span>], <span class='Identifier'>EdgeForm</span>[<span class='Identifier'>None</span>],
+    <span class='Identifier'>Cuboid</span>[<span class='Statement'>#</span>, <span class='Statement'>#</span> <span class='Statement'>+</span> <span class='Statement'>.</span><span class='Type'>01</span>] <span class='Statement'>&amp;</span> <span class='Statement'>/@</span> <span class='Identifier'>FoldList</span>[(<span class='Statement'>#1</span> <span class='Statement'>+</span> <span class='Statement'>#2</span>)<span class='Statement'>/</span><span class='Type'>2</span> <span class='Statement'>&amp;</span>, <span class='Identifier'>First</span>[vertices],
+      <span class='Identifier'>RandomChoice</span>[<span class='Identifier'>N</span><span class='Statement'>@</span>vertices, numPoints]]},
+   Lighting <span class='Statement'>-&gt;</span> {{<span class='String'>&quot;Point&quot;</span>, LightYellow, <span class='Identifier'>Scaled</span>[{<span class='Type'>1</span>, <span class='Type'>1</span>, <span class='Type'>1</span>}], <span class='Type'>5</span>}},
+   options, Boxed <span class='Statement'>-&gt;</span> <span class='Identifier'>False</span>];
+
+<span class='Identifier'>draw</span>[<span class='Type'>vertices_</span>, <span class='Type'>numPoints_</span>, <span class='Type'>options___</span>] <span class='Statement'>:=</span>
+  <span class='Identifier'>Graphics3D</span>[{<span class='Identifier'>Lighter</span>[<span class='Identifier'>Green</span>],
+    <span class='Identifier'>Sphere</span>[<span class='Identifier'>FoldList</span>[(<span class='Statement'>#1</span> <span class='Statement'>+</span> <span class='Statement'>#2</span>)<span class='Statement'>/</span><span class='Type'>2</span> <span class='Statement'>&amp;</span>, <span class='Identifier'>First</span>[<span class='Identifier'>N</span><span class='Statement'>@</span>vertices],
+      <span class='Identifier'>RandomChoice</span>[<span class='Identifier'>N</span><span class='Statement'>@</span>vertices, numPoints]], <span class='Statement'>.</span><span class='Type'>001</span>]},
+   Lighting <span class='Statement'>-&gt;</span> {{<span class='String'>&quot;Point&quot;</span>, LightYellow, <span class='Identifier'>Scaled</span>[{<span class='Type'>1</span>, <span class='Type'>1</span>, <span class='Type'>1</span>}], <span class='Type'>5</span>}},
+   options, Boxed <span class='Statement'>-&gt;</span> <span class='Identifier'>False</span>];
+
+vertices <span class='Statement'>=</span> <span class='Identifier'>PolyhedronData</span>[{<span class='String'>&quot;Pyramid&quot;</span>, <span class='Type'>3</span>}, <span class='String'>&quot;VertexCoordinates&quot;</span>];
+
+<span class='Comment'>(*1*)</span>
+<span class='Identifier'>Defer</span>[AbsoluteOptions][<span class='Identifier'>draw1</span>[vertices, <span class='Type'>20000</span>, ImageSize <span class='Statement'>-&gt;</span> Medium]]
+
+<span class='Comment'>(*2*)</span>
+<span class='Identifier'>draw</span>[vertices, <span class='Type'>2000000</span>,
+   <span class='Comment'>(* ViewPoint, ViewVertical from (*1*) *)</span>
+   Method <span class='Statement'>-&gt;</span> {<span class='String'>&quot;ShrinkWrap&quot;</span> <span class='Statement'>-&gt;</span> <span class='Identifier'>True</span>},
+   ImageSize <span class='Statement'>-&gt;</span> <span class='Type'>2</span> <span class='Type'>1280</span>] <span class='Statement'>//</span><span class='Identifier'> Rasterize</span> <span class='Statement'>//</span><span class='Identifier'> ImageResize</span>[<span class='Statement'>#</span>, <span class='Identifier'>Scaled</span>[<span class='Type'>1</span><span class='Statement'>/</span><span class='Type'>4</span>]] <span class='Statement'>&amp;</span>
+</pre>
+            </li>
+</ol>
+
+        </div>
+
+        <div class="section" style="margin-top: -22px; margin-bottom: -11px">
+            <!--center>
+                <img src="img/siermasterlock6.png" width="260" height="55" />
+            </center-->
+        </div>
+
+        <center>
+            <p class="consumable" style="font-size: 10px; max-width: 450px; text-align: left; margin-top: 4px;">
+            This page is an excerpt from <a href="sierpinski.htm">the sierpinski triangle page to end most sierpinski triangle pages &#0153;</a>.
+            </p>
+        </center>
+
+        <div class="links centered">
+            <a href="/" title="home" style="color: #333333" class="pagelink">&lt;&lt;</a>
+        </div>
+
+    </div>
+
+</body>
+</html>

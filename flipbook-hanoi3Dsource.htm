@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+    <head>
+        <title> oftenpaper.net/hanoi3Dsource.htm </title>
+
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.9.0/build/reset-fonts-grids/reset-fonts-grids.css" />
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.9.0/build/base/base-min.css" />
+        <link rel="stylesheet" type="text/css" href="oftencss.css" />
+
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+
+        <script type="text/javascript" id="mathjax" src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax:{inlineMath:[['$','$']]}})</script>
+
+        <script type="text/javascript" src="flipbook.js"></script>
+    </head>
+
+<body>
+    <h1><a href="/"> oftenpaper.net </a></h1>
+    <h3>hanoi 3D source &#0153;</h3>
+
+    <br />
+
+    <center class="consumable" style="margin-top: 20px; margin-bottom: 25px;">
+        <a href="sierpinski.htm">
+            <img src="img/siermasterlock22.png" width="181" height="157" />
+        </a>
+    </center>
+
+    <div class="content">
+
+        <div class="section">
+
+            <ol class='flipbook static'
+    name='hanoi 3D source'>
+ <li name='setup'>
+<pre style='font-size: 14px'>
+<span class='Identifier'>validQ</span>[<span class='Type'>s_state</span>] <span class='Statement'>:=</span> <span class='Identifier'>And </span><span class='Statement'>@@</span> <span class='Identifier'>Less </span><span class='Statement'>@@@</span> s;
+
+<span class='Comment'>(*do all physically possible moves. remove invalid moves afterward.*)</span>
+<span class='Identifier'>neighbors</span>[<span class='Type'>states </span><span class='Statement'>:</span> {<span class='Type'>__state</span>}] <span class='Statement'>:=</span> <span class='Identifier'>Select</span>[<span class='Statement'>#</span>, validQ] <span class='Statement'>&amp;</span><span class='Statement'>@</span>
+   <span class='Identifier'>DeleteDuplicates</span><span class='Statement'>@</span><span class='Identifier'>Flatten</span><span class='Statement'>@</span>
+     <span class='Identifier'>Table</span>[<span class='Identifier'>Module</span>[{st2 <span class='Statement'>=</span> st},
+
+       <span class='Identifier'>If</span>[<span class='Identifier'>Length</span>[<span class='Identifier'>st2</span>[[from]]] <span class='Statement'>&gt;</span> <span class='Type'>0</span>,
+        <span class='Identifier'>PrependTo</span>[<span class='Identifier'>st2</span>[[to]], <span class='Identifier'>st2</span>[[from, <span class='Type'>1</span>]]];
+        <span class='Identifier'>st2</span>[[from]] <span class='Statement'>=</span> <span class='Identifier'>Rest</span>[<span class='Identifier'>st2</span>[[from]]]];
+
+       <span class='Identifier'>If</span>[st2 <span class='Statement'>=!=</span> st <span class='Statement'>&amp;&amp;</span> <span class='Identifier'>validQ</span>[st2],
+        <span class='Identifier'>Sow</span><span class='Statement'>@</span><span class='Identifier'>UndirectedEdge</span>[st, st2]];
+
+       st2], {st, states}, {to, <span class='Identifier'>Length</span>[st]}, {from, <span class='Identifier'>Length</span>[st]}];
+
+<span class='Identifier'>hanoiGraph</span>[<span class='Type'>s_</span>, <span class='Type'>options___</span>] <span class='Statement'>:=</span> <span class='Identifier'>Module</span>[{vertices, edges, n},
+    n <span class='Statement'>=</span> <span class='Identifier'>Count</span>[s, <span class='Type'>_Integer</span>, <span class='Identifier'>Infinity</span>];
+    {vertices, {edges}} <span class='Statement'>=</span> <span class='Identifier'>Reap</span>[<span class='Identifier'>Nest</span>[neighbors, {s}, <span class='Type'>2</span><span class='Statement'>^</span>n]];
+
+    <span class='Identifier'>SetAttributes</span>[UndirectedEdge, <span class='Identifier'>Orderless</span>];
+    <span class='Identifier'>Graph</span>[<span class='Identifier'>DeleteDuplicates</span>[edges]]];
+</pre>
+                    </li>
+ <li name='3D'>
+<pre style='font-size: 14px'>
+<span class='Identifier'>toStyle3D</span>[<span class='Type'>g_</span>] <span class='Statement'>:=</span> <span class='Identifier'>Module</span>[{st <span class='Statement'>=</span> <span class='Identifier'>VertexList</span>[g][[<span class='Statement'>#2</span>]]},
+    <span class='Identifier'>Tooltip</span>[{<span class='Identifier'>ColorData</span>[<span class='Type'>3</span>][<span class='Type'>1</span> <span class='Statement'>+</span> <span class='Identifier'>Length</span>[st] <span class='Statement'>-</span> <span class='Identifier'>Count</span>[st, {}]],
+      <span class='Identifier'>Opacity</span>[<span class='Type'>1</span>], <span class='Identifier'>Sphere</span>[<span class='Statement'>#1</span>, <span class='Statement'>.</span><span class='Type'>045</span>]}, <span class='Identifier'>MatrixForm </span><span class='Statement'>/@</span> <span class='Identifier'>List </span><span class='Statement'>@@</span> st]] <span class='Statement'>&amp;</span>;
+
+<span class='Identifier'>hanoiGraph3D</span>[<span class='Type'>s_</span>, <span class='Type'>options___</span>] <span class='Statement'>:=</span> <span class='Identifier'>Module</span>[{g <span class='Statement'>=</span> <span class='Identifier'>hanoiGraph</span>[s]},
+   <span class='Identifier'>GraphPlot3D</span>[g,
+    Method <span class='Statement'>-&gt;</span> <span class='String'>&quot;SpringElectricalEmbedding&quot;</span>,
+    VertexRenderingFunction <span class='Statement'>-&gt;</span> <span class='Identifier'>toStyle3D</span>[g], options, Boxed <span class='Statement'>-&gt;</span> <span class='Identifier'>False</span>,
+    PlotStyle <span class='Statement'>-&gt;</span> {<span class='Identifier'>Lighter</span>[<span class='Identifier'>Blue</span>]<span class='Comment'>(*,Opacity[.5]*)</span>}]];
+
+{vv, vp} <span class='Statement'>=</span> {{<span class='Type'>0</span>, <span class='Type'>0</span>, <span class='Type'>1</span>}, {<span class='Type'>2</span>, <span class='Type'>0</span>, <span class='Type'>0</span>}};
+<span class='Identifier'>Animate</span>[
+ <span class='Identifier'>hanoiGraph3D</span>[<span class='Identifier'>state</span>[{}, {}, {}, <span class='Identifier'>Range</span>[<span class='Type'>4</span>]],
+  Lighting <span class='Statement'>-&gt;</span> <span class='String'>&quot;Neutral&quot;</span>, SphericalRegion <span class='Statement'>-&gt;</span> <span class='Identifier'>True</span>,
+  ViewVertical <span class='Statement'>-&gt;</span> <span class='Identifier'>Dynamic</span>[vv], Boxed <span class='Statement'>-&gt;</span> <span class='Identifier'>False</span>,
+  ViewPoint <span class='Statement'>-&gt;</span> <span class='Identifier'>Dynamic</span>[<span class='Identifier'>RotationTransform</span>[<span class='String'>\[Theta]</span>, vv][vp], (vp <span class='Statement'>=</span> <span class='Statement'>#1</span>) <span class='Statement'>&amp;</span>]],
+ {<span class='String'>\[Theta]</span>, <span class='Type'>2</span> <span class='Identifier'>Pi</span>, <span class='Type'>0</span>}, SynchronousUpdating <span class='Statement'>-&gt;</span> <span class='Identifier'>False</span>]
+</pre>
+                    </li>
+</ol>
+
+        </div>
+
+        <div class="section" style="margin-top: -22px; margin-bottom: -11px">
+            <!--center>
+                <img src="img/siermasterlock6.png" width="260" height="55" />
+            </center-->
+        </div>
+
+        <center>
+            <p class="consumable" style="font-size: 10px; max-width: 450px; text-align: left; margin-top: 4px;">
+            This page is an excerpt from <a href="sierpinski.htm">the sierpinski triangle page to end most sierpinski triangle pages &#0153;</a>.
+            </p>
+        </center>
+
+        <div class="links centered">
+            <a href="/" title="home" style="color: #333333" class="pagelink">&lt;&lt;</a>
+        </div>
+
+    </div>
+
+</body>
+</html>

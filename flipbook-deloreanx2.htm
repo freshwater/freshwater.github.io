@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+    <head>
+        <title> oftenpaper.net/deloreanx2.htm </title>
+
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.9.0/build/reset-fonts-grids/reset-fonts-grids.css" />
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.9.0/build/base/base-min.css" />
+        <link rel="stylesheet" type="text/css" href="oftencss.css" />
+
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+
+        <script type="text/javascript" id="mathjax" src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax:{inlineMath:[['$','$']]}})</script>
+
+        <script type="text/javascript" src="flipbook.js"></script>
+    </head>
+
+<body>
+    <h1><a href="/"> oftenpaper.net </a></h1>
+    <h3>deloreanx2 &#0153;</h3>
+
+    <br />
+
+    <center class="consumable" style="margin-top: 20px; margin-bottom: 25px;">
+        <a href="sierpinski.htm">
+            <img src="img/siermasterlock22.png" width="181" height="157" />
+        </a>
+    </center>
+
+    <div class="content">
+
+        <div class="section">
+
+            <ol class='flipbook static'
+    name='deloreanx2'>
+ <li>
+            <img src='img/siergenetics24.png' width='555' height='621' />
+            </li>
+ <li>
+            <img src='img/siergenetics28.png' width='555' height='621' />
+            </li>
+ <li>
+            <img src='img/siergenetics29.png' width='555' height='621' />
+            </li>
+ <li name='source'>
+<pre style='font-size: 14px'>
+coords <span class='Statement'>=</span> <span class='Identifier'>N</span><span class='Statement'>@</span>{<span class='String'>&quot;A&quot;</span> <span class='Statement'>-&gt;</span> {<span class='Type'>1</span>, <span class='Type'>1</span>}, <span class='String'>&quot;T&quot;</span> <span class='Statement'>-&gt;</span> {<span class='Statement'>-</span><span class='Type'>1</span>, <span class='Statement'>-</span><span class='Type'>1</span>}, <span class='String'>&quot;G&quot;</span> <span class='Statement'>-&gt;</span> {<span class='Statement'>-</span><span class='Type'>1</span>, <span class='Type'>1</span>}, <span class='String'>&quot;C&quot;</span> <span class='Statement'>-&gt;</span> {<span class='Type'>1</span>, <span class='Statement'>-</span><span class='Type'>1</span>}};
+dat <span class='Statement'>=</span> <span class='Identifier'>Characters</span>[<span class='Identifier'>GenomeData</span>[{<span class='String'>&quot;ChromosomeX&quot;</span>, {<span class='Type'>28000000</span>, <span class='Type'>36000000</span>}}]] <span class='Statement'>/.</span> coords;
+nfLetter <span class='Statement'>=</span> <span class='Identifier'>Module</span>[{nf <span class='Statement'>=</span> <span class='Identifier'>Nearest</span>[<span class='Identifier'>Reverse </span><span class='Statement'>/@</span> coords]}, <span class='Identifier'>nf</span>[<span class='Statement'>#</span>, <span class='Type'>1</span>][[<span class='Type'>1</span>]] <span class='Statement'>&amp;</span>];
+
+<span class='Identifier'>draw</span>[<span class='Type'>data_</span>, <span class='Type'>options___</span>] <span class='Statement'>:=</span> <span class='Identifier'>Graphics</span>[{<span class='Identifier'>PointSize</span>[<span class='Type'>0</span>], <span class='Identifier'>Opacity</span>[<span class='Statement'>.</span><span class='Type'>01</span>],
+    <span class='Identifier'>Point</span>[<span class='Identifier'>FoldList</span>[(<span class='Statement'>#1</span> <span class='Statement'>+</span> <span class='Statement'>#2</span>)<span class='Statement'>/</span><span class='Type'>2</span> <span class='Statement'>&amp;</span>, <span class='Identifier'>N</span><span class='Statement'>@</span>{<span class='Type'>0</span>, <span class='Type'>0</span>}, data]]}, options];
+
+background <span class='Statement'>=</span> <span class='Identifier'>Raster</span>[<span class='Identifier'>Reverse</span><span class='Statement'>@</span><span class='Identifier'>ImageData</span><span class='Statement'>@</span><span class='Identifier'>Rasterize</span><span class='Statement'>@</span>
+      <span class='Identifier'>draw</span>[dat, PlotRange <span class='Statement'>-&gt;</span> <span class='Type'>1</span>, ImageSize <span class='Statement'>-&gt;</span> <span class='Type'>600</span> {<span class='Type'>1</span>, <span class='Type'>1</span>}],
+   {{<span class='Statement'>-</span><span class='Type'>1</span>, <span class='Statement'>-</span><span class='Type'>1</span>}, {<span class='Type'>1</span>, <span class='Type'>1</span>}}];
+
+<span class='Identifier'>delorean</span>[<span class='Type'>p_</span>] <span class='Statement'>:=</span> <span class='Type'>2</span> p <span class='Statement'>-</span> (<span class='Identifier'>nfLetter</span>[p] <span class='Statement'>/.</span> coords);
+<span class='Identifier'>Manipulate</span>[<span class='Identifier'>Module</span>[{seq, r <span class='Statement'>=</span> <span class='Type'>2</span><span class='Statement'>^</span>radius},
+  seq <span class='Statement'>=</span> <span class='Identifier'>Most</span>[<span class='Identifier'>NestList</span>[delorean, pt, <span class='Identifier'>Floor</span>[<span class='Type'>1</span><span class='Statement'>/</span>(<span class='Type'>2</span> r)]]];
+
+  <span class='Identifier'>Graphics</span>[{background, {<span class='Identifier'>Darker</span><span class='Statement'>@</span><span class='Identifier'>Gray</span>, <span class='Identifier'>Point</span>[seq]},
+    {<span class='Identifier'>Orange</span>, Thick, <span class='Identifier'>Opacity</span>[<span class='Statement'>.</span><span class='Type'>8</span>], <span class='Identifier'>Arrow</span>[<span class='Identifier'>Reverse</span>[seq]],
+     <span class='Identifier'>MapThread</span>[Circle, {seq, <span class='Type'>2</span><span class='Statement'>^</span>(radius <span class='Statement'>+</span> <span class='Type'>1</span>) r <span class='Type'>2</span><span class='Statement'>^</span><span class='Identifier'>Range</span>[<span class='Identifier'>Length</span>[seq]]}]}},
+   PlotRange <span class='Statement'>-&gt;</span> <span class='Type'>1.015</span>, PlotLabel <span class='Statement'>-&gt;</span> (<span class='Identifier'>nfLetter </span><span class='Statement'>/@</span> <span class='Identifier'>Reverse</span>[seq]),
+   Epilog <span class='Statement'>-&gt;</span> <span class='Identifier'>Style</span>[<span class='Identifier'>Text </span><span class='Statement'>@@@</span> coords, <span class='Identifier'>Red</span>, Background <span class='Statement'>-&gt;</span> <span class='Identifier'>White</span>]]],
+
+ {{radius, <span class='Statement'>-</span><span class='Type'>2</span>}, <span class='Statement'>-</span><span class='Type'>4</span>, <span class='Statement'>-</span><span class='Type'>2</span>, <span class='Type'>1</span>},
+ {{pt, {<span class='Statement'>-.</span><span class='Type'>75</span>, <span class='Statement'>-.</span><span class='Type'>25</span>}}, Locator}]
+</pre>
+            </li>
+</ol>
+
+        </div>
+
+        <div class="section" style="margin-top: -22px; margin-bottom: -11px">
+            <!--center>
+                <img src="img/siermasterlock6.png" width="260" height="55" />
+            </center-->
+        </div>
+
+        <center>
+            <p class="consumable" style="font-size: 10px; max-width: 450px; text-align: left; margin-top: 4px;">
+            This page is an excerpt from <a href="sierpinski.htm">the sierpinski triangle page to end most sierpinski triangle pages &#0153;</a>.
+            </p>
+        </center>
+
+        <div class="links centered">
+            <a href="/" title="home" style="color: #333333" class="pagelink">&lt;&lt;</a>
+        </div>
+
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+    <head>
+        <title> oftenpaper.net/l-system3D1source.htm </title>
+
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.9.0/build/reset-fonts-grids/reset-fonts-grids.css" />
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.9.0/build/base/base-min.css" />
+        <link rel="stylesheet" type="text/css" href="oftencss.css" />
+
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+
+        <script type="text/javascript" id="mathjax" src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax:{inlineMath:[['$','$']]}})</script>
+
+        <script type="text/javascript" src="flipbook.js"></script>
+    </head>
+
+<body>
+    <h1><a href="/"> oftenpaper.net </a></h1>
+    <h3>l-system 3D 1 source &#0153;</h3>
+
+    <br />
+
+    <center class="consumable" style="margin-top: 20px; margin-bottom: 25px;">
+        <a href="sierpinski.htm">
+            <img src="img/siermasterlock22.png" width="181" height="157" />
+        </a>
+    </center>
+
+    <div class="content">
+
+        <div class="section">
+
+            <ol class='flipbook static'
+    name='l-system 3D 1 source'>
+ <li name='half 1'>
+<pre style='font-size: 10px'>
+<span class='Identifier'>Module</span>[{options <span class='Statement'>=</span> {
+     Axiom <span class='Statement'>-&gt;</span> <span class='Identifier'>None</span>, Rules <span class='Statement'>-&gt;</span> {}, Iterations <span class='Statement'>-&gt;</span> <span class='Type'>1</span>, Definitions <span class='Statement'>-&gt;</span> {},
+     DrawStyle <span class='Statement'>-&gt;</span> {}, HatStyle <span class='Statement'>-&gt;</span> {}, Primitive <span class='Statement'>-&gt;</span> Tube, TraceHat <span class='Statement'>-&gt;</span> <span class='Identifier'>False</span>,
+     HatWorldplaneStyle <span class='Statement'>-&gt;</span> <span class='Identifier'>Directive</span>[<span class='Identifier'>EdgeForm</span>[<span class='Identifier'>None</span>], <span class='Identifier'>Opacity</span>[<span class='Statement'>.</span><span class='Type'>2</span>]],
+     HatPrimitive <span class='Statement'>-&gt;</span> <span class='Identifier'>Composition</span>[Arrow, Tube], Angle <span class='Statement'>-&gt;</span> <span class='Type'>2</span><span class='Statement'>.</span> <span class='Identifier'>Pi</span><span class='Statement'>/</span><span class='Type'>6</span>,
+     RandomStuff <span class='Statement'>-&gt;</span> <span class='Identifier'>Sphere</span>[{<span class='Type'>0</span>, <span class='Type'>0</span>, <span class='Type'>0</span>}, <span class='Statement'>.</span><span class='Type'>05</span>]}},
+
+  <span class='Identifier'>SetAttributes</span>[Draw, <span class='Identifier'>Orderless</span>];
+
+  <span class='Identifier'>Draw</span>[<span class='Type'>commands </span><span class='Statement'>:</span> {<span class='Identifier'>Except</span>[<span class='Type'>_Rule</span> <span class='Statement'>|</span> <span class='Type'>_RuleDelayed</span>] <span class='Statement'>..</span>},
+    <span class='Type'>rules </span><span class='Statement'>:</span> {(<span class='Type'>_Rule</span> <span class='Statement'>|</span> <span class='Type'>_RuleDelayed</span>) <span class='Statement'>..</span>}, <span class='Type'>rest___</span>] <span class='Statement'>:=</span> <span class='Identifier'>Draw</span>[Axiom <span class='Statement'>-&gt;</span> commands, Rules <span class='Statement'>-&gt;</span> rules, rest];                
+  <span class='Identifier'>Draw</span>[<span class='Type'>rules </span><span class='Statement'>:</span> {(<span class='Type'>_Rule</span> <span class='Statement'>|</span> <span class='Type'>_RuleDelayed</span>) <span class='Statement'>..</span>}, <span class='Type'>rest___</span>] <span class='Statement'>:=</span> <span class='Identifier'>Draw</span>[Rules <span class='Statement'>-&gt;</span> rules, rest];
+  <span class='Identifier'>Draw</span>[<span class='Type'>commands </span><span class='Statement'>:</span> {<span class='Identifier'>Except</span>[<span class='Type'>_Rule</span> <span class='Statement'>|</span> <span class='Type'>_RuleDelayed</span>] <span class='Statement'>..</span>}, <span class='Type'>rest___</span>] <span class='Statement'>:=</span> <span class='Identifier'>Draw</span>[Axiom <span class='Statement'>-&gt;</span> commands, rest];
+  <span class='Identifier'>Draw</span>[<span class='Type'>opts </span><span class='Statement'>:</span> <span class='Identifier'>OptionsPattern</span>[<span class='Identifier'>Join</span>[<span class='Identifier'>Options</span>[Graphics3D], options]]] <span class='Statement'>:=</span>
+   <span class='Identifier'>Module</span>[{commands, reshape, states, points, hatTrace, hatWorldplane,
+     forwardP, leftP, frontflipP, tacoleftP, flipoutP, pushI, popI, definitionsI},
+
+    <span class='Comment'>(*basic parameterized state transfer functions*)</span>
+    <span class='Identifier'>forwardP</span>[<span class='Type'>p_</span>][{<span class='Type'>z_</span>, <span class='Type'>face_</span>, <span class='Type'>hat_</span>}] <span class='Statement'>:=</span> {z <span class='Statement'>+</span> p face, face, hat};
+    <span class='Identifier'>leftP</span>[<span class='Type'>p_</span>][{<span class='Type'>z_</span>, <span class='Type'>face_</span>, <span class='Type'>hat_</span>}] <span class='Statement'>:=</span> {z, <span class='Identifier'>RotationTransform</span>[p, hat][face], hat};
+    <span class='Identifier'>tacoleftP</span>[<span class='Type'>p_</span>][{<span class='Type'>z_</span>, <span class='Type'>face_</span>, <span class='Type'>hat_</span>}] <span class='Statement'>:=</span> {z, face, <span class='Identifier'>RotationTransform</span>[p, face][hat]};
+    <span class='Identifier'>frontflipP</span>[<span class='Type'>p_</span>][{<span class='Type'>z_</span>, <span class='Type'>face_</span>, <span class='Type'>hat_</span>}] <span class='Statement'>:=</span> <span class='Identifier'>Module</span>[{rot},
+      rot <span class='Statement'>=</span> <span class='Identifier'>RotationTransform</span>[p, <span class='Identifier'>Cross</span>[hat, face]];
+      {z, <span class='Identifier'>rot</span>[face], <span class='Identifier'>rot</span>[hat]}];
+    <span class='Identifier'>flipoutP</span>[<span class='Type'>p1_</span>, <span class='Type'>p2_</span>] <span class='Statement'>:=</span> <span class='Identifier'>Composition</span>[<span class='Identifier'>frontflipP</span>[<span class='Statement'>-</span>p2], <span class='Identifier'>tacoleftP</span>[<span class='Statement'>-</span>p1]];
+
+    <span class='Comment'>(*general function. fit elements of l1 into structure of l2*)</span>
+    <span class='Identifier'>reshape</span>[<span class='Type'>l1_</span>, <span class='Type'>l2_</span>] <span class='Statement'>:=</span> <span class='Identifier'>Module</span>[{i <span class='Statement'>=</span> <span class='Type'>1</span>, length <span class='Statement'>=</span> <span class='Identifier'>Length</span>[l1]},
+      <span class='Identifier'>Map</span>[<span class='Identifier'>l1</span>[[<span class='Identifier'>Mod</span>[i<span class='Statement'>++</span>, length, <span class='Type'>1</span>]]] <span class='Statement'>&amp;</span>, l2, {<span class='Statement'>-</span><span class='Type'>1</span>}]];
+
+    <span class='Comment'>(*LIFO stack*)</span>
+    {pushI, popI} <span class='Statement'>=</span> <span class='Identifier'>Module</span>[{stack <span class='Statement'>=</span> {}},
+      {(<span class='Identifier'>AppendTo</span>[stack, <span class='Statement'>#</span>]; <span class='Statement'>#</span>) <span class='Statement'>&amp;</span>,
+       <span class='Identifier'>Module</span>[{val <span class='Statement'>=</span> <span class='Identifier'>Last</span>[stack]},
+         stack <span class='Statement'>=</span> <span class='Identifier'>Most</span>[stack];
+         val] <span class='Statement'>&amp;</span>}];
+
+    <span class='Identifier'>With</span>[{vars <span class='Statement'>=</span> <span class='Identifier'>First </span><span class='Statement'>/@</span> options},
+     <span class='Identifier'>Module</span>[vars, vars <span class='Statement'>=</span> <span class='Identifier'>OptionValue</span>[vars];
+
+
+
+     </pre>
+            </li>
+ <li name='half 2'>
+            <pre style='font-size: 10px'>
+
+      <span class='Identifier'>If</span>[Axiom <span class='Statement'>===</span> <span class='Identifier'>None</span> <span class='Statement'>&amp;&amp;</span> Rules <span class='Statement'>=!=</span> {}, Axiom <span class='Statement'>=</span> <span class='Identifier'>Rules</span>[[<span class='Type'>1</span>, <span class='Type'>1</span>]]];<span class='Comment'>(*default axiom*)</span>
+      Axiom <span class='Statement'>=</span> <span class='Identifier'>Flatten</span>[{Axiom}];<span class='Comment'>(*normalize to list/directive*)</span>
+      {DrawStyle, HatStyle, HatWorldplaneStyle} <span class='Statement'>=</span> <span class='Identifier'>Directive </span><span class='Statement'>/@</span> {DrawStyle, HatStyle, HatWorldplaneStyle};
+
+      Definitions <span class='Statement'>=</span> <span class='Identifier'>Join</span>[Definitions, {
+         F <span class='Statement'>-&gt;</span> forward, B <span class='Statement'>-&gt;</span> backward, L <span class='Statement'>-&gt;</span> left, R <span class='Statement'>-&gt;</span> right, FO <span class='Statement'>-&gt;</span> flipout, <span class='Identifier'>FO</span>[<span class='Type'>p_</span>] <span class='Statement'>:&gt;</span> <span class='Identifier'>flipout</span>[p],
+         FF <span class='Statement'>-&gt;</span> frontflip, BF <span class='Statement'>-&gt;</span> backflip, TL <span class='Statement'>-&gt;</span> tacoleft, TR <span class='Statement'>-&gt;</span> tacoright}];
+
+      definitionsI <span class='Statement'>=</span> {
+        <span class='Identifier'>forward</span>[<span class='Type'>p_</span>] <span class='Statement'>:&gt;</span> <span class='Identifier'>forwardP</span>[p], <span class='Identifier'>backward</span>[<span class='Type'>p_</span>] <span class='Statement'>:&gt;</span> <span class='Identifier'>forwardP</span>[<span class='Statement'>-</span>p], <span class='Identifier'>left</span>[<span class='Type'>p_</span>] <span class='Statement'>:&gt;</span> <span class='Identifier'>leftP</span>[p],
+        <span class='Identifier'>right</span>[<span class='Type'>p_</span>] <span class='Statement'>:&gt;</span> <span class='Identifier'>leftP</span>[<span class='Statement'>-</span>p], <span class='Identifier'>tacoleft</span>[<span class='Type'>p_</span>] <span class='Statement'>:&gt;</span> <span class='Identifier'>tacoleftP</span>[<span class='Statement'>-</span>p], <span class='Identifier'>tacoright</span>[<span class='Type'>p_</span>] <span class='Statement'>:&gt;</span> <span class='Identifier'>tacoleftP</span>[p],
+        <span class='Identifier'>frontflip</span>[<span class='Type'>p_</span>] <span class='Statement'>:&gt;</span> <span class='Identifier'>frontflipP</span>[p], <span class='Identifier'>backflip</span>[<span class='Type'>p_</span>] <span class='Statement'>:&gt;</span> <span class='Identifier'>frontflipP</span>[<span class='Statement'>-</span>p], forward <span class='Statement'>-&gt;</span> <span class='Identifier'>forwardP</span>[<span class='Type'>1</span>],
+        backward <span class='Statement'>-&gt;</span> <span class='Identifier'>forwardP</span>[<span class='Statement'>-</span><span class='Type'>1</span>], left <span class='Statement'>-&gt;</span> <span class='Identifier'>leftP</span>[Angle], right <span class='Statement'>-&gt;</span> <span class='Identifier'>leftP</span>[<span class='Statement'>-</span>Angle], tacoleft <span class='Statement'>-&gt;</span> <span class='Identifier'>tacoleftP</span>[<span class='Statement'>-</span>Angle],
+        tacoright <span class='Statement'>-&gt;</span> <span class='Identifier'>tacoleftP</span>[Angle], frontflip <span class='Statement'>-&gt;</span> <span class='Identifier'>frontflipP</span>[Angle], backflip <span class='Statement'>-&gt;</span> <span class='Identifier'>frontflipP</span>[<span class='Statement'>-</span>Angle],
+        flipout <span class='Statement'>-&gt;</span> <span class='Identifier'>flipoutP</span>[Angle, Angle], <span class='Identifier'>flipout</span>[<span class='Type'>p1_</span>] <span class='Statement'>:&gt;</span> <span class='Identifier'>flipoutP</span>[p1, Angle],
+        <span class='Identifier'>flipout</span>[<span class='Type'>p1_</span>, <span class='Type'>p2_</span>] <span class='Statement'>:&gt;</span> <span class='Identifier'>flipoutP</span>[p1, p2], push <span class='Statement'>-&gt;</span> pushI,
+        pop <span class='Statement'>-&gt;</span> <span class='Identifier'>Sequence</span>[popI, Identity]<span class='Comment'>(*preadjustment for reshape*)</span>};
+
+      <span class='Comment'>(*note no memoization. if you try, keep in mind case of RuleDelayed*)</span>
+      commands <span class='Statement'>=</span> <span class='Identifier'>Nest</span>[<span class='Identifier'>Flatten</span>[<span class='Identifier'>Replace</span>[<span class='Statement'>#</span>, Rules, {<span class='Type'>1</span>}]] <span class='Statement'>&amp;</span>, Axiom, Iterations];
+      commands <span class='Statement'>=</span> <span class='Identifier'>Flatten</span>[((<span class='Statement'>#</span> <span class='Statement'>/.</span> Definitions) <span class='Statement'>/.</span> definitionsI) <span class='Statement'>&amp;</span> <span class='Statement'>/@</span> commands];
+      states <span class='Statement'>=</span> <span class='Identifier'>ComposeList</span>[commands, <span class='Identifier'>N</span><span class='Statement'>@</span>{{<span class='Type'>0</span>, <span class='Type'>0</span>, <span class='Type'>0</span>}, {<span class='Type'>0</span>, <span class='Type'>1</span>, <span class='Type'>0</span>}, {<span class='Type'>0</span>, <span class='Type'>0</span>, <span class='Type'>1</span>}}];
+
+      points <span class='Statement'>=</span> <span class='Identifier'>reshape</span>[<span class='Identifier'>First </span><span class='Statement'>/@</span> states, <span class='Identifier'>Split</span>[popI <span class='Statement'>===</span> <span class='Statement'>#</span> <span class='Statement'>&amp;</span> <span class='Statement'>/@</span> <span class='Identifier'>Join</span>[{<span class='Type'>0</span>}, commands]]];<span class='Comment'>(*pop is turtle teleportation*)</span>
+      points <span class='Statement'>=</span> <span class='Identifier'>Composition</span>[<span class='Identifier'>First </span><span class='Statement'>/@</span> <span class='Statement'>#</span> <span class='Statement'>&amp;</span>, Split] <span class='Statement'>/@</span> points;<span class='Comment'>(*delete duplicate points*)</span>
+
+      <span class='Identifier'>Graphics3D</span>[{
+        {RandomStuff <span class='Statement'>/.</span> <span class='Identifier'>None</span> <span class='Statement'>-&gt;</span> {}, {DrawStyle, <span class='Identifier'>Primitive</span>[points]}},
+        <span class='Identifier'>If</span>[TraceHat,
+         hatTrace <span class='Statement'>=</span> {<span class='Statement'>#1</span>, <span class='Statement'>#1</span> <span class='Statement'>+</span> <span class='Type'>2</span> <span class='Statement'>#3</span><span class='Statement'>/</span><span class='Type'>5</span>} <span class='Statement'>&amp;</span> <span class='Statement'>@@@</span> states;
+         hatTrace <span class='Statement'>=</span> <span class='Identifier'>First </span><span class='Statement'>/@</span> <span class='Identifier'>Split</span>[hatTrace];<span class='Comment'>(*delete duplicate hats*)</span>
+
+         hatWorldplane <span class='Statement'>=</span> <span class='Identifier'>Polygon</span>[{<span class='Statement'>#1</span>, <span class='Statement'>#2</span>, <span class='Statement'>#4</span>, <span class='Statement'>#3</span>} <span class='Statement'>&amp;</span> <span class='Statement'>@@</span> <span class='Identifier'>Flatten</span>[<span class='Statement'>#</span>, <span class='Type'>1</span>]] <span class='Statement'>&amp;</span> <span class='Statement'>/@</span> <span class='Identifier'>Partition</span>[hatTrace, <span class='Type'>2</span>, <span class='Type'>1</span>];
+         {{HatStyle, <span class='Identifier'>HatPrimitive</span>[hatTrace]}, {HatWorldplaneStyle, hatWorldplane}}, {}]},
+       <span class='Identifier'>Quiet</span><span class='Statement'>@</span><span class='Identifier'>FilterRules</span>[{opts}, <span class='Identifier'>Options</span>[Graphics3D]], Boxed <span class='Statement'>-&gt;</span> <span class='Identifier'>False</span>]]]]];
+
+<span class='Identifier'>Draw</span>[
+ {X, push, BF, L, X, R, R, X, pop, R, X, L, TL, L, X, R, F},
+ {F <span class='Statement'>-&gt;</span> {F, BF, push, L, X, R, R, X, pop, R, X, L, L, X, R, F},
+  X <span class='Statement'>-&gt;</span> {F, BF, push, L, F, R, R, R, F, pop, R, F, L, L, F, R, F}},
+ Iterations <span class='Statement'>-&gt;</span> <span class='Type'>3</span>, DrawStyle <span class='Statement'>-&gt;</span> {<span class='Identifier'>Opacity</span>[<span class='Statement'>.</span><span class='Type'>65</span>], <span class='Identifier'>Glow</span>[<span class='Identifier'>Darker</span>[<span class='Identifier'>Red</span>, <span class='Type'>2</span><span class='Statement'>/</span><span class='Type'>3</span>]]},
+ Definitions <span class='Statement'>-&gt;</span> {X <span class='Statement'>-&gt;</span> Identity}, Angle <span class='Statement'>-&gt;</span> <span class='Identifier'>Pi</span><span class='Statement'>/</span><span class='Type'>8</span>]
+</pre>
+            </li>
+</ol>
+
+        </div>
+
+        <div class="section" style="margin-top: -22px; margin-bottom: -11px">
+            <!--center>
+                <img src="img/siermasterlock6.png" width="260" height="55" />
+            </center-->
+        </div>
+
+        <center>
+            <p class="consumable" style="font-size: 10px; max-width: 450px; text-align: left; margin-top: 4px;">
+            This page is an excerpt from <a href="sierpinski.htm">the sierpinski triangle page to end most sierpinski triangle pages &#0153;</a>.
+            </p>
+        </center>
+
+        <div class="links centered">
+            <a href="/" title="home" style="color: #333333" class="pagelink">&lt;&lt;</a>
+        </div>
+
+    </div>
+
+</body>
+</html>

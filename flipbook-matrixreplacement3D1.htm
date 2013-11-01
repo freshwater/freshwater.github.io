@@ -1,0 +1,363 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+    <head>
+        <title> oftenpaper.net/matrixreplacement3D1.htm </title>
+
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.9.0/build/reset-fonts-grids/reset-fonts-grids.css" />
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.9.0/build/base/base-min.css" />
+        <link rel="stylesheet" type="text/css" href="oftencss.css" />
+
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+
+        <script type="text/javascript" id="mathjax" src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax:{inlineMath:[['$','$']]}})</script>
+
+        <script type="text/javascript" src="flipbook.js"></script>
+    </head>
+
+<body>
+    <h1><a href="/"> oftenpaper.net </a></h1>
+    <h3>matrix replacement 3D 1 &#0153;</h3>
+
+    <br />
+
+    <center class="consumable" style="margin-top: 20px; margin-bottom: 25px;">
+        <a href="sierpinski.htm">
+            <img src="img/siermasterlock22.png" width="181" height="157" />
+        </a>
+    </center>
+
+    <div class="content">
+
+        <div class="section">
+
+            <ol class='flipbook static'
+    name='matrix replacement 3D 1'>
+ <li>
+            <img src='img/sier3Dmatrixrepl11.png' width='669' height='732' />
+            </li>
+ <li>
+            <img src='img/sier3Dmatrixrepl8.png' width='669' height='732' />
+            </li>
+ <li>
+            <img src='img/sier3Dmatrixrepl2.png' width='640' height='732' />
+            </li>
+ <li>
+            <img src='img/sier3Dmatrixrepl3.png' width='605' height='732' />
+            </li>
+ <li>
+            <img title='engine room' src='img/engineroom1.png' width='732' height='732' />
+            </li>
+ <li>
+    <div style='width: 1004px; height: 732px; left: 50%; margin-left: -502px; position: relative;'>
+        <img src='img/sier3Dmatrixrepl5.png' width='1004' height='732' />
+    </div>
+            </li>
+ <li>
+            <img src='img/sier3Dmatrixrepl4.png' width='522' height='727' />
+            </li>
+ <li title='i don&apos;t wanna hear no complainin&apos;' name='source'>
+<pre style='font-size: 2px'>
+
+
+
+
+
+
+<span class='Comment'>(**)</span>
+<span class='Identifier'>Begin</span>[<span class='String'>&quot;mmx`&quot;</span>];
+
+<span class='Identifier'>matrixInput3D1</span>[<span class='Identifier'>Dynamic</span>[<span class='Type'>tensor_</span>], <span class='Identifier'>Dynamic</span>[<span class='Type'>color_</span>], <span class='Type'>options___</span>] <span class='Statement'>:=</span>
+  <span class='Identifier'>Dynamic</span><span class='Statement'>@</span><span class='Identifier'>Module</span>[{grid},
+    grid <span class='Statement'>=</span> <span class='Identifier'>Position</span>[<span class='Identifier'>ArrayPad</span>[tensor, {<span class='Type'>0</span>, <span class='Statement'>-</span><span class='Type'>1</span>}], <span class='Type'>_</span><span class='Statement'>?</span><span class='Type'>IntegerQ</span>];
+
+    <span class='Identifier'>EventHandler</span>[<span class='Statement'>#</span>, {<span class='String'>&quot;MouseDown&quot;</span>, <span class='Type'>2</span>} <span class='Statement'>:&gt;</span> {}] <span class='Statement'>&amp;</span><span class='Statement'>@</span>
+       <span class='Identifier'>Graphics3D</span>[{<span class='Statement'>#</span>, Transparent, <span class='Identifier'>EdgeForm</span>[LightGray], <span class='Identifier'>Cuboid </span><span class='Statement'>/@</span> grid},
+        options,<span class='Comment'>(*Method-&gt;{</span><span class='String'>&quot;ShrinkWrap&quot;</span><span class='Comment'>-&gt;True},*)</span>Boxed <span class='Statement'>-&gt;</span> <span class='Identifier'>False</span>] <span class='Statement'>&amp;</span><span class='Statement'>@</span>
+
+     <span class='Identifier'>Array</span>[<span class='Identifier'>With</span>[{loc <span class='Statement'>:=</span> <span class='Identifier'>tensor</span>[[<span class='Statement'>##</span>]]},
+        <span class='Identifier'>Mouseover</span>[
+         <span class='Comment'>(**)</span>{<span class='Identifier'>Style</span>[<span class='Statement'>#</span>, <span class='Identifier'>Darker</span>[color, <span class='Statement'>.</span><span class='Type'>65</span>]] <span class='Statement'>&amp;</span><span class='Statement'>@</span>
+           <span class='Identifier'>Text</span>[<span class='Identifier'>Dynamic</span>[loc <span class='Statement'>/.</span> <span class='Type'>0</span> <span class='Statement'>-&gt;</span> <span class='Identifier'>Style</span>[<span class='Type'>0</span>, <span class='Identifier'>Opacity</span>[<span class='Statement'>.</span><span class='Type'>5</span>]]], {<span class='Statement'>##</span>}],
+          <span class='Identifier'>Opacity</span>[loc <span class='Statement'>/.</span> {<span class='Type'>0</span> <span class='Statement'>-&gt;</span> <span class='Statement'>.</span><span class='Type'>1</span>, <span class='Type'>1</span> <span class='Statement'>-&gt;</span> <span class='Statement'>.</span><span class='Type'>3</span>}], <span class='Identifier'>Sphere</span>[{<span class='Statement'>##</span>}, <span class='Statement'>.</span><span class='Type'>2</span>]},
+         <span class='Comment'>(**)</span>{<span class='Identifier'>Text</span>[<span class='Identifier'>EventHandler</span>[<span class='Identifier'>Checkbox</span>[<span class='Identifier'>Dynamic</span>[loc], {<span class='Type'>0</span>, <span class='Type'>1</span>}],
+            {<span class='String'>&quot;MouseDown&quot;</span>, <span class='Type'>2</span>} <span class='Statement'>:&gt;</span> (loc <span class='Statement'>=</span> <span class='Type'>0</span>)], {<span class='Statement'>##</span>}],
+          <span class='Identifier'>Opacity</span>[<span class='Statement'>.</span><span class='Type'>01</span>], <span class='Identifier'>Sphere</span>[{<span class='Statement'>##</span>}, <span class='Statement'>.</span><span class='Type'>2</span>]}]] <span class='Statement'>&amp;</span>,
+      <span class='Identifier'>Dimensions</span>[tensor]]];
+
+<span class='Identifier'>matrixInput3D2</span>[<span class='Identifier'>Dynamic</span>[<span class='Type'>tensor_</span>], <span class='Identifier'>Dynamic</span>[<span class='Type'>rules_</span>], <span class='Identifier'>Dynamic</span>[<span class='Type'>color_</span>], <span class='Type'>options___</span>] <span class='Statement'>:=</span>
+  <span class='Identifier'>Dynamic</span><span class='Statement'>@</span><span class='Identifier'>DynamicModule</span>[{grid},
+    grid <span class='Statement'>=</span> <span class='Identifier'>Flatten</span>[<span class='Identifier'>Array</span>[List, <span class='Identifier'>Dimensions</span>[<span class='Identifier'>ArrayPad</span>[tensor, {<span class='Type'>0</span>, <span class='Statement'>-</span><span class='Type'>1</span>}]]], <span class='Type'>2</span>];
+
+    <span class='Identifier'>EventHandler</span>[<span class='Statement'>#</span>, {<span class='String'>&quot;MouseDown&quot;</span>, <span class='Type'>2</span>} <span class='Statement'>:&gt;</span> {}] <span class='Statement'>&amp;</span><span class='Statement'>@</span>
+       <span class='Identifier'>Graphics3D</span>[{<span class='Statement'>#</span>, Transparent, <span class='Identifier'>EdgeForm</span>[LightGray], <span class='Identifier'>Cuboid </span><span class='Statement'>/@</span> grid},
+        options,<span class='Comment'>(*Method-&gt;{</span><span class='String'>&quot;ShrinkWrap&quot;</span><span class='Comment'>-&gt;True},*)</span>Boxed <span class='Statement'>-&gt;</span> <span class='Identifier'>False</span>] <span class='Statement'>&amp;</span><span class='Statement'>@</span>
+
+     <span class='Identifier'>Array</span>[<span class='Identifier'>With</span>[{loc <span class='Statement'>:=</span> <span class='Identifier'>tensor</span>[[<span class='Statement'>##</span>]]},
+        <span class='Identifier'>With</span>[{display <span class='Statement'>=</span> <span class='Identifier'>Tooltip</span>[<span class='Identifier'>Panel</span>[<span class='Statement'>#</span>, FrameMargins <span class='Statement'>-&gt;</span> <span class='Identifier'>None</span>],
+             <span class='Identifier'>Column</span>[{loc <span class='Statement'>/.</span> rules <span class='Statement'>/.</span> {Reverse <span class='Statement'>-&gt;</span> <span class='String'>&quot;R&quot;</span>, Transpose <span class='Statement'>-&gt;</span> <span class='String'>&quot;T&quot;</span>,
+                 Composition <span class='Statement'>-&gt;</span> List, <span class='Identifier'>Verbatim</span>[Slot][<span class='Type'>_</span>] <span class='Statement'>:&gt;</span> <span class='String'>&quot;m&quot;</span>},
+               <span class='String'>&quot;&quot;</span>, <span class='String'>&quot;Click to cycle&quot;</span>, <span class='String'>&quot;Right-click to zero&quot;</span>}],
+             TooltipDelay <span class='Statement'>-&gt;</span> <span class='Statement'>.</span><span class='Type'>6</span>] <span class='Statement'>&amp;</span>},
+
+         <span class='Identifier'>Mouseover</span>[
+          <span class='Comment'>(**)</span>{<span class='Identifier'>Style</span>[<span class='Statement'>#</span>, <span class='Identifier'>Darker</span>[color, <span class='Statement'>.</span><span class='Type'>65</span>]] <span class='Statement'>&amp;</span><span class='Statement'>@</span>
+            <span class='Identifier'>Text</span>[<span class='Identifier'>Dynamic</span>[loc <span class='Statement'>/.</span> <span class='Type'>0</span> <span class='Statement'>-&gt;</span> <span class='Identifier'>Style</span>[<span class='Type'>0</span>, <span class='Identifier'>Opacity</span>[<span class='Statement'>.</span><span class='Type'>5</span>]]], {<span class='Statement'>##</span>}],
+           <span class='Identifier'>Opacity</span>[loc <span class='Statement'>/.</span> {<span class='Type'>0</span> <span class='Statement'>-&gt;</span> <span class='Statement'>.</span><span class='Type'>1</span>, <span class='Type'>_</span> <span class='Statement'>-&gt;</span> <span class='Statement'>.</span><span class='Type'>3</span>}], <span class='Identifier'>Sphere</span>[{<span class='Statement'>##</span>}, <span class='Statement'>.</span><span class='Type'>2</span>]},
+          <span class='Comment'>(**)</span>{<span class='Identifier'>Text</span>[<span class='Identifier'>EventHandler</span>[
+             <span class='Identifier'>display</span>[
+              Toggler<span class='Comment'>(*PopupMenu*)</span>[<span class='Identifier'>Dynamic</span>[loc], <span class='Identifier'>First </span><span class='Statement'>/@</span> rules,
+               ImageSize <span class='Statement'>-&gt;</span> <span class='Identifier'>Automatic</span>]
+              ],
+             {<span class='String'>&quot;MouseDown&quot;</span>, <span class='Type'>2</span>} <span class='Statement'>:&gt;</span> (loc <span class='Statement'>=</span> <span class='Type'>0</span>)], {<span class='Statement'>##</span>}],
+           <span class='Identifier'>Opacity</span>[<span class='Statement'>.</span><span class='Type'>01</span>], <span class='Identifier'>Sphere</span>[{<span class='Statement'>##</span>}, <span class='Statement'>.</span><span class='Type'>2</span>]}]]] <span class='Statement'>&amp;</span>,
+      <span class='Identifier'>Dimensions</span>[tensor]]];
+
+bg <span class='Statement'>=</span> <span class='Identifier'>White</span>;
+dims <span class='Statement'>=</span> <span class='Statement'>#</span> <span class='Statement'>-&gt;</span> <span class='Identifier'>If</span>[<span class='Statement'>#</span> <span class='Statement'>&gt;</span> <span class='Type'>2</span>, <span class='Identifier'>Style</span>[<span class='Statement'>#</span>, <span class='Identifier'>Red</span>], <span class='Statement'>#</span>] <span class='Statement'>&amp;</span> <span class='Statement'>/@</span> <span class='Identifier'>Range</span>[<span class='Type'>5</span>];
+
+rotations <span class='Statement'>=</span> <span class='Identifier'>Flatten</span><span class='Statement'>@</span><span class='Identifier'>Outer</span>[<span class='Identifier'>Function</span>[{o, dir},
+     <span class='Identifier'>Composition</span>[<span class='Identifier'>Transpose</span>[<span class='Statement'>#</span>, o] <span class='Statement'>&amp;</span>, <span class='Identifier'>dir </span><span class='Statement'>/@</span> <span class='Statement'>#</span> <span class='Statement'>&amp;</span>, <span class='Identifier'>Transpose</span>[<span class='Statement'>#</span>, o] <span class='Statement'>&amp;</span>]],
+    {{<span class='Type'>1</span>, <span class='Type'>2</span>, <span class='Type'>3</span>}, {<span class='Type'>3</span>, <span class='Type'>2</span>, <span class='Type'>1</span>}, {<span class='Type'>2</span>, <span class='Type'>1</span>, <span class='Type'>3</span>}},
+    {<span class='Identifier'>Composition</span>[Transpose, Reverse],
+     <span class='Identifier'>Composition</span>[Reverse, Transpose],
+     Reverse, Transpose}, <span class='Type'>1</span>];
+
+rotations <span class='Statement'>=</span> <span class='Identifier'>MapIndexed</span>[<span class='String'>&quot;S&quot;</span> <span class='Statement'>@@</span> <span class='Statement'>#2</span> <span class='Statement'>-&gt;</span> <span class='Statement'>#1</span> <span class='Statement'>&amp;</span>, rotations];
+defaultRules <span class='Statement'>=</span> <span class='Identifier'>Join</span>[{<span class='Type'>0</span> <span class='Statement'>-&gt;</span> (<span class='Type'>0</span> <span class='Statement'>#</span> <span class='Statement'>&amp;</span>), <span class='Type'>1</span> <span class='Statement'>-&gt;</span> (<span class='Statement'>#</span> <span class='Statement'>&amp;</span>)}, rotations];
+
+<span class='Identifier'>iterate</span>[<span class='Type'>matrix0_</span>, <span class='Type'>matrixT_</span>, <span class='Type'>rules_</span>, <span class='Type'>power_</span>] <span class='Statement'>:=</span>
+  <span class='Identifier'>Nest</span>[<span class='Identifier'>Function</span>[prev,
+    <span class='Identifier'>ArrayFlatten</span>[<span class='Identifier'>Map</span>[<span class='Statement'>#</span>[prev] <span class='Statement'>&amp;</span>,
+      <span class='Identifier'>Replace</span>[matrixT, rules, {<span class='Type'>3</span>}], {<span class='Type'>3</span>}], <span class='Type'>3</span>]],
+   matrix0, power];
+
+<span class='Identifier'>randomMatrix</span>[<span class='Type'>dimensions_</span>, <span class='Type'>source_</span>] <span class='Statement'>:=</span> <span class='Identifier'>With</span>[
+   {rv <span class='Statement'>:=</span> <span class='Identifier'>RandomVariate</span>[<span class='Identifier'>ZipfDistribution</span>[<span class='Identifier'>Length</span>[source], <span class='Type'>1</span>]]},
+   <span class='Identifier'>Array</span>[<span class='Identifier'>source</span>[[rv]] <span class='Statement'>&amp;</span>, dimensions]];
+
+<span class='Identifier'>With</span>[{HiPrint <span class='Statement'>:=</span> <span class='Identifier'>Function</span>[viewpoint,
+    <span class='Identifier'>With</span>[{pow <span class='Statement'>=</span> power},
+     <span class='Identifier'>CellPrint</span>[<span class='Identifier'>ExpressionCell</span>[
+       <span class='Identifier'>Defer</span>[
+        powzerz <span class='Statement'>=</span> pow;
+        <span class='Identifier'>With</span>[{objects <span class='Statement'>=</span> <span class='Identifier'>Translate</span>[primitive,
+            <span class='Identifier'>Replace</span>[<span class='Identifier'>Position</span>[<span class='Identifier'>iterate</span>[
+               matrix0 <span class='Statement'>/.</span> <span class='Type'>0</span> matrix0 <span class='Statement'>-&gt;</span> {{{<span class='Type'>1</span>}}},
+               matrixT <span class='Statement'>/.</span> <span class='Type'>0</span> matrixT <span class='Statement'>-&gt;</span> {{{<span class='Type'>1</span>}}},
+               rules, powzerz], <span class='Identifier'>If</span>[negativeSpace, <span class='Type'>0</span>, <span class='Type'>1</span>]],
+             {} <span class='Statement'>-&gt;</span> {<span class='Type'>1</span>, <span class='Type'>1</span>, <span class='Type'>1</span>}]]},
+         <span class='Identifier'>ImageResize</span>[<span class='Identifier'>Rasterize</span>[<span class='Statement'>#</span>], <span class='Identifier'>Scaled</span>[<span class='Type'>1</span><span class='Statement'>/</span><span class='Type'>4</span>]] <span class='Statement'>&amp;</span><span class='Statement'>@</span>
+          <span class='Identifier'>Defer</span>[Graphics3D][{color, <span class='Identifier'>Opacity</span>[opacity],
+            <span class='Identifier'>Glow</span>[glow], <span class='Identifier'>Specularity</span>[specularity],
+            <span class='Identifier'>EdgeForm</span>[{<span class='Identifier'>Opacity</span>[opacity], <span class='Identifier'>Darker</span>[color, <span class='Type'>4</span> <span class='Statement'>.</span><span class='Type'>15</span>]}], objects},
+           Lighting <span class='Statement'>-&gt;</span> <span class='String'>&quot;Neutral&quot;</span>, Method <span class='Statement'>-&gt;</span> {<span class='String'>&quot;ShrinkWrap&quot;</span> <span class='Statement'>-&gt;</span> <span class='Identifier'>True</span>},
+           ImageSize <span class='Statement'>-&gt;</span> {<span class='Identifier'>Automatic</span>, <span class='Type'>4</span> <span class='Type'>732</span>}, Boxed <span class='Statement'>-&gt;</span> <span class='Identifier'>False</span>,
+           ViewPoint <span class='Statement'>-&gt;</span> viewpoint, ViewVertical <span class='Statement'>-&gt;</span> vv,
+           Background <span class='Statement'>-&gt;</span> background]]],
+       <span class='String'>&quot;Input&quot;</span>]]]],
+
+  printMatrices <span class='Statement'>:=</span> <span class='Identifier'>Function</span>[
+    <span class='Identifier'>CellPrint</span>[<span class='Identifier'>ExpressionCell</span>[<span class='Identifier'>DynamicModule</span>[{
+        mtx0 <span class='Statement'>=</span> matrix0, mtxT <span class='Statement'>=</span> matrixT, mtx0o <span class='Statement'>=</span> matrix0, mtxTo <span class='Statement'>=</span> matrixT,
+        clr <span class='Statement'>=</span> color, opc <span class='Statement'>=</span> opacity, ns <span class='Statement'>=</span> negativeSpace, pow <span class='Statement'>=</span> power, rls <span class='Statement'>=</span> rules,
+        prm <span class='Statement'>=</span> primitive, iter <span class='Statement'>=</span> iterate, bg <span class='Statement'>=</span> background, vp1 <span class='Statement'>=</span> vp, vv1 <span class='Statement'>=</span> vv},
+
+       <span class='Identifier'>With</span>[{
+         btn <span class='Statement'>=</span> <span class='Identifier'>Button</span>[<span class='Identifier'>DynamicWrapper</span>[<span class='String'>&quot;print data&quot;</span>,
+
+            <span class='Identifier'>If</span>[mtx0 <span class='Statement'>=!=</span> mtx0o <span class='Statement'>||</span> mtxT <span class='Statement'>=!=</span> mtxTo, mtx0 <span class='Statement'>=</span> mtx0o; mtxT <span class='Statement'>=</span> mtxTo]],
+           <span class='Identifier'>Print</span>[<span class='Identifier'>Grid</span>[{
+              {<span class='String'>&quot;kernel matrix&quot;</span>, <span class='Identifier'>MatrixForm</span>[mtx0o]},
+              {<span class='String'>&quot;transformation matrix&quot;</span>, <span class='Identifier'>MatrixForm</span>[mtxTo]},
+              {<span class='String'>&quot;rules&quot;</span>, rls}, {<span class='String'>&quot;power&quot;</span>, pow}}]]],
+         mtx0c <span class='Statement'>=</span> <span class='Identifier'>matrixInput3D1</span>[<span class='Identifier'>Dynamic</span>[mtx0], <span class='Identifier'>Dynamic</span>[clr],
+           SphericalRegion <span class='Statement'>-&gt;</span> <span class='Identifier'>True</span>, ImageSize <span class='Statement'>-&gt;</span> Small,
+           Background <span class='Statement'>-&gt;</span> <span class='Identifier'>Lighter</span>[bg, <span class='Statement'>.</span><span class='Type'>8</span>],
+           ViewPoint <span class='Statement'>-&gt;</span> <span class='Identifier'>Dynamic</span>[vp1], ViewVertical <span class='Statement'>-&gt;</span> <span class='Identifier'>Dynamic</span>[vv1]],
+         mtxTc <span class='Statement'>=</span> <span class='Identifier'>matrixInput3D2</span>[<span class='Identifier'>Dynamic</span>[mtxT], <span class='Identifier'>Dynamic</span>[rls], <span class='Identifier'>Dynamic</span>[clr],
+           SphericalRegion <span class='Statement'>-&gt;</span> <span class='Identifier'>True</span>, ImageSize <span class='Statement'>-&gt;</span> Small,
+           Background <span class='Statement'>-&gt;</span> <span class='Identifier'>Lighter</span>[bg, <span class='Statement'>.</span><span class='Type'>8</span>],
+           ViewPoint <span class='Statement'>-&gt;</span> <span class='Identifier'>Dynamic</span>[vp1], ViewVertical <span class='Statement'>-&gt;</span> <span class='Identifier'>Dynamic</span>[vv1]],
+         g3d <span class='Statement'>=</span> <span class='Identifier'>With</span>[{objects <span class='Statement'>=</span> <span class='Identifier'>Translate</span>[prm,
+              <span class='Identifier'>Replace</span>[<span class='Identifier'>Position</span>[<span class='Identifier'>iter</span>[
+                 mtx0 <span class='Statement'>/.</span> <span class='Type'>0</span> mtx0 <span class='Statement'>-&gt;</span> {{{<span class='Type'>1</span>}}},
+                 mtxT <span class='Statement'>/.</span> <span class='Type'>0</span> mtxT <span class='Statement'>-&gt;</span> {{{<span class='Type'>1</span>}}},
+                 rls, pow], <span class='Identifier'>If</span>[ns, <span class='Type'>0</span>, <span class='Type'>1</span>]],
+               {} <span class='Statement'>-&gt;</span> {<span class='Type'>1</span>, <span class='Type'>1</span>, <span class='Type'>1</span>}]]},
+           <span class='Identifier'>Graphics3D</span>[{
+             <span class='Identifier'>EdgeForm</span>[{<span class='Identifier'>Opacity</span>[opc], <span class='Identifier'>Darker</span>[clr, <span class='Type'>4</span> <span class='Statement'>.</span><span class='Type'>15</span>]}],
+             clr, <span class='Identifier'>Opacity</span>[opc], objects},
+            ImageSize <span class='Statement'>-&gt;</span> Small, Boxed <span class='Statement'>-&gt;</span> <span class='Identifier'>False</span>, SphericalRegion <span class='Statement'>-&gt;</span> <span class='Identifier'>True</span>,
+            ViewPoint <span class='Statement'>-&gt;</span> <span class='Identifier'>Dynamic</span>[vp1], ViewVertical <span class='Statement'>-&gt;</span> <span class='Identifier'>Dynamic</span>[vv1],
+            Lighting <span class='Statement'>-&gt;</span> <span class='String'>&quot;Neutral&quot;</span>, Background <span class='Statement'>-&gt;</span> bg]]},
+
+        <span class='Identifier'>Panel</span>[<span class='Identifier'>Grid</span>[{
+           {<span class='Identifier'>Panel</span>[<span class='Identifier'>Placeholder</span>[<span class='String'>&quot;name&quot;</span>]], SpanFromLeft, btn},
+           {mtx0c, mtxTc, g3d}}]]]]]]],
+
+  <span class='Comment'>(* controls *)</span>
+  dim0C <span class='Statement'>=</span> <span class='Identifier'>Control</span>[{{dim0, <span class='Type'>1</span>, <span class='String'>&quot;&quot;</span>}, dims, ControlType <span class='Statement'>-&gt;</span> PopupMenu}],
+  dimTC <span class='Statement'>=</span> <span class='Identifier'>Control</span>[{{dimT, <span class='Type'>2</span>, <span class='String'>&quot;&quot;</span>}, dims, ControlType <span class='Statement'>-&gt;</span> PopupMenu}],
+  matrix0C <span class='Statement'>=</span> <span class='Identifier'>matrixInput3D1</span>[<span class='Identifier'>Dynamic</span>[matrix0], <span class='Identifier'>Dynamic</span>[color],
+    SphericalRegion <span class='Statement'>-&gt;</span> <span class='Identifier'>True</span>, ImageSize <span class='Statement'>-&gt;</span> <span class='Identifier'>Dynamic</span>[imgSize1],
+    Background <span class='Statement'>-&gt;</span> <span class='Identifier'>Dynamic</span>[<span class='Identifier'>Lighter</span>[background, <span class='Statement'>.</span><span class='Type'>8</span>]],
+    ViewPoint <span class='Statement'>-&gt;</span> <span class='Identifier'>Dynamic</span>[vp], ViewVertical <span class='Statement'>-&gt;</span> <span class='Identifier'>Dynamic</span>[vv]],
+  matrixTC <span class='Statement'>=</span> <span class='Identifier'>matrixInput3D2</span>[<span class='Identifier'>Dynamic</span>[matrixT], <span class='Identifier'>Dynamic</span>[rules], <span class='Identifier'>Dynamic</span>[color],
+    SphericalRegion <span class='Statement'>-&gt;</span> <span class='Identifier'>True</span>, ImageSize <span class='Statement'>-&gt;</span> <span class='Identifier'>Dynamic</span>[imgSize2],
+    Background <span class='Statement'>-&gt;</span> <span class='Identifier'>Dynamic</span>[<span class='Identifier'>Lighter</span>[background, <span class='Statement'>.</span><span class='Type'>8</span>]],
+    ViewPoint <span class='Statement'>-&gt;</span> <span class='Identifier'>Dynamic</span>[vp], ViewVertical <span class='Statement'>-&gt;</span> <span class='Identifier'>Dynamic</span>[vv]],
+  rulesC <span class='Statement'>=</span> <span class='Identifier'>Pane</span>[<span class='Identifier'>Style</span>[<span class='Statement'>#</span>, <span class='Type'>10</span>], {<span class='Type'>400</span>, <span class='Type'>200</span>}, Scrollbars <span class='Statement'>-&gt;</span> <span class='Identifier'>Automatic</span>] <span class='Statement'>&amp;</span><span class='Statement'>@</span>
+    <span class='Identifier'>Control</span>[{{rules, defaultRules, <span class='String'>&quot;&quot;</span>},
+      InputField, Background <span class='Statement'>-&gt;</span> <span class='Identifier'>Dynamic</span>[<span class='Identifier'>Lighter</span>[background, <span class='Statement'>.</span><span class='Type'>65</span>]],
+      FieldSize <span class='Statement'>-&gt;</span> {<span class='Type'>50</span>, {<span class='Type'>0</span><span class='Statement'>.</span>, <span class='Identifier'>Infinity</span>}}}],
+  colorC <span class='Statement'>=</span>
+   <span class='Identifier'>Control</span>[{{color, <span class='Identifier'>RGBColor</span>[<span class='Statement'>.</span><span class='Type'>15</span>, <span class='Statement'>.</span><span class='Type'>6</span>, <span class='Type'>1</span>], <span class='String'>&quot;color&quot;</span>}, ColorSlider}],
+  backgroundC <span class='Statement'>=</span> <span class='Identifier'>Row</span>[{<span class='String'>&quot;background   &quot;</span>, <span class='Identifier'>Framed</span>[
+      <span class='Identifier'>ColorSlider</span>[<span class='Identifier'>Dynamic</span>[background, (bg <span class='Statement'>=</span> background <span class='Statement'>=</span> <span class='Statement'>#</span>) <span class='Statement'>&amp;</span>],
+       AppearanceElements <span class='Statement'>-&gt;</span> <span class='String'>&quot;Swatch&quot;</span>],
+      FrameStyle <span class='Statement'>-&gt;</span> <span class='Identifier'>Gray</span>], <span class='String'>&quot; &quot;</span>,
+     <span class='Identifier'>ColorSlider</span>[<span class='Identifier'>Dynamic</span>[background, (bg <span class='Statement'>=</span> background <span class='Statement'>=</span> <span class='Statement'>#</span>) <span class='Statement'>&amp;</span>],
+      AppearanceElements <span class='Statement'>-&gt;</span> <span class='String'>&quot;Spectrum&quot;</span>, ImageSize <span class='Statement'>-&gt;</span> Small]}],
+  opacityC <span class='Statement'>=</span> <span class='Identifier'>Control</span><span class='Statement'>@</span>{{opacity, <span class='Type'>1</span>, <span class='String'>&quot;opacity&quot;</span>}, <span class='Type'>0</span>, <span class='Type'>1</span>, ImageSize <span class='Statement'>-&gt;</span> Small},
+  glowC <span class='Statement'>=</span> <span class='Identifier'>Control</span>[{{glow, <span class='Identifier'>Black</span>, <span class='String'>&quot;glow&quot;</span>}, ColorSlider}],
+  specC <span class='Statement'>=</span> <span class='Identifier'>Control</span>[{{specularity, <span class='Identifier'>Black</span>, <span class='String'>&quot;specularity&quot;</span>}, ColorSlider, ImageSize <span class='Statement'>-&gt;</span> Small}],
+  primC <span class='Statement'>=</span> <span class='Identifier'>Control</span>[{{primitive, <span class='Identifier'>Scale</span>[<span class='Identifier'>Cuboid</span>[],<span class='Statement'>.</span><span class='Type'>99999</span>], <span class='String'>&quot;primitive&quot;</span>},
+     <span class='Statement'>#</span> <span class='Statement'>-&gt;</span> <span class='Identifier'>Graphics3D</span>[{color, <span class='Statement'>#</span>}, Boxed <span class='Statement'>-&gt;</span> <span class='Identifier'>False</span>, ImageSize <span class='Statement'>-&gt;</span> <span class='Type'>20</span>] <span class='Statement'>&amp;</span> <span class='Statement'>/@</span>
+      {{<span class='Identifier'>PointSize</span>[<span class='Type'>0</span>], <span class='Identifier'>Point</span>[{<span class='Type'>0</span><span class='Statement'>.</span>, <span class='Type'>0</span><span class='Statement'>.</span>, <span class='Type'>0</span><span class='Statement'>.</span>}]}, <span class='Identifier'>Sphere</span>[{<span class='Type'>0</span><span class='Statement'>.</span>, <span class='Type'>0</span><span class='Statement'>.</span>, <span class='Type'>0</span><span class='Statement'>.</span>}, <span class='Statement'>.</span><span class='Type'>5</span>],
+       {<span class='Identifier'>EdgeForm</span>[<span class='Identifier'>None</span>], <span class='Identifier'>Scale</span>[<span class='Identifier'>Cuboid</span>[],<span class='Statement'>.</span><span class='Type'>99999</span>]}, <span class='Identifier'>Scale</span>[<span class='Identifier'>Cuboid</span>[],<span class='Statement'>.</span><span class='Type'>99999</span>]}, SetterBar}],
+  powerC <span class='Statement'>=</span> <span class='Identifier'>Control</span>[{{power, <span class='Type'>1</span>, <span class='String'>&quot;power&quot;</span>}, <span class='Type'>0</span>, <span class='Type'>5</span>, <span class='Type'>1</span>, Appearance <span class='Statement'>-&gt;</span> <span class='String'>&quot;Labeled&quot;</span>}],
+  nsC <span class='Statement'>=</span> <span class='Identifier'>Control</span>[{{negativeSpace, <span class='Identifier'>False</span>,
+      <span class='Identifier'>Tooltip</span>[<span class='String'>&quot;negative&quot;</span>, <span class='String'>&quot;negative space&quot;</span>,
+       TooltipDelay <span class='Statement'>-&gt;</span> <span class='Statement'>.</span><span class='Type'>4</span>]}, {<span class='Identifier'>False</span>, <span class='Identifier'>True</span>}}]
+  },
+
+ <span class='Comment'>(*control layout*)</span>
+ <span class='Identifier'>With</span>[{controls <span class='Statement'>:=</span>
+    <span class='Identifier'>Row</span>[{
+      <span class='Identifier'>Column</span>[{
+        <span class='Identifier'>Row</span>[{dim0C, <span class='String'>&quot;   |&quot;</span>, dimTC}],
+        <span class='Identifier'>Row</span>[{<span class='String'>&quot;    &quot;</span>, matrix0C, <span class='String'>&quot;  &quot;</span>, matrixTC}]}], <span class='Identifier'>Spacer</span>[<span class='Type'>40</span>],
+      <span class='Identifier'>Column</span>[{
+        <span class='Identifier'>OpenerView</span>[{<span class='String'>&quot;Rules&quot;</span>, rulesC}],
+        <span class='Identifier'>OpenerView</span>[{<span class='String'>&quot;Style&quot;</span>,
+          <span class='Identifier'>Column</span>[{
+            <span class='Identifier'>Row</span>[{
+              <span class='Identifier'>Column</span>[{colorC, backgroundC}], <span class='Identifier'>Spacer</span>[<span class='Type'>40</span>],
+              <span class='Identifier'>Column</span>[{glowC, specC}]}],
+            <span class='Identifier'>Row</span>[{opacityC, <span class='Identifier'>Spacer</span>[<span class='Type'>20</span>], nsC, <span class='Identifier'>Spacer</span>[<span class='Type'>20</span>], primC}]}]}],
+        powerC}]}],
+
+   bookmarks <span class='Statement'>:=</span> {
+     <span class='Identifier'>Overscript</span>[<span class='String'>&quot;Random kernel matrix&quot;</span>, <span class='String'>&quot;&quot;</span>] <span class='Statement'>:&gt;</span>
+       (matrix0 <span class='Statement'>=</span> <span class='Identifier'>randomMatrix</span>[<span class='Identifier'>Dimensions</span>[matrix0], {<span class='Type'>0</span>, <span class='Type'>1</span>}]),
+     <span class='String'>&quot;Random transformation matrix&quot;</span> <span class='Statement'>:&gt;</span>
+       (matrixT <span class='Statement'>=</span> <span class='Identifier'>randomMatrix</span>[<span class='Identifier'>Dimensions</span>[matrixT], <span class='Identifier'>First </span><span class='Statement'>/@</span> defaultRules]),
+     <span class='String'>&quot;Random both&quot;</span> <span class='Statement'>:&gt;</span> (
+       matrix0 <span class='Statement'>=</span> <span class='Identifier'>randomMatrix</span>[<span class='Identifier'>Dimensions</span>[matrix0], {<span class='Type'>0</span>, <span class='Type'>1</span>}];
+       matrixT <span class='Statement'>=</span> <span class='Identifier'>randomMatrix</span>[<span class='Identifier'>Dimensions</span>[matrixT], <span class='Identifier'>First </span><span class='Statement'>/@</span> defaultRules]),
+
+     <span class='Identifier'>Overscript</span>[<span class='String'>&quot;Clear kernel matrix&quot;</span>, <span class='String'>&quot;&quot;</span>] <span class='Statement'>:&gt;</span> (matrix0 <span class='Statement'>=</span> <span class='Type'>0</span> matrix0),
+     <span class='String'>&quot;Clear transformation matrix&quot;</span> <span class='Statement'>:&gt;</span> (matrixT <span class='Statement'>=</span> <span class='Type'>0</span> matrixT),
+     <span class='String'>&quot;Clear both&quot;</span> <span class='Statement'>:&gt;</span> ({matrix0, matrixT} <span class='Statement'>=</span> <span class='Type'>0</span> {matrix0, matrixT}),
+
+     <span class='Identifier'>Overscript</span>[<span class='String'>&quot;Invert kernel matrix&quot;</span>, <span class='String'>&quot;&quot;</span>] <span class='Statement'>:&gt;</span> (matrix0 <span class='Statement'>=</span> <span class='Identifier'>BitXor</span>[matrix0, <span class='Type'>1</span>]),
+     <span class='String'>&quot;Invert transformation matrix&quot;</span> <span class='Statement'>:&gt;</span> (matrixT <span class='Statement'>=</span> <span class='Identifier'>Replace</span>[matrixT, {<span class='Type'>0</span> <span class='Statement'>-&gt;</span> <span class='Type'>1</span>, <span class='Type'>_</span> <span class='Statement'>-&gt;</span> <span class='Type'>0</span>}, {<span class='Type'>3</span>}]),
+
+     <span class='Identifier'>Overscript</span>[<span class='String'>&quot;Print matrices&quot;</span>, <span class='String'>&quot;&quot;</span>] <span class='Statement'>:&gt;</span> <span class='Identifier'>printMatrices</span>[],
+
+     <span class='Identifier'>Overscript</span>[<span class='String'>&quot;HiPrint&quot;</span>, <span class='String'>&quot;&quot;</span>] <span class='Statement'>:&gt;</span> <span class='Identifier'>HiPrint</span>[vp],
+     <span class='String'>&quot;HiPrint Far&quot;</span> <span class='Statement'>:&gt;</span> <span class='Identifier'>HiPrint</span>[<span class='Type'>1000</span> vp]}},
+
+  <span class='Identifier'>Panel</span>[<span class='Statement'>#</span>, Background <span class='Statement'>-&gt;</span> <span class='Identifier'>Dynamic</span>[bg]] <span class='Statement'>&amp;</span><span class='Statement'>@</span>
+   <span class='Identifier'>Manipulate</span>[<span class='Identifier'>Module</span>[{g3d, side},
+
+     <span class='Identifier'>If</span>[dim0 {<span class='Type'>1</span>, <span class='Type'>1</span>, <span class='Type'>1</span>} <span class='Statement'>=!=</span> <span class='Identifier'>Dimensions</span>[matrix0], matrix0 <span class='Statement'>=</span> <span class='Identifier'>PadRight</span>[matrix0, dim0 {<span class='Type'>1</span>, <span class='Type'>1</span>, <span class='Type'>1</span>}]];
+     <span class='Identifier'>If</span>[dimT {<span class='Type'>1</span>, <span class='Type'>1</span>, <span class='Type'>1</span>} <span class='Statement'>=!=</span> <span class='Identifier'>Dimensions</span>[matrixT], matrixT <span class='Statement'>=</span> <span class='Identifier'>PadRight</span>[matrixT, dimT {<span class='Type'>1</span>, <span class='Type'>1</span>, <span class='Type'>1</span>}]];
+     <span class='Identifier'>If</span>[bg <span class='Statement'>=!=</span> background, bg <span class='Statement'>=</span> background];
+
+     <span class='Identifier'>Module</span>[{matrixP},<span class='Comment'>(*remove rules from matrix that no longer exist*)</span>
+      matrixP <span class='Statement'>=</span> <span class='Identifier'>Map</span>[<span class='Identifier'>Function</span>[a, <span class='Identifier'>If</span>[a <span class='Statement'>===</span> <span class='Identifier'>Replace</span>[a, rules], <span class='Identifier'>rules</span>[[<span class='Type'>1</span>, <span class='Type'>1</span>]], a]], matrixT, {<span class='Type'>3</span>}];
+      <span class='Identifier'>If</span>[matrixT <span class='Statement'>=!=</span> matrixP, matrixT <span class='Statement'>=</span> matrixP]];
+
+     g3d <span class='Statement'>=</span> <span class='Identifier'>With</span>[{objects <span class='Statement'>=</span> <span class='Identifier'>Translate</span>[primitive,
+          <span class='Identifier'>Replace</span>[<span class='Identifier'>Position</span>[<span class='Identifier'>iterate</span>[
+             matrix0 <span class='Statement'>/.</span> <span class='Type'>0</span> matrix0 <span class='Statement'>-&gt;</span> {{{<span class='Type'>1</span>}}},
+             matrixT <span class='Statement'>/.</span> <span class='Type'>0</span> matrixT <span class='Statement'>-&gt;</span> {{{<span class='Type'>1</span>}}},
+             rules, power], <span class='Identifier'>If</span>[negativeSpace, <span class='Type'>0</span>, <span class='Type'>1</span>]],
+           {} <span class='Statement'>-&gt;</span> {<span class='Type'>1</span>, <span class='Type'>1</span>, <span class='Type'>1</span>}]]},
+       <span class='Identifier'>Graphics3D</span>[{
+         <span class='Identifier'>Dynamic</span>[<span class='Identifier'>EdgeForm</span>[{<span class='Identifier'>Opacity</span>[opacity], <span class='Identifier'>Darker</span>[color, <span class='Type'>4</span> <span class='Statement'>.</span><span class='Type'>15</span>]}]],
+         <span class='Identifier'>Dynamic</span>[color], <span class='Identifier'>Dynamic</span>[<span class='Identifier'>Opacity</span>[opacity]], <span class='Identifier'>Dynamic</span>[<span class='Identifier'>Glow</span>[glow]],
+         <span class='Identifier'>Dynamic</span>[<span class='Identifier'>Specularity</span>[specularity]], objects},
+        ImageSize <span class='Statement'>-&gt;</span> {{<span class='Type'>300</span>, Large}, {<span class='Type'>300</span>, Large}},
+        Lighting <span class='Statement'>-&gt;</span> <span class='String'>&quot;Neutral&quot;</span>, Background <span class='Statement'>-&gt;</span> <span class='Identifier'>Dynamic</span>[background]]];
+
+     side <span class='Statement'>=</span> <span class='Identifier'>Map</span>[<span class='Identifier'>Function</span>[vp1,
+        <span class='Identifier'>Tooltip</span>[<span class='Statement'>#</span>, ViewPoint <span class='Statement'>-&gt;</span> vp1, TooltipDelay <span class='Statement'>-&gt;</span> <span class='Statement'>.</span><span class='Type'>3</span>] <span class='Statement'>&amp;</span><span class='Statement'>@</span>
+
+           <span class='Identifier'>EventHandler</span>[<span class='Statement'>#</span>,
+            <span class='String'>&quot;MouseDown&quot;</span> <span class='Statement'>:&gt;</span> (vp <span class='Statement'>=</span> vp1 <span class='Statement'>/.</span> <span class='Identifier'>Infinity</span> <span class='Statement'>-&gt;</span> <span class='Type'>4</span>; vv <span class='Statement'>=</span> {<span class='Type'>0</span>, <span class='Type'>0</span>, <span class='Type'>1</span>})] <span class='Statement'>&amp;</span><span class='Statement'>@</span>
+         <span class='Identifier'>Framed</span>[<span class='Identifier'>Deploy</span>[
+           <span class='Identifier'>Show</span>[g3d, ViewPoint <span class='Statement'>-&gt;</span> vp1, ImageSize <span class='Statement'>-&gt;</span> Small, Boxed <span class='Statement'>-&gt;</span> <span class='Identifier'>False</span>]],
+          FrameStyle <span class='Statement'>-&gt;</span> <span class='Identifier'>Gray</span>, Background <span class='Statement'>-&gt;</span> <span class='Identifier'>Dynamic</span>[background]]],
+       <span class='Identifier'>Permutations</span>[{<span class='Identifier'>Infinity</span>, <span class='Type'>0</span>, <span class='Type'>0</span>}]];
+
+     <span class='Identifier'>Row</span>[{<span class='Identifier'>Column</span>[side,<span class='Comment'>(*Dividers-&gt;All,*)</span>FrameStyle <span class='Statement'>-&gt;</span> <span class='Identifier'>Gray</span>],
+       <span class='Identifier'>Show</span>[g3d, Boxed <span class='Statement'>-&gt;</span> <span class='Identifier'>False</span>, SphericalRegion <span class='Statement'>-&gt;</span> <span class='Identifier'>True</span>,
+        <span class='Comment'>(*PlotRangePadding-&gt;.001,*)</span>
+        ViewPoint <span class='Statement'>-&gt;</span> <span class='Identifier'>Dynamic</span>[vp], ViewVertical <span class='Statement'>-&gt;</span> <span class='Identifier'>Dynamic</span>[vv]]}]
+     ],
+
+    {{vv, {<span class='Type'>0</span>, <span class='Type'>0</span>, <span class='Type'>1</span>}}, ControlType <span class='Statement'>-&gt;</span> <span class='Identifier'>None</span>},
+    {{vp, {<span class='Type'>1.3</span>, <span class='Statement'>-</span><span class='Type'>2.4</span>, <span class='Type'>2</span>}}, ControlType <span class='Statement'>-&gt;</span> <span class='Identifier'>None</span>},
+    {{imgSize1, Small},
+     ControlType <span class='Statement'>-&gt;</span>
+      <span class='Identifier'>None</span>},<span class='Comment'>(*prevent matrix controls from autoresizing*)</span>
+    {{imgSize2, Small}, ControlType <span class='Statement'>-&gt;</span> <span class='Identifier'>None</span>},
+    {{background, <span class='Identifier'>White</span>}, ControlType <span class='Statement'>-&gt;</span> <span class='Identifier'>None</span>},
+    {{matrix0,
+      <span class='Identifier'>If</span>[dim0 <span class='Statement'>&lt;</span> <span class='Type'>2</span>, {{{<span class='Type'>1</span>}}}, <span class='Identifier'>randomMatrix</span>[dim0 {<span class='Type'>1</span>, <span class='Type'>1</span>, <span class='Type'>1</span>}, {<span class='Type'>0</span>, <span class='Type'>1</span>}]]},
+     ControlType <span class='Statement'>-&gt;</span> <span class='Identifier'>None</span>},
+    {{matrixT,
+      <span class='Identifier'>If</span>[dimT <span class='Statement'>&lt;</span> <span class='Type'>2</span>, {{{<span class='Type'>1</span>}}},
+       <span class='Identifier'>randomMatrix</span>[dimT {<span class='Type'>1</span>, <span class='Type'>1</span>, <span class='Type'>1</span>}, <span class='Identifier'>First </span><span class='Statement'>/@</span> defaultRules]]},
+     ControlType <span class='Statement'>-&gt;</span> <span class='Identifier'>None</span>},
+    controls, Bookmarks <span class='Statement'>:&gt;</span> bookmarks,
+    LabelStyle <span class='Statement'>-&gt;</span> <span class='Identifier'>Darker</span>[<span class='Identifier'>Gray</span>], SynchronousUpdating <span class='Statement'>-&gt;</span> <span class='Identifier'>Automatic</span>,
+    Paneled <span class='Statement'>-&gt;</span> <span class='Identifier'>False</span>, SaveDefinitions <span class='Statement'>-&gt;</span> <span class='Identifier'>True</span>, Alignment <span class='Statement'>-&gt;</span> Center]]]
+
+<span class='Comment'>(**)</span>
+<span class='Identifier'>End</span>[];
+
+
+
+
+
+
+</pre>
+            </li>
+</ol>
+
+        </div>
+
+        <div class="section" style="margin-top: -22px; margin-bottom: -11px">
+            <!--center>
+                <img src="img/siermasterlock6.png" width="260" height="55" />
+            </center-->
+        </div>
+
+        <center>
+            <p class="consumable" style="font-size: 10px; max-width: 450px; text-align: left; margin-top: 4px;">
+            This page is an excerpt from <a href="sierpinski.htm">the sierpinski triangle page to end most sierpinski triangle pages &#0153;</a>.
+            </p>
+        </center>
+
+        <div class="links centered">
+            <a href="/" title="home" style="color: #333333" class="pagelink">&lt;&lt;</a>
+        </div>
+
+    </div>
+
+</body>
+</html>

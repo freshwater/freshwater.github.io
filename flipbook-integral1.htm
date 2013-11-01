@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+    <head>
+        <title> oftenpaper.net/integral1.htm </title>
+
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.9.0/build/reset-fonts-grids/reset-fonts-grids.css" />
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.9.0/build/base/base-min.css" />
+        <link rel="stylesheet" type="text/css" href="oftencss.css" />
+
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+
+        <script type="text/javascript" id="mathjax" src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax:{inlineMath:[['$','$']]}})</script>
+
+        <script type="text/javascript" src="flipbook.js"></script>
+    </head>
+
+<body>
+    <h1><a href="/"> oftenpaper.net </a></h1>
+    <h3>integral 1 &#0153;</h3>
+
+    <br />
+
+    <center class="consumable" style="margin-top: 20px; margin-bottom: 25px;">
+        <a href="sierpinski.htm">
+            <img src="img/siermasterlock22.png" width="181" height="157" />
+        </a>
+    </center>
+
+    <div class="content">
+
+        <div class="section">
+
+            <ol class='flipbook static'
+    name='integral 1'>
+ <li>
+            <img src='img/sierpointcount6.png' width='512' height='511' />
+            </li>
+ <li>
+            <img src='img/sierpointcount7.png' width='512' height='511' />
+            </li>
+ <li>
+                <ol class='flipbook static' name='cantor set'><li>
+                    <img src='img/sierpointcount8.png' width='512' height='511' />
+                    </li><li>
+                    <img src='img/sierpointcount9.png' width='512' height='511' />
+                    </li><li name='source'>
+<pre style='font-size: 14px'>
+<span class='Identifier'>next</span>[<span class='Type'>prev_</span>] <span class='Statement'>:=</span> prev <span class='Statement'>/.</span> <span class='Identifier'>Interval</span>[{<span class='Type'>a_</span>, <span class='Type'>b_</span>}] <span class='Statement'>:&gt;</span> {
+     <span class='Identifier'>Interval</span>[{a, a <span class='Statement'>+</span> (b <span class='Statement'>-</span> a)<span class='Statement'>/</span><span class='Type'>3</span>}],
+     <span class='Identifier'>Interval</span>[{a <span class='Statement'>+</span> <span class='Type'>2</span> (b <span class='Statement'>-</span> a)<span class='Statement'>/</span><span class='Type'>3</span>, b}]};
+
+<span class='Identifier'>cantor</span>[<span class='Type'>n_</span>] <span class='Statement'>:=</span> <span class='Identifier'>IntervalUnion </span><span class='Statement'>@@</span> <span class='Identifier'>Flatten</span><span class='Statement'>@</span>
+    <span class='Identifier'>Nest</span>[next, <span class='Identifier'>N</span><span class='Statement'>@</span><span class='Identifier'>Interval</span>[{<span class='Type'>0</span>, <span class='Type'>1</span>}], n];
+
+<span class='Identifier'>rectangles</span>[<span class='Type'>n_</span>, <span class='Type'>h_</span><span class='Statement'>:</span> <span class='Statement'>.</span><span class='Type'>02</span>, <span class='Type'>scale_</span><span class='Statement'>:</span> <span class='Type'>1</span>] <span class='Statement'>:=</span>
+  <span class='Identifier'>Nest</span>[next, <span class='Identifier'>Interval</span>[{<span class='Type'>0</span>, <span class='Type'>1</span>}], n] <span class='Statement'>/.</span> <span class='Identifier'>Interval</span>[{<span class='Type'>a_</span>, <span class='Type'>b_</span>}] <span class='Statement'>:&gt;</span>
+    <span class='Identifier'>Rectangle</span>[{a, <span class='Statement'>-</span>h (n <span class='Statement'>+</span> <span class='Type'>10</span> h) scale}, {b, <span class='Statement'>-</span>h (n <span class='Statement'>+</span> <span class='Type'>1</span>) scale}];
+
+<span class='Comment'>(*this </span><span class='String'>&quot;integration&quot;</span><span class='Comment'> depends on the </span><span class='String'>&quot;curve&quot;</span><span class='Comment'> being </span><span class='String'>&quot;uniformly sampled&quot;</span><span class='Comment'>*)</span>
+<span class='Identifier'>int</span>[<span class='Type'>pts_</span>] <span class='Statement'>:=</span> <span class='Identifier'>MapIndexed</span>[{<span class='Statement'>##</span>} <span class='Statement'>/.</span>
+     {{<span class='Type'>x_</span>, <span class='Type'>y_</span>}, {<span class='Type'>i_</span>}} <span class='Statement'>:&gt;</span> {x, i} <span class='Statement'>&amp;</span>, <span class='Identifier'>SortBy</span>[pts, First]];
+
+set <span class='Statement'>=</span> <span class='Identifier'>cantor</span>[<span class='Type'>16</span>];<span class='Comment'>(*this is 2^16 intervals*)</span>
+{null, {pts}} <span class='Statement'>=</span> <span class='Identifier'>Reap</span>[<span class='Identifier'>Do</span>[
+   <span class='Identifier'>If</span>[<span class='Identifier'>IntervalMemberQ</span>[set, a], <span class='Identifier'>Sow</span>[{a, <span class='Type'>0</span>}]],
+   {a, <span class='Type'>0</span><span class='Statement'>.</span>, <span class='Type'>1</span><span class='Statement'>.</span>, <span class='Type'>1</span><span class='Statement'>/</span><span class='Type'>1000000</span>}]];
+
+<span class='Identifier'>Graphics</span>[<span class='Identifier'>rectangles </span><span class='Statement'>/@</span> <span class='Identifier'>Range</span>[<span class='Type'>6</span>]]
+
+<span class='Identifier'>Show</span>[<span class='Identifier'>Graphics</span>[<span class='Identifier'>rectangles</span>[<span class='Type'>6</span>] <span class='Statement'>/.</span>
+   <span class='Identifier'>Rectangle</span>[{<span class='Type'>x1_</span>, <span class='Type'>y1_</span>}, {<span class='Type'>x2_</span>, <span class='Type'>y2_</span>}] <span class='Statement'>:&gt;</span> <span class='Identifier'>Rectangle</span>[{x1, <span class='Type'>0</span>}, {x2, <span class='Statement'>.</span><span class='Type'>02</span>}]],
+ <span class='Identifier'>ListLinePlot</span>[{<span class='Statement'>#1</span>, <span class='Statement'>#2</span><span class='Statement'>/</span><span class='Identifier'>Length</span>[pts]} <span class='Statement'>&amp;</span> <span class='Statement'>@@@</span> <span class='Identifier'>int</span>[pts],
+  PlotStyle <span class='Statement'>-&gt;</span> <span class='Identifier'>Black</span>]]
+</pre>
+                    </li></ol>
+            </li>
+ <li name='source'>
+<pre style='font-size: 14px'>
+axiom <span class='Statement'>=</span> <span class='Identifier'>Polygon</span>[{{<span class='Type'>0</span>, <span class='Type'>0</span>}, {<span class='Type'>1</span>, <span class='Type'>0</span>}, {<span class='Type'>1</span>, <span class='Type'>1</span>}}];
+
+<span class='Identifier'>next</span>[<span class='Type'>prev_</span>] <span class='Statement'>:=</span> prev <span class='Statement'>/.</span> <span class='Identifier'>Polygon</span>[{<span class='Type'>p1_</span>, <span class='Type'>p2_</span>, <span class='Type'>p3_</span>}] <span class='Statement'>:&gt;</span> {
+     <span class='Identifier'>Polygon</span>[{p1, (p1 <span class='Statement'>+</span> p2)<span class='Statement'>/</span><span class='Type'>2</span>, (p1 <span class='Statement'>+</span> p3)<span class='Statement'>/</span><span class='Type'>2</span>}],
+     <span class='Identifier'>Polygon</span>[{p2, (p2 <span class='Statement'>+</span> p3)<span class='Statement'>/</span><span class='Type'>2</span>, (p1 <span class='Statement'>+</span> p2)<span class='Statement'>/</span><span class='Type'>2</span>}],
+     <span class='Identifier'>Polygon</span>[{p3, (p1 <span class='Statement'>+</span> p3)<span class='Statement'>/</span><span class='Type'>2</span>, (p2 <span class='Statement'>+</span> p3)<span class='Statement'>/</span><span class='Type'>2</span>}]};
+
+<span class='Identifier'>points</span>[<span class='Type'>n_</span>] <span class='Statement'>:=</span> <span class='Identifier'>DeleteDuplicates</span>[<span class='Identifier'>Flatten</span>[
+    <span class='Identifier'>Nest</span>[next, <span class='Identifier'>N</span><span class='Statement'>@</span>axiom, n] <span class='Statement'>/.</span> Polygon <span class='Statement'>-&gt;</span> Sequence, n]];
+
+<span class='Comment'>(*this </span><span class='String'>&quot;integration&quot;</span><span class='Comment'> depends on the </span><span class='String'>&quot;curve&quot;</span><span class='Comment'> being </span><span class='String'>&quot;uniformly sampled&quot;</span><span class='Comment'>*)</span>
+<span class='Identifier'>int</span>[<span class='Type'>pts_</span>] <span class='Statement'>:=</span> <span class='Identifier'>MapIndexed</span>[{<span class='Statement'>##</span>} <span class='Statement'>/.</span>
+     {{<span class='Type'>x_</span>, <span class='Type'>y_</span>}, {<span class='Type'>i_</span>}} <span class='Statement'>:&gt;</span> {x, i} <span class='Statement'>&amp;</span>, <span class='Identifier'>SortBy</span>[pts, First]];
+
+pts <span class='Statement'>=</span> <span class='Identifier'>points</span>[<span class='Type'>10</span>];
+
+<span class='Identifier'>Show</span>[
+ <span class='Identifier'>Graphics</span>[{<span class='Identifier'>Opacity</span>[<span class='Statement'>.</span><span class='Type'>1</span>], <span class='Identifier'>PointSize</span>[<span class='Type'>0</span>], <span class='Identifier'>Black</span>, <span class='Identifier'>Point</span>[pts]}],
+ <span class='Identifier'>ListLinePlot</span>[{<span class='Statement'>#1</span>, <span class='Statement'>#2</span><span class='Statement'>/</span><span class='Identifier'>Length</span>[pts]} <span class='Statement'>&amp;</span> <span class='Statement'>@@@</span> <span class='Identifier'>int</span>[pts], PlotStyle <span class='Statement'>-&gt;</span> <span class='Identifier'>Black</span>]]
+</pre>
+            </li>
+</ol>
+
+        </div>
+
+        <div class="section" style="margin-top: -22px; margin-bottom: -11px">
+            <!--center>
+                <img src="img/siermasterlock6.png" width="260" height="55" />
+            </center-->
+        </div>
+
+        <center>
+            <p class="consumable" style="font-size: 10px; max-width: 450px; text-align: left; margin-top: 4px;">
+            This page is an excerpt from <a href="sierpinski.htm">the sierpinski triangle page to end most sierpinski triangle pages &#0153;</a>.
+            </p>
+        </center>
+
+        <div class="links centered">
+            <a href="/" title="home" style="color: #333333" class="pagelink">&lt;&lt;</a>
+        </div>
+
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+    <head>
+        <title> oftenpaper.net/chaosgen2.htm </title>
+
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.9.0/build/reset-fonts-grids/reset-fonts-grids.css" />
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.9.0/build/base/base-min.css" />
+        <link rel="stylesheet" type="text/css" href="oftencss.css" />
+
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+
+        <script type="text/javascript" id="mathjax" src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax:{inlineMath:[['$','$']]}})</script>
+
+        <script type="text/javascript" src="flipbook.js"></script>
+    </head>
+
+<body>
+    <h1><a href="/"> oftenpaper.net </a></h1>
+    <h3>chaos gen 2 &#0153;</h3>
+
+    <br />
+
+    <center class="consumable" style="margin-top: 20px; margin-bottom: 25px;">
+        <a href="sierpinski.htm">
+            <img src="img/siermasterlock22.png" width="181" height="157" />
+        </a>
+    </center>
+
+    <div class="content">
+
+        <div class="section">
+
+            <ol class='flipbook static'
+    name='chaos gen 2'
+    default='2'>
+ <li name='3?'>
+            <ol class='flipbook static' name='chaos gen 404'><li name='image'>
+                <img src='img/sierring0stepawesome.png' width='600' height='555' />
+                </li><li name='source'>
+<pre>
+<span class='Identifier'>SetAttributes</span>[toXY, <span class='Identifier'>Listable</span>];
+<span class='Identifier'>toXY</span>[<span class='Type'>z_</span>] <span class='Statement'>:=</span> {<span class='Identifier'>Re</span>[z], <span class='Identifier'>Im</span>[z]};
+
+<span class='Identifier'>ring</span>[<span class='Type'>c_</span>, <span class='Type'>r_</span>, <span class='Type'>0</span>] <span class='Statement'>:=</span> c;
+<span class='Identifier'>ring</span>[<span class='Type'>c_</span>, <span class='Type'>r_</span>, <span class='Type'>depth_</span>] <span class='Statement'>:=</span> <span class='Identifier'>Module</span>[{zs},
+   zs <span class='Statement'>=</span> c <span class='Statement'>+</span> r <span class='Identifier'>E</span><span class='Statement'>^</span>(<span class='Identifier'>I</span> <span class='Type'>2</span> <span class='Identifier'>Pi</span> <span class='Identifier'>Range</span>[<span class='Type'>3</span>]<span class='Statement'>/</span><span class='Type'>3</span>);
+   <span class='Identifier'>ring</span>[c <span class='Statement'>+</span> <span class='Statement'>#</span> <span class='Identifier'>Normalize</span>[<span class='Statement'>#</span> <span class='Statement'>-</span> c], r<span class='Statement'>/</span><span class='Type'>2</span><span class='Statement'>.</span>, depth <span class='Statement'>-</span> <span class='Type'>1</span>] <span class='Statement'>&amp;</span> <span class='Statement'>/@</span> zs];
+
+<span class='Identifier'>Graphics</span>[<span class='Identifier'>Rotate</span>[{<span class='Identifier'>Opacity</span>[<span class='Statement'>.</span><span class='Type'>95</span>], LightGray, <span class='Identifier'>EdgeForm</span>[<span class='Identifier'>Black</span>],
+   <span class='Identifier'>Polygon </span><span class='Statement'>/@</span> <span class='Identifier'>toXY </span><span class='Statement'>/@</span> <span class='Identifier'>Level</span>[<span class='Identifier'>ring</span>[<span class='Type'>0</span>, <span class='Type'>1</span>, <span class='Type'>5</span>], {<span class='Statement'>-</span><span class='Type'>2</span>}]}, <span class='Identifier'>Pi</span>]]
+</pre>
+                </li></ol>
+            </li>
+ <li name='table'>
+            <img src='img/sierring345672.png' width='551' height='615' />
+            </li>
+ <li name='5'>
+            <img src='img/sierring5step8.png' width='600' height='600' />
+            </li>
+ <li name='6'>
+            <img src='img/sierring6step7.png' width='600' height='522' />
+            </li>
+ <li name='16'>
+            <img src='img/sierring16step4.png' width='600' height='600' />
+            </li>
+ <li name='source'>
+            <pre>
+<span class='Identifier'>draw</span>[<span class='Type'>v_</span>, <span class='Type'>n_</span>] <span class='Statement'>:=</span> <span class='Identifier'>Module</span>[{ring},
+   <span class='Identifier'>ring</span>[<span class='Type'>c_</span>, <span class='Type'>r_</span>, <span class='Type'>depth_</span>] <span class='Statement'>:=</span> <span class='Identifier'>Module</span>[{ps},
+     ps <span class='Statement'>=</span> c <span class='Statement'>+</span> r {<span class='Identifier'>Cos</span>[<span class='Statement'>#</span>], <span class='Identifier'>Sin</span>[<span class='Statement'>#</span>]} <span class='Statement'>&amp;</span> <span class='Statement'>/@</span> (<span class='Type'>2</span><span class='Statement'>.</span> <span class='Identifier'>Pi</span> <span class='Identifier'>Range</span>[v]<span class='Statement'>/</span>v);
+
+     <span class='Identifier'>If</span>[depth <span class='Statement'>==</span> <span class='Type'>0</span>, <span class='Identifier'>Polygon</span>[ps],
+      <span class='Identifier'>ring</span>[(c <span class='Statement'>+</span> <span class='Statement'>#</span>)<span class='Statement'>/</span><span class='Type'>2</span>, r<span class='Statement'>/</span><span class='Type'>2</span>, depth <span class='Statement'>-</span> <span class='Type'>1</span>] <span class='Statement'>&amp;</span> <span class='Statement'>/@</span> ps]];
+
+   <span class='Identifier'>Graphics</span>[{Transparent,
+     <span class='Identifier'>EdgeForm</span>[{<span class='Identifier'>Opacity</span>[<span class='Statement'>.</span><span class='Type'>28</span>], <span class='Identifier'>Black</span>}],
+     <span class='Identifier'>ring</span>[<span class='Type'>0</span><span class='Statement'>.</span>, <span class='Type'>1</span><span class='Statement'>.</span>, n]}]];
+</pre>
+            </li>
+</ol>
+
+        </div>
+
+        <div class="section" style="margin-top: -22px; margin-bottom: -11px">
+            <!--center>
+                <img src="img/siermasterlock6.png" width="260" height="55" />
+            </center-->
+        </div>
+
+        <center>
+            <p class="consumable" style="font-size: 10px; max-width: 450px; text-align: left; margin-top: 4px;">
+            This page is an excerpt from <a href="sierpinski.htm">the sierpinski triangle page to end most sierpinski triangle pages &#0153;</a>.
+            </p>
+        </center>
+
+        <div class="links centered">
+            <a href="/" title="home" style="color: #333333" class="pagelink">&lt;&lt;</a>
+        </div>
+
+    </div>
+
+</body>
+</html>

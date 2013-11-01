@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+    <head>
+        <title> oftenpaper.net/sierpinskigraph2.htm </title>
+
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.9.0/build/reset-fonts-grids/reset-fonts-grids.css" />
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.9.0/build/base/base-min.css" />
+        <link rel="stylesheet" type="text/css" href="oftencss.css" />
+
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+
+        <script type="text/javascript" id="mathjax" src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax:{inlineMath:[['$','$']]}})</script>
+
+        <script type="text/javascript" src="flipbook.js"></script>
+    </head>
+
+<body>
+    <h1><a href="/"> oftenpaper.net </a></h1>
+    <h3>sierpinski graph 2 &#0153;</h3>
+
+    <br />
+
+    <center class="consumable" style="margin-top: 20px; margin-bottom: 25px;">
+        <a href="sierpinski.htm">
+            <img src="img/siermasterlock22.png" width="181" height="157" />
+        </a>
+    </center>
+
+    <div class="content">
+
+        <div class="section">
+
+            <ol class='flipbook static'
+    name='sierpinski graph 2'>
+ <li>
+            <img src='img/siergraph11.png' width='608' height='536' />
+            </li>
+ <li>
+            <img src='img/siergraph12.gif' width='360' height='314' />
+            </li>
+ <li>
+            <img src='img/siergraph13.gif' width='360' height='314' />
+            </li>
+ <li name='source'>
+<pre style='font-size: 14px'>
+axiom <span class='Statement'>=</span> <span class='Identifier'>Polygon</span>[{{<span class='Type'>0</span>, <span class='Type'>0</span>}, {<span class='Type'>1</span>, <span class='Identifier'>Sqrt</span>[<span class='Type'>3</span>]}<span class='Statement'>/</span><span class='Type'>2</span>, {<span class='Type'>1</span>, <span class='Type'>0</span>}}];
+
+<span class='Identifier'>next</span>[<span class='Type'>prev_</span>] <span class='Statement'>:=</span> prev <span class='Statement'>/.</span> <span class='Identifier'>Polygon</span>[{<span class='Type'>p1_</span>, <span class='Type'>p2_</span>, <span class='Type'>p3_</span>}] <span class='Statement'>:&gt;</span> {
+     <span class='Identifier'>Polygon</span>[{p1, (p1 <span class='Statement'>+</span> p2)<span class='Statement'>/</span><span class='Type'>2</span>, (p1 <span class='Statement'>+</span> p3)<span class='Statement'>/</span><span class='Type'>2</span>}],
+     <span class='Identifier'>Polygon</span>[{p2, (p2 <span class='Statement'>+</span> p3)<span class='Statement'>/</span><span class='Type'>2</span>, (p1 <span class='Statement'>+</span> p2)<span class='Statement'>/</span><span class='Type'>2</span>}],
+     <span class='Identifier'>Polygon</span>[{p3, (p1 <span class='Statement'>+</span> p3)<span class='Statement'>/</span><span class='Type'>2</span>, (p2 <span class='Statement'>+</span> p3)<span class='Statement'>/</span><span class='Type'>2</span>}]};
+
+<span class='Identifier'>draw</span>[<span class='Type'>n_</span>] <span class='Statement'>:=</span> <span class='Identifier'>Module</span>[{edges},
+   edges <span class='Statement'>=</span> <span class='Identifier'>Flatten</span><span class='Statement'>@</span><span class='Identifier'>Nest</span>[next, <span class='Identifier'>N</span><span class='Statement'>@</span>axiom, n] <span class='Statement'>/.</span> <span class='Identifier'>Polygon</span>[<span class='Type'>pts_</span>] <span class='Statement'>:&gt;</span>
+      <span class='Identifier'>Sequence </span><span class='Statement'>@@</span> <span class='Identifier'>UndirectedEdge </span><span class='Statement'>@@@</span> <span class='Identifier'>Partition</span>[pts, <span class='Type'>2</span>, <span class='Type'>1</span>, <span class='Type'>1</span>];
+
+   <span class='Identifier'>Graph</span>[edges, VertexCoordinates <span class='Statement'>-&gt;</span> <span class='Identifier'>VertexList</span>[<span class='Identifier'>Graph</span>[edges]],
+    VertexSize <span class='Statement'>-&gt;</span> <span class='Statement'>.</span><span class='Type'>25</span>]];
+
+g <span class='Statement'>=</span> <span class='Identifier'>draw</span>[<span class='Type'>2</span>];
+<span class='Identifier'>LineGraph</span>[g]
+
+cycle <span class='Statement'>=</span> <span class='Identifier'>RandomChoice</span>[{FindHamiltonianCycle, FindEulerianCycle}][g][[<span class='Type'>1</span>]];
+
+<span class='Identifier'>Animate</span>[
+ <span class='Identifier'>HighlightGraph</span>[g, <span class='Identifier'>Graph</span>[<span class='Identifier'>cycle</span>[[<span class='Type'>1</span> ;; n]]],
+  EdgeShapeFunction <span class='Statement'>-&gt;</span> (<span class='Identifier'>Line</span>[<span class='Statement'>#1</span>] <span class='Statement'>&amp;</span>),
+  VertexShapeFunction <span class='Statement'>-&gt;</span> <span class='Identifier'>None</span>,
+  GraphHighlightStyle <span class='Statement'>-&gt;</span> <span class='String'>&quot;DehighlightHide&quot;</span>],
+ {n, <span class='Type'>1</span>, <span class='Identifier'>Length</span>[cycle], <span class='Type'>1</span>}, AnimationRate <span class='Statement'>-&gt;</span> <span class='Type'>1</span>]
+</pre>
+            </li>
+ <li name='?'>
+            <pre style='font-size: 12px'>
+axiom <span class='Statement'>=</span> <span class='Identifier'>Polygon</span>[{{<span class='Type'>0</span>, <span class='Type'>0</span>}, {<span class='Type'>1</span>, <span class='Identifier'>Sqrt</span>[<span class='Type'>3</span>]}<span class='Statement'>/</span><span class='Type'>2</span>, {<span class='Type'>1</span>, <span class='Type'>0</span>}}];
+
+<span class='Identifier'>next</span>[<span class='Type'>prev_</span>] <span class='Statement'>:=</span> prev <span class='Statement'>/.</span> <span class='Identifier'>Polygon</span>[{<span class='Type'>p1_</span>, <span class='Type'>p2_</span>, <span class='Type'>p3_</span>}] <span class='Statement'>:&gt;</span> {
+     <span class='Identifier'>Polygon</span>[{p1, (p1 <span class='Statement'>+</span> p2)<span class='Statement'>/</span><span class='Type'>2</span>, (p1 <span class='Statement'>+</span> p3)<span class='Statement'>/</span><span class='Type'>2</span>}],
+     <span class='Identifier'>Polygon</span>[{p2, (p2 <span class='Statement'>+</span> p3)<span class='Statement'>/</span><span class='Type'>2</span>, (p1 <span class='Statement'>+</span> p2)<span class='Statement'>/</span><span class='Type'>2</span>}],
+     <span class='Identifier'>Polygon</span>[{p3, (p1 <span class='Statement'>+</span> p3)<span class='Statement'>/</span><span class='Type'>2</span>, (p2 <span class='Statement'>+</span> p3)<span class='Statement'>/</span><span class='Type'>2</span>}]};
+
+<span class='Identifier'>sierpinskiGraph</span>[<span class='Type'>n_</span>] <span class='Statement'>:=</span> <span class='Identifier'>Graph</span><span class='Statement'>@</span><span class='Identifier'>Flatten</span><span class='Statement'>@</span>
+     <span class='Identifier'>Nest</span>[next, <span class='Identifier'>N</span><span class='Statement'>@</span>axiom, n] <span class='Statement'>/.</span> <span class='Identifier'>Polygon</span>[<span class='Type'>pts_</span>] <span class='Statement'>:&gt;</span>
+    <span class='Identifier'>Sequence </span><span class='Statement'>@@</span> <span class='Identifier'>UndirectedEdge </span><span class='Statement'>@@@</span> <span class='Identifier'>Partition</span>[pts, <span class='Type'>2</span>, <span class='Type'>1</span>, <span class='Type'>1</span>];
+
+dg <span class='Statement'>=</span> <span class='Identifier'>Mean</span>[<span class='Identifier'>VertexDegree</span>[<span class='Identifier'>sierpinskiGraph</span>[<span class='Type'>8</span>]]];
+
+<span class='Comment'>(*if live in us, above comes out in farenheit, so have to convert*)</span>
+us <span class='Statement'>=</span> <span class='Identifier'>Graphics</span>[<span class='Identifier'>CountryData</span>[<span class='String'>&quot;UnitedStates&quot;</span>, <span class='String'>&quot;Polygon&quot;</span>], ImageSize <span class='Statement'>-&gt;</span> <span class='Type'>8000</span>];
+<span class='Identifier'>If</span>[<span class='Identifier'>Rasterize</span>[us] <span class='Statement'>===</span> <span class='Identifier'>Rasterize</span>[<span class='Identifier'>Show</span>[us, <span class='Identifier'>Graphics</span>[{<span class='Identifier'>PointSize</span>[<span class='Type'>0</span>], <span class='Identifier'>Point</span>[<span class='Identifier'>Reverse</span><span class='Statement'>@</span><span class='Identifier'>FindGeoLocation</span>[]]}]]],
+ <span class='Identifier'>WolframAlpha</span>[<span class='Identifier'>ToString</span>[dg, InputForm] <span class='Statement'>&lt;&gt;</span> <span class='String'>&quot; degrees f in celcius&quot;</span>, {{<span class='String'>&quot;Result&quot;</span>, <span class='Type'>1</span>}, <span class='String'>&quot;NumberData&quot;</span>}],
+ dg]
+</pre>
+            </li>
+</ol>
+
+        </div>
+
+        <div class="section" style="margin-top: -22px; margin-bottom: -11px">
+            <!--center>
+                <img src="img/siermasterlock6.png" width="260" height="55" />
+            </center-->
+        </div>
+
+        <center>
+            <p class="consumable" style="font-size: 10px; max-width: 450px; text-align: left; margin-top: 4px;">
+            This page is an excerpt from <a href="sierpinski.htm">the sierpinski triangle page to end most sierpinski triangle pages &#0153;</a>.
+            </p>
+        </center>
+
+        <div class="links centered">
+            <a href="/" title="home" style="color: #333333" class="pagelink">&lt;&lt;</a>
+        </div>
+
+    </div>
+
+</body>
+</html>

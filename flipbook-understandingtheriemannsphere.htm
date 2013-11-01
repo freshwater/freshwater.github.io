@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+    <head>
+        <title> oftenpaper.net/understandingtheriemannsphere.htm </title>
+
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.9.0/build/reset-fonts-grids/reset-fonts-grids.css" />
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.9.0/build/base/base-min.css" />
+        <link rel="stylesheet" type="text/css" href="oftencss.css" />
+
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+
+        <script type="text/javascript" id="mathjax" src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax:{inlineMath:[['$','$']]}})</script>
+
+        <script type="text/javascript" src="flipbook.js"></script>
+    </head>
+
+<body>
+    <h1><a href="/"> oftenpaper.net </a></h1>
+    <h3>understanding the riemann sphere &#0153;</h3>
+
+    <br />
+
+    <center class="consumable" style="margin-top: 20px; margin-bottom: 25px;">
+        <a href="sierpinski.htm">
+            <img src="img/siermasterlock22.png" width="181" height="157" />
+        </a>
+    </center>
+
+    <div class="content">
+
+        <div class="section">
+
+            <ol class='flipbook static'
+    name='understanding the riemann sphere'>
+ <li name='animation'>
+            <img src='img/understandingtheriemannsphere.gif' width='600' height='670' />
+            </li>
+ <li name='source'>
+<pre style='font-size: 12px'>
+shuttle <span class='Statement'>=</span> <span class='Identifier'>ExampleData</span>[{<span class='String'>&quot;Geometry3D&quot;</span>, <span class='String'>&quot;SpaceShuttle&quot;</span>}, <span class='String'>&quot;GraphicsComplex&quot;</span>];
+cow <span class='Statement'>=</span> <span class='Identifier'>ExampleData</span>[{<span class='String'>&quot;Geometry3D&quot;</span>, <span class='String'>&quot;Cow&quot;</span>}, <span class='String'>&quot;GraphicsComplex&quot;</span>];
+grass <span class='Statement'>=</span> <span class='Identifier'>ExampleData</span>[{<span class='String'>&quot;Texture&quot;</span>, <span class='String'>&quot;Grass4&quot;</span>}];
+drop <span class='Statement'>=</span> <span class='Identifier'>Sound</span>[<span class='Identifier'>Play</span>[<span class='Identifier'>Sin</span>[<span class='Type'>1000</span> (<span class='Type'>2</span> <span class='Statement'>-</span> t)<span class='Statement'>^</span><span class='Type'>2.3</span>], {t, <span class='Type'>0</span>, <span class='Statement'>.</span><span class='Type'>9</span>}]];
+<span class='Identifier'>lazer</span>[] <span class='Statement'>:=</span> <span class='Identifier'>EmitSound</span>[<span class='Identifier'>Sound</span>[<span class='Identifier'>Play</span>[{<span class='Identifier'>TriangleWave</span>[<span class='Type'>10</span> (<span class='Type'>2</span> <span class='Statement'>-</span> t)<span class='Statement'>^</span><span class='Type'>5</span>],
+      <span class='Identifier'>Sin</span>[<span class='Type'>500</span> (<span class='Type'>2</span> <span class='Statement'>-</span> t)<span class='Statement'>^</span><span class='Type'>5</span>] <span class='Statement'>+</span> <span class='Identifier'>SawtoothWave</span>[<span class='Type'>20</span> (<span class='Type'>2</span> <span class='Statement'>-</span> t)<span class='Statement'>^</span><span class='Type'>4.99</span>]},
+     {t, <span class='Type'>0</span>, <span class='Statement'>.</span><span class='Type'>2</span>}, SampleRate <span class='Statement'>-&gt;</span> <span class='Type'>4000</span>]]];
+
+<span class='Identifier'>Animate</span>[<span class='Identifier'>Module</span>[{dir, angle},
+  <span class='Comment'>(*xs animates from +30 to -60*)</span>
+  <span class='Identifier'>If</span>[xs <span class='Statement'>&gt;</span> <span class='Type'>25</span>, dropTrigger <span class='Statement'>=</span> <span class='Identifier'>False</span>];
+  <span class='Identifier'>If</span>[dropTrigger <span class='Statement'>==</span> <span class='Identifier'>False</span> <span class='Statement'>&amp;&amp;</span> xs <span class='Statement'>&lt;</span> <span class='Type'>10</span>, dropTrigger <span class='Statement'>=</span> <span class='Identifier'>True</span>; <span class='Identifier'>EmitSound</span>[drop]];
+  <span class='Identifier'>If</span>[xs <span class='Statement'>&lt;</span> <span class='Statement'>-</span><span class='Type'>10</span>,
+   <span class='Identifier'>lazer</span>[];
+   dir <span class='Statement'>=</span> <span class='Identifier'>RandomReal</span>[{<span class='Statement'>-</span><span class='Type'>15</span>, <span class='Type'>15</span>}, <span class='Type'>2</span>]<span class='Statement'>~</span><span class='Identifier'>Join</span><span class='Statement'>~</span>{<span class='Statement'>-</span><span class='Type'>20</span>};
+   angle <span class='Statement'>=</span> <span class='Identifier'>ArcTan </span><span class='Statement'>@@</span> <span class='Identifier'>Take</span>[dir, <span class='Type'>2</span>], angle <span class='Statement'>=</span> <span class='Type'>0</span>];
+
+  <span class='Identifier'>Labeled</span>[<span class='Statement'>#</span>, <span class='Identifier'>Style</span>[<span class='String'>&quot;Understanding the Riemann Sphere&quot;</span>, FontFamily <span class='Statement'>-&gt;</span> <span class='String'>&quot;Verdana&quot;</span>], Top] <span class='Statement'>&amp;</span><span class='Statement'>@</span>
+   <span class='Identifier'>With</span>[{
+     cowLoc <span class='Statement'>=</span> {<span class='Identifier'>Clip</span>[xs, {<span class='Type'>1.3</span>, <span class='Type'>50</span>}], <span class='Type'>0</span>, <span class='Identifier'>Clip</span>[<span class='Type'>8</span> <span class='Statement'>+</span> (<span class='Statement'>-</span>(<span class='Statement'>.</span><span class='Type'>25</span> xs <span class='Statement'>-</span> <span class='Type'>5</span>)<span class='Statement'>^</span><span class='Type'>2</span>), {<span class='Statement'>-</span><span class='Type'>13</span>, <span class='Statement'>-.</span><span class='Type'>25</span>}]},
+     greenLight <span class='Statement'>=</span> Lighting <span class='Statement'>-&gt;</span> {{<span class='String'>&quot;Directional&quot;</span>, <span class='Identifier'>Green</span>, {{<span class='Type'>5</span>, <span class='Type'>5</span>, <span class='Type'>5</span>}, {<span class='Type'>0</span>, <span class='Type'>0</span>, <span class='Type'>0</span>}}}}},
+
+    <span class='Identifier'>Graphics3D</span>[{<span class='Identifier'>EdgeForm</span>[<span class='Identifier'>None</span>],
+      <span class='Comment'>(*shuttle*)</span>{<span class='Identifier'>Specularity</span>[<span class='Identifier'>White</span>, <span class='Type'>7</span>], <span class='Identifier'>Translate</span>[shuttle, {xs, <span class='Type'>0</span>, <span class='Type'>0</span>}]},
+      <span class='Comment'>(*cow*)</span> <span class='Identifier'>Rotate</span>[<span class='Identifier'>Translate</span>[<span class='Identifier'>Scale</span>[cow, <span class='Type'>5</span>], cowLoc], angle, {<span class='Type'>0</span>, <span class='Type'>0</span>, <span class='Type'>1</span>}],
+
+      <span class='Comment'>(*grass*)</span> <span class='Identifier'>Translate</span>[{<span class='Identifier'>If</span>[<span class='Identifier'>False</span>, <span class='Identifier'>Sequence </span><span class='Statement'>@@</span> {greenLight, <span class='Identifier'>Texture</span>[grass]}, <span class='Identifier'>Green</span>],
+        <span class='Identifier'>Polygon</span>[<span class='Type'>50</span> {{<span class='Statement'>-</span><span class='Type'>1</span>, <span class='Statement'>-</span><span class='Type'>1</span>, <span class='Type'>0</span>}, {<span class='Type'>1</span>, <span class='Statement'>-</span><span class='Type'>1</span>, <span class='Type'>0</span>}, {<span class='Type'>1</span>, <span class='Type'>1</span>, <span class='Type'>0</span>}, {<span class='Statement'>-</span><span class='Type'>1</span>, <span class='Type'>1</span>, <span class='Type'>0</span>}},
+         VertexTextureCoordinates <span class='Statement'>-&gt;</span> <span class='Type'>1.1</span> {{<span class='Type'>0</span>, <span class='Type'>0</span>, <span class='Type'>0</span>}, {<span class='Type'>1</span>, <span class='Type'>0</span>, <span class='Type'>0</span>}, {<span class='Type'>1</span>, <span class='Type'>1</span>, <span class='Type'>0</span>}, {<span class='Type'>0</span>, <span class='Type'>1</span>, <span class='Type'>0</span>}}]},
+        {<span class='Type'>0</span>, <span class='Type'>0</span>, <span class='Statement'>-</span><span class='Type'>19</span>}],
+
+      <span class='Comment'>(*biodome*)</span>{<span class='Identifier'>Specularity</span>[<span class='Identifier'>White</span>, <span class='Type'>3</span>], <span class='Identifier'>Opacity</span>[<span class='Statement'>.</span><span class='Type'>5</span>], <span class='Identifier'>Sphere</span>[<span class='Statement'>.</span><span class='Type'>95</span> {<span class='Type'>0</span>, <span class='Type'>0</span>, <span class='Statement'>-</span><span class='Type'>20</span>}, <span class='Type'>5</span>]},
+      <span class='Comment'>(*sun*)</span>{<span class='Identifier'>Glow</span>[<span class='Identifier'>White</span>], <span class='Identifier'>Sphere</span>[{<span class='Type'>18</span>, <span class='Type'>18</span>, <span class='Type'>18</span>}, <span class='Type'>2</span>]},
+      <span class='Comment'>(*laser*)</span> <span class='Identifier'>If</span>[xs <span class='Statement'>&lt;</span> <span class='Statement'>-</span><span class='Type'>10</span>, {<span class='Identifier'>Red</span>, <span class='Identifier'>Glow</span>[<span class='Identifier'>Red</span>], <span class='Identifier'>Opacity</span>[<span class='Statement'>.</span><span class='Type'>5</span>], <span class='Identifier'>Tube</span>[{{<span class='Type'>0</span>, <span class='Type'>0</span>, <span class='Statement'>-</span><span class='Type'>12.4</span>}, dir}]}]},
+     <span class='Comment'>(*sky*)</span>Background <span class='Statement'>-&gt;</span> LightBlue, PlotRange <span class='Statement'>-&gt;</span> <span class='Type'>20</span>, Boxed <span class='Statement'>-&gt;</span> <span class='Identifier'>False</span>]]],
+ {xs, <span class='Type'>30</span>, <span class='Statement'>-</span><span class='Type'>60</span>, <span class='Type'>3.2</span>}, AnimationRate <span class='Statement'>-&gt;</span> <span class='Type'>10</span>, DisplayAllSteps <span class='Statement'>-&gt;</span> <span class='Identifier'>True</span>]
+</pre>
+            </li>
+</ol>
+
+        </div>
+
+        <div class="section" style="margin-top: -22px; margin-bottom: -11px">
+            <!--center>
+                <img src="img/siermasterlock6.png" width="260" height="55" />
+            </center-->
+        </div>
+
+        <center>
+            <p class="consumable" style="font-size: 10px; max-width: 450px; text-align: left; margin-top: 4px;">
+            This page is an excerpt from <a href="sierpinski.htm">the sierpinski triangle page to end most sierpinski triangle pages &#0153;</a>.
+            </p>
+        </center>
+
+        <div class="links centered">
+            <a href="/" title="home" style="color: #333333" class="pagelink">&lt;&lt;</a>
+        </div>
+
+    </div>
+
+</body>
+</html>

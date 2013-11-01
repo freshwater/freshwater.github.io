@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+    <head>
+        <title> oftenpaper.net/chaosdistancefunctions1.htm </title>
+
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.9.0/build/reset-fonts-grids/reset-fonts-grids.css" />
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.9.0/build/base/base-min.css" />
+        <link rel="stylesheet" type="text/css" href="oftencss.css" />
+
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+
+        <script type="text/javascript" id="mathjax" src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax:{inlineMath:[['$','$']]}})</script>
+
+        <script type="text/javascript" src="flipbook.js"></script>
+    </head>
+
+<body>
+    <h1><a href="/"> oftenpaper.net </a></h1>
+    <h3>chaos distance functions 1 &#0153;</h3>
+
+    <br />
+
+    <center class="consumable" style="margin-top: 20px; margin-bottom: 25px;">
+        <a href="sierpinski.htm">
+            <img src="img/siermasterlock22.png" width="181" height="157" />
+        </a>
+    </center>
+
+    <div class="content">
+
+        <div class="section">
+
+            <ol class='flipbook static'
+    name='chaos distance functions 1'>
+ <li>
+            <img src='img/sier3Dchaosdf1.png' width='632' height='387' />
+            </li>
+ <li>
+            <img src='img/sier3Dchaosdf2.png' width='640' height='516' />
+            </li>
+ <li>
+            <img src='img/sier3Dchaosdf3.png' width='624' height='462' />
+            </li>
+ <li name='source'>
+<pre>
+<span class='Identifier'>draw</span>[<span class='Type'>vertices_</span>, <span class='Type'>df_</span>, <span class='Type'>numPoints_</span>, <span class='Type'>options___</span>] <span class='Statement'>:=</span> <span class='Identifier'>Graphics3D</span>[{
+    <span class='Identifier'>Opacity</span>[<span class='Statement'>.</span><span class='Type'>5</span>], <span class='Identifier'>PointSize</span>[<span class='Type'>0</span>],
+    <span class='Identifier'>Point</span>[<span class='Identifier'>FoldList</span>[df, <span class='Identifier'>First</span>[<span class='Identifier'>N</span><span class='Statement'>@</span>vertices],
+      <span class='Identifier'>RandomChoice</span>[<span class='Identifier'>N</span><span class='Statement'>@</span>vertices, numPoints]]]},
+   <span class='Comment'>(*Method-&gt;{</span><span class='String'>&quot;ShrinkWrap&quot;</span><span class='Comment'>-&gt;True},*)</span>
+   options, PlotRange <span class='Statement'>-&gt;</span> <span class='Identifier'>Automatic</span>, Boxed <span class='Statement'>-&gt;</span> <span class='Identifier'>False</span>];
+
+functions <span class='Statement'>=</span> <span class='Identifier'>Function</span>[r, r (<span class='Statement'>#1</span> <span class='Statement'>+</span> <span class='Statement'>#2</span>) <span class='Statement'>&amp;</span>] <span class='Statement'>/@</span> {<span class='Type'>1</span>, <span class='Statement'>.</span><span class='Type'>96</span>, <span class='Statement'>.</span><span class='Type'>6</span>, <span class='Statement'>.</span><span class='Type'>5</span>, <span class='Statement'>.</span><span class='Type'>2</span>};
+
+<span class='Identifier'>Grid</span>[<span class='Identifier'>Join</span>[
+  {<span class='Identifier'>TraditionalForm</span>[<span class='Identifier'>Trace</span>[<span class='Statement'>#</span>[a, b]][[<span class='Type'>2</span>]]] <span class='Statement'>&amp;</span> <span class='Statement'>/@</span> functions},
+  <span class='Identifier'>ParallelTable</span>[
+   <span class='Identifier'>draw</span>[<span class='Identifier'>PolyhedronData</span>[{<span class='String'>&quot;Pyramid&quot;</span>, v}, <span class='String'>&quot;VertexCoordinates&quot;</span>],
+    df, <span class='Type'>50000</span>, ViewPoint <span class='Statement'>-&gt;</span> {Front, Top}],
+   {v, <span class='Type'>3</span>, <span class='Type'>5</span>}, {df, functions}]]]
+</pre>
+            </li>
+</ol>
+
+        </div>
+
+        <div class="section" style="margin-top: -22px; margin-bottom: -11px">
+            <!--center>
+                <img src="img/siermasterlock6.png" width="260" height="55" />
+            </center-->
+        </div>
+
+        <center>
+            <p class="consumable" style="font-size: 10px; max-width: 450px; text-align: left; margin-top: 4px;">
+            This page is an excerpt from <a href="sierpinski.htm">the sierpinski triangle page to end most sierpinski triangle pages &#0153;</a>.
+            </p>
+        </center>
+
+        <div class="links centered">
+            <a href="/" title="home" style="color: #333333" class="pagelink">&lt;&lt;</a>
+        </div>
+
+    </div>
+
+</body>
+</html>

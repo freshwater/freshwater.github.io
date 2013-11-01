@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+    <head>
+        <title> oftenpaper.net/mandelbrotset.htm </title>
+
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.9.0/build/reset-fonts-grids/reset-fonts-grids.css" />
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.9.0/build/base/base-min.css" />
+        <link rel="stylesheet" type="text/css" href="oftencss.css" />
+
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+
+        <script type="text/javascript" id="mathjax" src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax:{inlineMath:[['$','$']]}})</script>
+
+        <script type="text/javascript" src="flipbook.js"></script>
+    </head>
+
+<body>
+    <h1><a href="/"> oftenpaper.net </a></h1>
+    <h3>mandelbrot set &#0153;</h3>
+
+    <br />
+
+    <center class="consumable" style="margin-top: 20px; margin-bottom: 25px;">
+        <a href="sierpinski.htm">
+            <img src="img/siermasterlock22.png" width="181" height="157" />
+        </a>
+    </center>
+
+    <div class="content">
+
+        <div class="section">
+
+            <ol class='flipbook static'
+    name='mandelbrot set'>
+ <li name='image'>
+                <img src='img/siermandelbrot4.png' width='538' height='551' />
+                </li>
+ <li name='source'>
+<pre>
+check <span class='Statement'>=</span> <span class='Identifier'>Compile</span>[{{c, <span class='Type'>_Complex</span>, <span class='Type'>0</span>}},
+   <span class='Identifier'>Module</span>[{i <span class='Statement'>=</span> <span class='Type'>0</span>, z <span class='Statement'>=</span> <span class='Type'>0</span> <span class='Identifier'>I</span>},
+    <span class='Identifier'>While</span>[
+     <span class='Identifier'>Abs</span>[z] <span class='Statement'>&lt;</span> <span class='Identifier'>Sqrt</span>[<span class='Type'>2</span>] <span class='Statement'>&amp;&amp;</span> i<span class='Statement'>++</span> <span class='Statement'>&lt;</span> <span class='Type'>240</span>,
+     z <span class='Statement'>=</span> z<span class='Statement'>^</span><span class='Type'>2</span> <span class='Statement'>+</span> c];
+    <span class='Statement'>-</span>i]];
+
+<span class='Identifier'>ImageAdjust</span><span class='Statement'>@</span><span class='Identifier'>Image</span><span class='Statement'>@</span>
+  <span class='Identifier'>ParallelTable</span>[<span class='Identifier'>check</span>[x <span class='Statement'>+</span> y <span class='Identifier'>I</span>],
+   {y, <span class='Statement'>-</span><span class='Type'>1.1</span>, <span class='Type'>1.1</span>, <span class='Statement'>.</span><span class='Type'>0035</span>}, {x, <span class='Statement'>-</span><span class='Type'>1.55</span>, <span class='Statement'>.</span><span class='Type'>6</span>, <span class='Statement'>.</span><span class='Type'>0035</span>}]
+</pre>
+                </li>
+</ol>
+
+        </div>
+
+        <div class="section" style="margin-top: -22px; margin-bottom: -11px">
+            <!--center>
+                <img src="img/siermasterlock6.png" width="260" height="55" />
+            </center-->
+        </div>
+
+        <center>
+            <p class="consumable" style="font-size: 10px; max-width: 450px; text-align: left; margin-top: 4px;">
+            This page is an excerpt from <a href="sierpinski.htm">the sierpinski triangle page to end most sierpinski triangle pages &#0153;</a>.
+            </p>
+        </center>
+
+        <div class="links centered">
+            <a href="/" title="home" style="color: #333333" class="pagelink">&lt;&lt;</a>
+        </div>
+
+    </div>
+
+</body>
+</html>

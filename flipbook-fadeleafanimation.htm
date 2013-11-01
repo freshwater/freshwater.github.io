@@ -1,0 +1,412 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+    <head>
+        <title> oftenpaper.net/fadeleafanimation.htm </title>
+
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.9.0/build/reset-fonts-grids/reset-fonts-grids.css" />
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.9.0/build/base/base-min.css" />
+        <link rel="stylesheet" type="text/css" href="oftencss.css" />
+
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+
+        <script type="text/javascript" id="mathjax" src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax:{inlineMath:[['$','$']]}})</script>
+
+        <script type="text/javascript" src="flipbook.js"></script>
+    </head>
+
+<body>
+    <h1><a href="/"> oftenpaper.net </a></h1>
+    <h3>fadeleaf animation &#0153;</h3>
+
+    <br />
+
+    <center class="consumable" style="margin-top: 20px; margin-bottom: 25px;">
+        <a href="sierpinski.htm">
+            <img src="img/siermasterlock22.png" width="181" height="157" />
+        </a>
+    </center>
+
+    <div class="content">
+
+        <div class="section">
+
+            <ol class='flipbook static'
+    name='fadeleaf animation'>
+ <li>
+            <iframe frameborder='0' scrolling='auto' width='656' height='369' src='http://www.youtube-nocookie.com/embed/ghk6cYhV4MM' allowfullscreen='allowfullscreen' ></iframe
+            </li>
+ <li>
+            <iframe frameborder='0' scrolling='auto' width='656' height='369' src='http://www.youtube-nocookie.com/embed/qqd8BxEzQRY' allowfullscreen='allowfullscreen' ></iframe
+            </li>
+ <li name='source'>
+<pre style='font-size: 9px'>
+game <span class='Statement'>=</span> <span class='Identifier'>Compile</span>[{{vertices, <span class='Type'>_Real</span>, <span class='Type'>2</span>}, {numPoints, <span class='Type'>_Integer</span>}, {wowzerz, <span class='Type'>_Real</span>}},
+   <span class='Identifier'>Module</span>[{diff},
+    <span class='Identifier'>FoldList</span>[(diff <span class='Statement'>=</span> <span class='Statement'>#2</span> <span class='Statement'>-</span> <span class='Statement'>#1</span>;
+       <span class='Identifier'>Clip</span>[(<span class='Statement'>#1</span> <span class='Statement'>+</span> <span class='Statement'>#2</span>) <span class='Identifier'>Log</span>[<span class='Identifier'>Sqrt</span>[diff<span class='Statement'>.</span>diff] <span class='Statement'>+</span> wowzerz]]) <span class='Statement'>&amp;</span>,
+     {<span class='Type'>0</span><span class='Statement'>.</span>, <span class='Type'>0</span><span class='Statement'>.</span>, <span class='Type'>0</span><span class='Statement'>.</span>}, <span class='Identifier'>RandomChoice</span>[vertices, numPoints]]]];
+
+{numFrames, imageSize, numPoints} <span class='Statement'>=</span> {
+    {<span class='Type'>5</span><span class='Comment'>(*sec*)</span><span class='Type'>15</span><span class='Comment'>(*fps*)</span>, <span class='Type'>1</span><span class='Statement'>/</span><span class='Type'>2</span> {<span class='Type'>640</span>, <span class='Type'>480</span>}, <span class='Type'>1</span><span class='Statement'>/</span><span class='Type'>3</span> <span class='Type'>600000</span>},
+    {<span class='Type'>20</span><span class='Comment'>(*sec*)</span><span class='Type'>15</span><span class='Comment'>(*fps*)</span>, {<span class='Type'>640</span>, <span class='Type'>480</span>}, <span class='Type'>600000</span>}}[[<span class='Type'>1</span>]];
+
+<span class='Identifier'>Needs</span>[<span class='String'>&quot;PolyhedronOperations`&quot;</span>];
+vertices <span class='Statement'>=</span> <span class='Identifier'>Stellate</span>[<span class='Identifier'>PolyhedronData</span>[{<span class='String'>&quot;Pyramid&quot;</span>, <span class='Type'>5</span>}, <span class='String'>&quot;Faces&quot;</span>]][[<span class='Type'>1</span>]];
+
+frame <span class='Statement'>=</span> <span class='Identifier'>Function</span>[w,
+   <span class='Identifier'>Graphics3D</span>[{<span class='Identifier'>Opacity</span>[<span class='Statement'>.</span><span class='Type'>1</span>], <span class='Identifier'>PointSize</span>[<span class='Type'>0</span>], <span class='Identifier'>Point</span>[<span class='Identifier'>game</span>[vertices, numPoints, w]]},
+    ImageSize <span class='Statement'>-&gt;</span> imageSize, ViewVertical <span class='Statement'>-&gt;</span> {<span class='Type'>0</span>, <span class='Type'>0</span>, <span class='Type'>1</span>}, Boxed <span class='Statement'>-&gt;</span> <span class='Identifier'>False</span>, SphericalRegion <span class='Statement'>-&gt;</span> <span class='Identifier'>True</span>, PlotRange <span class='Statement'>-&gt;</span> <span class='Type'>1</span>,
+    ViewVector <span class='Statement'>-&gt;</span> {<span class='Identifier'>RotationTransform</span>[<span class='Type'>2</span> <span class='Identifier'>Pi</span> w, {<span class='Type'>0</span>, <span class='Type'>0</span>, <span class='Type'>1</span>}][{<span class='Type'>1</span>, <span class='Type'>0</span>, (w <span class='Statement'>-</span> <span class='Statement'>.</span><span class='Type'>25</span>) <span class='Identifier'>Pi</span><span class='Statement'>/</span><span class='Type'>2</span>}], {<span class='Type'>0</span>, <span class='Type'>0</span>, <span class='Type'>0</span>}}]];
+
+<span class='Identifier'>SetDirectory</span>[<span class='String'>&quot;c:/users/zrp/desktop/frames&quot;</span>];
+
+range <span class='Statement'>=</span> <span class='Identifier'>Range</span>[<span class='Type'>0</span>, <span class='Type'>3</span><span class='Statement'>/</span><span class='Type'>4</span>, <span class='Type'>3</span><span class='Statement'>/</span><span class='Type'>4</span><span class='Statement'>/</span>(numFrames <span class='Statement'>-</span> <span class='Type'>1</span>)];
+<span class='Identifier'>file</span>[<span class='Type'>w_</span>] <span class='Statement'>:=</span> <span class='Identifier'>ToString</span>[<span class='Identifier'>N</span><span class='Statement'>@</span>w] <span class='Statement'>&lt;&gt;</span> <span class='String'>&quot;.png&quot;</span>;
+
+<span class='Identifier'>ParallelDo</span>[
+  <span class='Identifier'>If</span>[<span class='Statement'>!</span> <span class='Identifier'>FileExistsQ</span>[<span class='Identifier'>file</span>[w]],
+   <span class='Identifier'>Export</span>[<span class='Identifier'>file</span>[w], <span class='Identifier'>frame</span>[w]]],
+  {w, range}];
+
+<span class='Identifier'>Export</span>[<span class='String'>&quot;mov.avi&quot;</span>,
+ <span class='Identifier'>ColorNegate </span><span class='Statement'>/@</span> <span class='Identifier'>ImageAdjust </span><span class='Statement'>/@</span> <span class='Identifier'>Import </span><span class='Statement'>/@</span> <span class='Identifier'>file </span><span class='Statement'>/@</span> range]
+
+<span class='Identifier'>Beep</span>[];
+<span class='Identifier'>Button</span>[open, <span class='Identifier'>SystemOpen</span>[<span class='String'>&quot;mov.avi&quot;</span>],
+ Enabled <span class='Statement'>-&gt;</span> <span class='Identifier'>FileExistsQ</span>[<span class='String'>&quot;mov.avi&quot;</span>]]
+</pre>
+            </li>
+ <li name='[MovieMaker]'>
+        <ol class='flipbook static' name='MovieMaker source'><li name='image'>
+            <img src='img/siermoviemaker1.png' width='464' height='195' />
+            </li><li name='1'>
+            <pre style='font-size: 5px'>
+<span class='Identifier'>MovieMaker</span>[<span class='Type'>frameF_</span>, <span class='Type'>range </span><span class='Statement'>:</span> {<span class='Type'>start_Integer</span>, <span class='Type'>stop_Integer</span>}, <span class='Type'>rest___</span>] <span class='Statement'>:=</span>
+  <span class='Identifier'>MovieMaker</span>[frameF, {start, stop, stop <span class='Statement'>-</span> start}, rest];
+
+<span class='Comment'>(*arithmetic for eg doubling movie length is easier by &apos;intervals&apos; than by &apos;frame count&apos;*)</span>
+<span class='Identifier'>MovieMaker</span>[<span class='Type'>frameF_</span>, <span class='Type'>range </span><span class='Statement'>:</span> {<span class='Type'>start_</span>, <span class='Type'>stop_</span>, <span class='Type'>numIntervals_</span>}, <span class='Type'>rest___</span>] <span class='Statement'>:=</span>
+  <span class='Identifier'>MovieMaker</span>[frameF, <span class='Identifier'>List</span>[<span class='Identifier'>Range</span>[<span class='Statement'>#1</span>, <span class='Statement'>#2</span>, (<span class='Statement'>#2</span> <span class='Statement'>-</span> <span class='Statement'>#1</span>)<span class='Statement'>/</span><span class='Statement'>#3</span><span class='Comment'>(*(#3-1)*)</span>] <span class='Statement'>&amp;</span> <span class='Statement'>@@</span> range], rest];
+
+<span class='Type'>MovieMaker::</span><span class='Special'>expqq</span> <span class='Statement'>=</span> <span class='String'>&quot;Export is complaining about something. &quot;</span> <span class='Statement'>&lt;&gt;</span>
+   <span class='String'>&quot;Most likely you&apos;re feeding it items with different image sizes.&quot;</span>;
+
+<span class='Type'>MovieMaker::</span><span class='Special'>usage</span> <span class='Statement'>=</span>
+  <span class='String'>&quot;NOTE: copies of this notebook are automatically stored along</span>
+<span class='String'>  with the generated files. To prevent this, set AutoArchive -&gt; False.</span>
+<span class='String'>  </span>
+<span class='String'>  MovieMaker[frameFunction, rangeSpec, options___]</span>
+<span class='String'>  </span>
+<span class='String'>  rangeSpec:</span>
+<span class='String'>  {start, stop, number of intervals}:  {0, 1, 5(*sec*)15(*fps*)}</span>
+<span class='String'>  {start, stop} integer range:  {1, 20}</span>
+<span class='String'>  {explicit list}:  {AstronomicalData[\&quot;Earth\&quot;,\&quot;OrbitPath\&quot;][[1]]}</span>
+<span class='String'>  </span>
+<span class='String'>  The Label option determines the folder name under which the animation</span>
+<span class='String'>  is created. For example, if changing a variable X makes a different</span>
+<span class='String'>  animation, then place that variable in the Label spec so that when you</span>
+<span class='String'>  change that variable, the animation will be generated in a different folder.</span>
+<span class='String'>  </span>
+<span class='String'>  Likewise, the first element of the Process spec determines the folder</span>
+<span class='String'>  and uniqueness of the process function. Processes work in subfolders of</span>
+<span class='String'>  the main project folder, meaning you can experiment with multiple processes</span>
+<span class='String'>  in a single project.</span>
+<span class='String'>  </span>
+<span class='String'>  MovieMaker[</span>
+<span class='String'>   {ToLowerCase[#], ToUpperCase[#]} &amp;, {CharacterRange[\&quot; \&quot;, \&quot;~\&quot;]},</span>
+<span class='String'>   Serialization -&gt; Hash, Label -&gt; \&quot;UpperLower\&quot;, FileTypes -&gt; {\&quot;.mx\&quot;, \&quot;.png\&quot;, \&quot;.gif\&quot;},</span>
+<span class='String'>   Process -&gt; {\&quot;times\&quot;, ImageMultiply @@ Map[Rasterize[#, ImageSize -&gt; 400 {1, 1}] &amp;, #] &amp;},</span>
+<span class='String'>   MovieOptions -&gt; {\&quot;DisplayDurations\&quot; -&gt; 1}, MapFunction -&gt; Map]</span>
+<span class='String'>  </span>
+<span class='String'>  Serialization is for converting values to valid file names.</span>
+<span class='String'>  MapFunction is for when you don&apos;t want to use parallelization.</span>
+<span class='String'>  Directory setting specifies the specific project folder, overriding Label.&quot;</span>;
+
+<span class='Identifier'>Options</span>[MovieMaker] <span class='Statement'>=</span> {
+   Label <span class='Statement'>-&gt;</span> <span class='Identifier'>Automatic</span>, Process <span class='Statement'>-&gt;</span> {<span class='Identifier'>None</span>, <span class='Identifier'>None</span>}, MapFunction <span class='Statement'>-&gt;</span> ParallelMap, AutoArchive <span class='Statement'>-&gt;</span> <span class='Identifier'>True</span>,
+   FileTypes <span class='Statement'>-&gt;</span> {<span class='String'>&quot;.png&quot;</span>, <span class='String'>&quot;.png&quot;</span>, <span class='String'>&quot;.avi&quot;</span>}, MakeMovie <span class='Statement'>-&gt;</span> <span class='Identifier'>True</span>, MovieOptions <span class='Statement'>-&gt;</span> {}, Directory <span class='Statement'>-&gt;</span> <span class='Identifier'>Automatic</span>,
+   Ordering <span class='Statement'>-&gt;</span> (<span class='Identifier'>BlockRandom</span>[<span class='Identifier'>RandomSample</span>[<span class='Statement'>#</span>]] <span class='Statement'>&amp;</span>), Serialization <span class='Statement'>-&gt;</span> <span class='Identifier'>Composition</span>[List, Chop, N]};
+</pre>
+                </li><li name='2'>
+                <pre style='font-size: 4px'>
+<span class='Comment'>(* After I wrote this program, a more powerful approach occurred to me. We could have a</span>
+<span class='Comment'>macro that would be used something like this: *)</span>
+<span class='Identifier'>FileBackedProcess</span>[<span class='Identifier'>Function</span>[val,
+   a <span class='Statement'>=</span> <span class='Identifier'>S</span>[<span class='Type'>1</span>][<span class='Identifier'>Rasterize</span><span class='Statement'>@</span><span class='Identifier'>dirp</span>[val]];
+   b <span class='Statement'>=</span> <span class='Identifier'>S</span>[<span class='Type'>2</span>][<span class='Identifier'>Rasterize</span><span class='Statement'>@</span><span class='Identifier'>derp</span>[val]];
+   <span class='Identifier'>S</span>[<span class='Type'>3</span>][<span class='Identifier'>ImageMultiply</span>[a, b]]]];
+<span class='Comment'>(* where the S[i_][body_] are the momoization points into the file system. If the S finds</span>
+<span class='Comment'>the file corresponding to the [i][body], then the file is imported. Otherwise it executes</span>
+<span class='Comment'>the body and saves the file. The point would be to make the file aspect as</span>
+<span class='Comment'>easy as annotating things with S[i] *)</span>
+
+<span class='Identifier'>MovieMaker</span>[<span class='Type'>frameF_</span>, <span class='Identifier'>List</span>[<span class='Type'>valueList_List</span>], <span class='Identifier'>OptionsPattern</span>[]] <span class='Statement'>:=</span> <span class='Identifier'>Module</span>[{
+   tooltip, mainLabel, processLabel, processF, mapF, frameExt, processedExt, movieExt, dir,
+   framesDir, processedDir, movieFile, fileMap, numFrames, alive <span class='Statement'>=</span> <span class='Identifier'>True</span>, folder0exists,
+   foldersExistL, folder1exists, folder2exists, progress1, progress2, movieDone, makeFrames,
+   processFrames, makeMovie, serialization, archive, makeMovieA, preview, printPreview, printFileMap},
+
+  <span class='Identifier'>tooltip</span>[<span class='Type'>expr_</span>] <span class='Statement'>:=</span> <span class='Identifier'>Tooltip</span>[<span class='Statement'>#</span>, expr, TooltipDelay <span class='Statement'>-&gt;</span> <span class='Statement'>.</span><span class='Type'>25</span>] <span class='Statement'>&amp;</span>;
+  {mainLabel, mapF, makeMovieA, serialization} <span class='Statement'>=</span>
+   <span class='Identifier'>OptionValue</span>[{Label, MapFunction, MakeMovie, Serialization}];
+
+  {processLabel, processF} <span class='Statement'>=</span>
+   <span class='Identifier'>Replace</span>[<span class='Identifier'>OptionValue</span>[Process], {
+     {<span class='Type'>pf_</span>} <span class='Statement'>:&gt;</span> {<span class='Identifier'>ToString</span>[pf], pf},
+     <span class='Type'>pf </span><span class='Statement'>:</span> <span class='Identifier'>Except</span>[<span class='Type'>_List</span>] <span class='Statement'>:&gt;</span> {<span class='Identifier'>ToString</span>[pf], pf}}];
+
+  {frameExt, processedExt, movieExt} <span class='Statement'>=</span> <span class='Identifier'>PadRight</span>[
+    <span class='Identifier'>Flatten</span>[<span class='Identifier'>List</span>[<span class='Identifier'>OptionValue</span>[FileTypes]]], <span class='Type'>3</span>,
+    FileTypes <span class='Statement'>/.</span> <span class='Identifier'>Options</span>[MovieMaker]];
+
+  mainLabel <span class='Statement'>=</span> <span class='Identifier'>Replace</span>[mainLabel,
+    <span class='Identifier'>Automatic</span> <span class='Statement'>-&gt;</span> <span class='Identifier'>IntegerString</span>[<span class='Identifier'>Hash</span>[{frameF, valueList}, <span class='String'>&quot;CRC32&quot;</span>], <span class='Type'>36</span>]];
+  dir <span class='Statement'>=</span> <span class='Identifier'>Replace</span>[<span class='Identifier'>OptionValue</span>[Directory], <span class='Identifier'>Automatic</span> <span class='Statement'>-&gt;</span>
+     <span class='Identifier'>FileNameJoin</span>[{<span class='Identifier'>NotebookDirectory</span>[], <span class='String'>&quot;vids&quot;</span>, <span class='Identifier'>ToString</span>[mainLabel]}]];
+
+  framesDir <span class='Statement'>=</span> <span class='Identifier'>FileNameJoin</span>[{dir, <span class='String'>&quot;frames&quot;</span>}];
+  processedDir <span class='Statement'>=</span> <span class='Identifier'>FileNameJoin</span>[{dir, <span class='String'>&quot;processed&quot;</span>, <span class='Identifier'>ToString</span>[processLabel]}];
+  movieFile <span class='Statement'>=</span> <span class='Identifier'>FileNameJoin</span>[{dir, <span class='Identifier'>ToString</span>[{processLabel, mainLabel}] <span class='Statement'>&lt;&gt;</span> movieExt}];
+
+  <span class='Comment'>(* main iteration construct *)</span>
+  <span class='Identifier'>fileMap</span>[<span class='Type'>f_</span>, <span class='Type'>vals_</span><span class='Statement'>:</span> valueList, <span class='Type'>map_</span><span class='Statement'>:</span> mapF] <span class='Statement'>:=</span> <span class='Identifier'>map</span>[<span class='Identifier'>Function</span>[val,
+     <span class='Identifier'>f</span>[
+      <span class='Identifier'>FileNameJoin</span>[{framesDir,
+        <span class='Identifier'>ToString</span>[<span class='Identifier'>serialization</span>[val]] <span class='Statement'>&lt;&gt;</span> frameExt}],
+      <span class='Identifier'>FileNameJoin</span>[{processedDir,
+        <span class='Identifier'>ToString</span>[<span class='Identifier'>serialization</span>[val]] <span class='Statement'>&lt;&gt;</span> processedExt}],
+      val]],
+    vals];
+
+  numFrames <span class='Statement'>=</span> <span class='Identifier'>Length</span>[valueList];
+  progress1 <span class='Statement'>=</span> <span class='Identifier'>Total</span><span class='Statement'>@</span><span class='Identifier'>Boole</span>[<span class='Identifier'>fileMap</span>[<span class='Identifier'>FileExistsQ</span>[<span class='Statement'>#1</span>] <span class='Statement'>&amp;</span>]];
+  progress2 <span class='Statement'>=</span> <span class='Identifier'>Total</span><span class='Statement'>@</span><span class='Identifier'>Boole</span>[<span class='Identifier'>fileMap</span>[<span class='Identifier'>FileExistsQ</span>[<span class='Statement'>#2</span>] <span class='Statement'>&amp;</span>]];
+  foldersExistL <span class='Statement'>=</span> <span class='Identifier'>FileExistsQ </span><span class='Statement'>/@</span> {dir, framesDir, processedDir};
+  movieDone <span class='Statement'>=</span> <span class='Identifier'>FileExistsQ</span>[movieFile];
+  <span class='Identifier'>SetSharedVariable</span>[progress1, progress2];
+
+  <span class='Identifier'>If</span>[<span class='Identifier'>OptionValue</span>[AutoArchive] <span class='Statement'>&amp;&amp;</span> <span class='Identifier'>FileExistsQ</span>[dir] <span class='Statement'>&amp;&amp;</span>
+    <span class='Statement'>!</span> <span class='Identifier'>FileExistsQ</span>[<span class='Identifier'>FileNameJoin</span>[{dir, <span class='Identifier'>ToString</span>[mainLabel] <span class='Statement'>&lt;&gt;</span> <span class='String'>&quot;.nb&quot;</span>}]],
+   <span class='Identifier'>Export</span>[<span class='Identifier'>FileNameJoin</span>[{dir, <span class='Identifier'>ToString</span>[mainLabel] <span class='Statement'>&lt;&gt;</span> <span class='String'>&quot;.nb&quot;</span>}],
+    <span class='Identifier'>NotebookGet</span>[<span class='Identifier'>EvaluationNotebook</span>[]]]];
+</pre>
+                </li><li name='3'>
+                <pre style='font-size: 3px'>
+<span class='Comment'>(**)</span>
+<span class='Identifier'>makeFrames</span>[] <span class='Statement'>:=</span> (
+   <span class='Identifier'>Quiet</span><span class='Statement'>@</span><span class='Identifier'>CreateDirectory</span>[framesDir];
+   <span class='Identifier'>foldersExistL</span>[[<span class='Type'>1</span> ;; <span class='Type'>2</span>]] <span class='Statement'>=</span> {<span class='Identifier'>True</span>, <span class='Identifier'>True</span>};
+   <span class='Identifier'>If</span>[<span class='Identifier'>OptionValue</span>[AutoArchive],
+    <span class='Identifier'>Export</span>[<span class='Identifier'>FileNameJoin</span>[{dir, <span class='Identifier'>ToString</span>[mainLabel] <span class='Statement'>&lt;&gt;</span> <span class='String'>&quot;.nb&quot;</span>}],
+     <span class='Identifier'>NotebookGet</span>[<span class='Identifier'>EvaluationNotebook</span>[]]]];
+
+   <span class='Identifier'>fileMap</span>[<span class='Identifier'>If</span>[<span class='Statement'>!</span> <span class='Identifier'>FileExistsQ</span>[<span class='Statement'>#1</span>],
+      <span class='Identifier'>Export</span>[<span class='Statement'>#1</span>, <span class='Identifier'>frameF</span>[<span class='Statement'>#3</span>]];
+      progress1<span class='Statement'>++</span>] <span class='Statement'>&amp;</span>,
+    <span class='Identifier'>OptionValue</span>[Ordering][valueList]]);
+
+<span class='Comment'>(**)</span>
+<span class='Identifier'>processFrames</span>[] <span class='Statement'>:=</span> <span class='Identifier'>If</span>[
+   processF <span class='Statement'>=!=</span> <span class='Identifier'>None</span>,
+   <span class='Identifier'>Quiet</span><span class='Statement'>@</span><span class='Identifier'>CreateDirectory</span>[processedDir];
+   <span class='Identifier'>foldersExistL</span>[[<span class='Type'>3</span>]] <span class='Statement'>=</span> <span class='Identifier'>True</span>;
+   <span class='Identifier'>If</span>[<span class='Identifier'>OptionValue</span>[AutoArchive],
+    <span class='Identifier'>Export</span>[<span class='Identifier'>FileNameJoin</span>[{processedDir, <span class='Identifier'>ToString</span>[{mainLabel, processLabel}] <span class='Statement'>&lt;&gt;</span> <span class='String'>&quot;.nb&quot;</span>}],
+     <span class='Identifier'>NotebookGet</span>[<span class='Identifier'>EvaluationNotebook</span>[]]]];
+
+   <span class='Identifier'>fileMap</span>[<span class='Identifier'>If</span>[<span class='Statement'>!</span> <span class='Identifier'>FileExistsQ</span>[<span class='Statement'>#2</span>] <span class='Statement'>&amp;&amp;</span> <span class='Identifier'>FileExistsQ</span>[<span class='Statement'>#1</span>],
+      <span class='Identifier'>Export</span>[<span class='Statement'>#2</span>, <span class='Identifier'>processF</span>[<span class='Identifier'>Import</span>[<span class='Statement'>#1</span>]]];
+      progress2<span class='Statement'>++</span>] <span class='Statement'>&amp;</span>,
+    <span class='Identifier'>OptionValue</span>[Ordering][valueList]]];
+
+<span class='Comment'>(**)</span>
+<span class='Identifier'>makeMovie</span>[] <span class='Statement'>:=</span> <span class='Identifier'>If</span>[makeMovieA,
+   <span class='Identifier'>If</span>[<span class='Identifier'>FileExistsQ</span>[movieFile],
+    <span class='Identifier'>Print</span>[<span class='String'>&quot;movie file already exists&quot;</span>],
+    <span class='Identifier'>With</span>[{ab <span class='Statement'>=</span> <span class='Identifier'>If</span>[processF <span class='Statement'>===</span> <span class='Identifier'>None</span>, <span class='Statement'>#1</span>, <span class='Statement'>#2</span>]},
+     <span class='Identifier'>If</span>[<span class='Identifier'>And </span><span class='Statement'>@@</span> <span class='Identifier'>fileMap</span>[<span class='Identifier'>FileExistsQ</span>[ab] <span class='Statement'>&amp;</span>],
+      <span class='Identifier'>Check</span>[
+        <span class='Identifier'>Export</span>[movieFile, <span class='Identifier'>fileMap</span>[<span class='Identifier'>Import</span>[ab] <span class='Statement'>&amp;</span>],
+         <span class='Identifier'>Sequence </span><span class='Statement'>@@</span> <span class='Identifier'>OptionValue</span>[MovieOptions]];
+        movieDone <span class='Statement'>=</span> <span class='Identifier'>True</span>, <span class='Identifier'>Message</span>[<span class='Type'>MovieMaker::</span><span class='Special'>expqq</span>];
+        movieDone <span class='Statement'>=</span> <span class='Identifier'>False</span>, {<span class='Type'>Export::</span><span class='Special'>errelem</span>}]]]]];
+
+<span class='Comment'>(**)</span>
+<span class='Identifier'>preview</span>[] <span class='Statement'>:=</span> <span class='Identifier'>preview</span>[<span class='Identifier'>RandomChoice</span>[valueList]];
+<span class='Identifier'>preview</span>[<span class='Type'>val_</span>] <span class='Statement'>:=</span> <span class='Identifier'>Module</span>[{frame, fileName, tempFile},
+   tempFile <span class='Statement'>=</span> <span class='Identifier'>FileNameJoin</span>[{<span class='Identifier'>$TemporaryDirectory</span>, <span class='Identifier'>ToString</span>[<span class='Identifier'>Hash</span>[val]] <span class='Statement'>&lt;&gt;</span> frameExt}];
+   fileName <span class='Statement'>=</span> <span class='Identifier'>First</span><span class='Statement'>@</span><span class='Identifier'>fileMap</span>[<span class='Statement'>#1</span> <span class='Statement'>&amp;</span>, {val}];
+
+   <span class='Identifier'>If</span>[<span class='Identifier'>FileExistsQ</span>[fileName],
+    <span class='Comment'>(**)</span>frame <span class='Statement'>=</span> <span class='Identifier'>Import</span>[fileName],
+    <span class='Comment'>(**)</span>frame <span class='Statement'>=</span> <span class='Identifier'>Import</span>[<span class='Identifier'>Export</span>[tempFile, <span class='Identifier'>frameF</span>[val]]];
+    <span class='Identifier'>Print</span>[<span class='Identifier'>Labeled</span>[frame, <span class='Identifier'>N</span><span class='Statement'>@</span>val, <span class='Identifier'>Right</span>]]; <span class='Identifier'>Beep</span>[]];
+
+   <span class='Identifier'>If</span>[processF <span class='Statement'>=!=</span> <span class='Identifier'>None</span>,
+    <span class='Identifier'>Print</span>[<span class='Identifier'>Labeled</span>[<span class='Identifier'>processF</span>[frame], <span class='Identifier'>N</span><span class='Statement'>@</span>val, <span class='Identifier'>Right</span>]]; <span class='Identifier'>Beep</span>[]]];
+
+<span class='Comment'>(**)</span>
+<span class='Identifier'>printPreview</span>[] <span class='Statement'>:=</span> <span class='Identifier'>CellPrint</span>[<span class='Identifier'>ExpressionCell</span>[<span class='Identifier'>Defer</span>[
+     <span class='Identifier'>preview</span>[<span class='Identifier'>Placeholder</span>[<span class='String'>&quot;val&quot;</span>]]], <span class='String'>&quot;Input&quot;</span>]];
+
+<span class='Comment'>(**)</span>
+<span class='Identifier'>printFileMap</span>[] <span class='Statement'>:=</span> <span class='Identifier'>CellPrint</span>[<span class='Identifier'>ExpressionCell</span>[<span class='Identifier'>Defer</span>[
+     frames2 <span class='Statement'>=</span> <span class='Identifier'>fileMap</span>[<span class='Identifier'>If</span>[<span class='Identifier'>FileExistsQ</span>[<span class='Statement'>#2</span>], <span class='Identifier'>Import</span>[<span class='Statement'>#2</span>], <span class='Identifier'>Sequence </span><span class='Statement'>@@</span> {}] <span class='Statement'>&amp;</span>];],
+    <span class='String'>&quot;Input&quot;</span>]];
+
+<span class='Comment'>(**)</span>
+<span class='Identifier'>archive</span>[] <span class='Statement'>:=</span> <span class='Identifier'>Module</span>[{fileName},
+   fileName <span class='Statement'>=</span> <span class='Identifier'>ToString</span>[mainLabel] <span class='Statement'>&lt;&gt;</span> <span class='String'>&quot; &quot;</span> <span class='Statement'>&lt;&gt;</span>
+     <span class='Identifier'>DateString</span>[{<span class='String'>&quot;DateShort&quot;</span>,
+       <span class='String'>&quot; (&quot;</span>, <span class='String'>&quot;Hour12&quot;</span>, <span class='String'>&quot; &quot;</span>, <span class='String'>&quot;Minute&quot;</span>, <span class='String'>&quot; &quot;</span>, <span class='String'>&quot;Second&quot;</span>, <span class='String'>&quot; &quot;</span>, <span class='String'>&quot;AMPM&quot;</span>, <span class='String'>&quot;)&quot;</span>}];
+
+   <span class='Identifier'>Quiet</span><span class='Statement'>@</span><span class='Identifier'>CreateDirectory</span>[dir];
+   <span class='Identifier'>foldersExistL</span>[[<span class='Type'>1</span>]] <span class='Statement'>=</span> <span class='Identifier'>True</span>;
+   <span class='Identifier'>Export</span>[<span class='Identifier'>FileNameJoin</span>[{dir, fileName <span class='Statement'>&lt;&gt;</span> <span class='String'>&quot;.nb&quot;</span>}],
+    <span class='Identifier'>NotebookGet</span>[<span class='Identifier'>EvaluationNotebook</span>[]]];
+
+   <span class='Identifier'>Beep</span>[]];
+</pre>
+                </li><li name='4'>
+                <pre style='font-size: 4px'>
+<span class='Comment'>(*controls*)</span>
+  <span class='Identifier'>With</span>[{
+    btnMakeFrames <span class='Statement'>=</span> <span class='Identifier'>Button</span>[<span class='String'>&quot;frames + process + movie&quot;</span>,
+      <span class='Identifier'>makeFrames</span>[]; <span class='Identifier'>Beep</span>[]; <span class='Identifier'>processFrames</span>[]; <span class='Identifier'>Beep</span>[]; <span class='Identifier'>makeMovie</span>[]; <span class='Identifier'>Beep</span>[],
+      Method <span class='Statement'>-&gt;</span> <span class='String'>&quot;Queued&quot;</span>, Enabled <span class='Statement'>-&gt;</span> <span class='Identifier'>Dynamic</span>[progress1 <span class='Statement'>=!=</span> numFrames]],
+    btnProcessFrames <span class='Statement'>=</span> <span class='Identifier'>Button</span>[<span class='String'>&quot;process + movie&quot;</span>,
+      <span class='Identifier'>processFrames</span>[]; <span class='Identifier'>Beep</span>[]; <span class='Identifier'>makeMovie</span>[]; <span class='Identifier'>Beep</span>[],
+      Method <span class='Statement'>-&gt;</span> <span class='String'>&quot;Queued&quot;</span>, Enabled <span class='Statement'>-&gt;</span> <span class='Identifier'>Dynamic</span>[
+        progress2 <span class='Statement'>=!=</span> numFrames <span class='Statement'>&amp;&amp;</span> progress1 <span class='Statement'>=!=</span> <span class='Type'>0</span> <span class='Statement'>&amp;&amp;</span> processF <span class='Statement'>=!=</span> <span class='Identifier'>None</span>]],
+    btnMakeMovie <span class='Statement'>=</span> <span class='Identifier'>Button</span>[<span class='String'>&quot;movie&quot;</span>,
+      <span class='Identifier'>makeMovie</span>[]; <span class='Identifier'>Beep</span>[],
+      Method <span class='Statement'>-&gt;</span> <span class='String'>&quot;Queued&quot;</span>, Enabled <span class='Statement'>-&gt;</span> <span class='Identifier'>Dynamic</span>[
+        (progress2 <span class='Statement'>===</span> numFrames <span class='Statement'>||</span>
+           (processF <span class='Statement'>===</span> <span class='Identifier'>None</span> <span class='Statement'>&amp;&amp;</span> progress1 <span class='Statement'>===</span> numFrames)) <span class='Statement'>&amp;&amp;</span>
+         <span class='Statement'>!</span> movieDone <span class='Statement'>&amp;&amp;</span> makeMovieA]],
+    btnMainFolder <span class='Statement'>=</span> <span class='Identifier'>tooltip</span>[<span class='String'>&quot;open folder&quot;</span>]<span class='Statement'>@</span>
+      <span class='Identifier'>Button</span>[{mainLabel, processLabel}, <span class='Identifier'>SystemOpen</span>[dir],
+       Enabled <span class='Statement'>-&gt;</span> <span class='Identifier'>Dynamic</span>[<span class='Identifier'>foldersExistL</span>[[<span class='Type'>1</span>]]]],
+    btnFramesFolder <span class='Statement'>=</span> <span class='Identifier'>tooltip</span>[<span class='String'>&quot;open folder&quot;</span>]<span class='Statement'>@</span>
+      <span class='Identifier'>Button</span>[{<span class='Identifier'>Dynamic</span>[progress1]<span class='Statement'>/</span><span class='Identifier'>ToString</span>[numFrames],
+        <span class='Identifier'>ProgressIndicator</span>[<span class='Identifier'>Dynamic</span>[progress1<span class='Statement'>/</span>numFrames]]},
+       <span class='Identifier'>SystemOpen</span>[framesDir],
+       Enabled <span class='Statement'>-&gt;</span> <span class='Identifier'>Dynamic</span>[<span class='Identifier'>foldersExistL</span>[[<span class='Type'>2</span>]]]],
+    btnProcessFolder <span class='Statement'>=</span> <span class='Identifier'>tooltip</span>[<span class='String'>&quot;open folder&quot;</span>]<span class='Statement'>@</span>
+      <span class='Identifier'>Button</span>[{<span class='Identifier'>Dynamic</span>[progress2]<span class='Statement'>/</span><span class='Identifier'>ToString</span>[numFrames],
+        <span class='Identifier'>ProgressIndicator</span>[<span class='Identifier'>Dynamic</span>[progress2<span class='Statement'>/</span>numFrames]]},
+       <span class='Identifier'>SystemOpen</span>[processedDir],
+       Enabled <span class='Statement'>-&gt;</span> <span class='Identifier'>Dynamic</span>[processF <span class='Statement'>=!=</span> <span class='Identifier'>None</span> <span class='Statement'>&amp;&amp;</span> <span class='Identifier'>foldersExistL</span>[[<span class='Type'>3</span>]]]],
+    btnMovieFile <span class='Statement'>=</span> <span class='Identifier'>tooltip</span>[<span class='String'>&quot;open movie&quot;</span>]<span class='Statement'>@</span>
+      <span class='Identifier'>Button</span>[{<span class='Identifier'>Dynamic</span>[<span class='Identifier'>Boole</span>[movieDone]]<span class='Statement'>/</span><span class='String'>&quot;1&quot;</span>,
+        <span class='Identifier'>ProgressIndicator</span>[<span class='Identifier'>Dynamic</span>[<span class='Identifier'>Boole</span>[movieDone]<span class='Statement'>/</span><span class='Type'>1</span>]]},
+       <span class='Identifier'>SystemOpen</span>[movieFile], Enabled <span class='Statement'>-&gt;</span> <span class='Identifier'>Dynamic</span>[movieDone]]},
+
+   <span class='Comment'>(*without going the extra mile, better to have no persistence*)</span>
+   <span class='Identifier'>Dynamic</span>[<span class='Identifier'>If</span>[alive <span class='Statement'>===</span> <span class='Identifier'>True</span>,
+       <span class='Identifier'>Panel</span>[<span class='Statement'>#</span>, FrameMargins <span class='Statement'>-&gt;</span> {{<span class='Identifier'>Automatic</span>, <span class='Identifier'>Automatic</span>}, {<span class='Identifier'>Automatic</span>, <span class='Type'>0</span>}}],
+       <span class='Identifier'>Panel</span>[<span class='Identifier'>Tooltip</span>[<span class='Identifier'>Overlay</span>[{
+           <span class='Identifier'>Style</span>[<span class='String'>&quot;VWXYZ&quot;</span>, <span class='Identifier'>Lighter</span>[LightGray, <span class='Type'>2</span><span class='Statement'>/</span><span class='Type'>3</span>], FontFamily <span class='Statement'>-&gt;</span> <span class='String'>&quot;Wingdings&quot;</span>],
+           <span class='Identifier'>Style</span>[<span class='String'>&quot;dead&quot;</span>, <span class='Identifier'>Darker</span>[<span class='Identifier'>Red</span>, <span class='Type'>1</span><span class='Statement'>/</span><span class='Type'>6</span>]]}, <span class='Identifier'>All</span>, <span class='Type'>2</span>, Alignment <span class='Statement'>-&gt;</span> {Center, Center}],
+         <span class='String'>&quot;R.I.P. this MovieMaker module&quot;</span>],
+        FrameMargins <span class='Statement'>-&gt;</span> <span class='Type'>0</span>]]] <span class='Statement'>&amp;</span><span class='Statement'>@</span>
+
+    <span class='Identifier'>Manipulate</span>[
+     <span class='Identifier'>Grid</span>[{
+       {btnMainFolder, SpanFromLeft},
+       {btnMakeFrames, btnFramesFolder},
+       {btnProcessFrames, btnProcessFolder},
+       {btnMakeMovie, btnMovieFile}}],
+
+     Bookmarks <span class='Statement'>:&gt;</span> {
+       <span class='String'>&quot;preview&quot;</span> <span class='Statement'>:&gt;</span> <span class='Identifier'>AbortProtect</span>[<span class='Identifier'>preview</span>[]],
+       <span class='Identifier'>Overscript</span>[<span class='Identifier'>Row</span>[{<span class='String'>&quot;print &quot;</span>, <span class='Identifier'>Style</span>[<span class='String'>&quot;preview&quot;</span>, Bold], <span class='String'>&quot; function&quot;</span>}], <span class='String'>&quot;&quot;</span>] <span class='Statement'>:&gt;</span> <span class='Identifier'>printPreview</span>[],
+       <span class='Identifier'>Row</span>[{<span class='String'>&quot;print &quot;</span>, <span class='Identifier'>Style</span>[<span class='String'>&quot;fileMap&quot;</span>, Bold], <span class='String'>&quot; function&quot;</span>}] <span class='Statement'>:&gt;</span> <span class='Identifier'>printFileMap</span>[],
+       <span class='Identifier'>Overscript</span>[<span class='String'>&quot;write archive&quot;</span>, <span class='String'>&quot;&quot;</span>] <span class='Statement'>:&gt;</span> <span class='Identifier'>archive</span>[],
+       <span class='String'>&quot;shoot&quot;</span> <span class='Statement'>:&gt;</span> (alive <span class='Statement'>=</span> <span class='Identifier'>False</span>)},
+     Paneled <span class='Statement'>-&gt;</span> <span class='Identifier'>False</span>, FrameMargins <span class='Statement'>-&gt;</span> <span class='Identifier'>False</span>]]];
+</pre>
+                </li></ol>
+            </li>
+ <li name='?'>
+    <pre style='font-size: 5px'>
+game <span class='Statement'>=</span> <span class='Identifier'>Compile</span>[{{vertices, <span class='Type'>_Real</span>, <span class='Type'>2</span>}, {numPoints, <span class='Type'>_Integer</span>}, {wowzerz, <span class='Type'>_Real</span>}},
+   <span class='Identifier'>Module</span>[{diff, b},
+    <span class='Comment'>(*NestList for less memory usage. i didn&apos;t actually verify this*)</span>
+    <span class='Identifier'>NestList</span>[(
+       b <span class='Statement'>=</span> <span class='Identifier'>RandomChoice</span>[vertices];
+       diff <span class='Statement'>=</span> b <span class='Statement'>-</span> <span class='Statement'>#1</span>;
+       <span class='Identifier'>Clip</span>[(<span class='Statement'>#1</span> <span class='Statement'>+</span> b) <span class='Identifier'>Log</span>[<span class='Identifier'>Sqrt</span>[diff<span class='Statement'>.</span>diff] <span class='Statement'>+</span> wowzerz]]) <span class='Statement'>&amp;</span>,
+     {<span class='Type'>0</span>, <span class='Type'>0</span>, <span class='Type'>0</span>}, numPoints]]];
+
+<span class='Identifier'>proc</span>[<span class='Type'>img1_</span>, <span class='Type'>cf_</span><span class='Statement'>:</span> <span class='Identifier'>ColorData</span>[<span class='Type'>1</span>], <span class='Type'>mode_</span><span class='Statement'>:</span> <span class='Identifier'>None</span>, <span class='Type'>blur_</span><span class='Statement'>:</span> <span class='Type'>8</span>] <span class='Statement'>:=</span>
+  <span class='Identifier'>Module</span>[{img, components, rank, largest, colored},
+   img <span class='Statement'>=</span> <span class='Identifier'>RemoveAlphaChannel</span>[<span class='Identifier'>ColorNegate</span><span class='Statement'>@</span><span class='Identifier'>ColorConvert</span>[img1, <span class='String'>&quot;Grayscale&quot;</span>]];
+   components <span class='Statement'>=</span> <span class='Identifier'>MorphologicalComponents</span>[img];
+
+   <span class='Identifier'>Module</span>[{measurements, sorted},
+    measurements <span class='Statement'>=</span> <span class='Identifier'>ComponentMeasurements</span>[components, <span class='String'>&quot;Count&quot;</span>];
+    sorted <span class='Statement'>=</span> <span class='Identifier'>First </span><span class='Statement'>/@</span> <span class='Identifier'>Reverse</span><span class='Statement'>@</span><span class='Identifier'>SortBy</span>[measurements, Last];
+    <span class='Identifier'>rank</span>[<span class='Type'>label_</span>] <span class='Statement'>:=</span> (<span class='Identifier'>rank</span>[label] <span class='Statement'>=</span> <span class='Identifier'>Position</span>[sorted, label][[<span class='Type'>1</span>, <span class='Type'>1</span>]])];
+
+   colored <span class='Statement'>=</span> <span class='Identifier'>Colorize</span>[components,
+     ColorFunction <span class='Statement'>-&gt;</span> (<span class='Identifier'>cf</span>[<span class='Identifier'>rank</span>[<span class='Statement'>#</span>]] <span class='Statement'>&amp;</span>), ColorFunctionScaling <span class='Statement'>-&gt;</span> <span class='Identifier'>False</span>];
+   <span class='Identifier'>If</span>[mode <span class='Statement'>==</span> <span class='String'>&quot;Angelic&quot;</span>,
+    colored <span class='Statement'>=</span> <span class='Identifier'>ImageMultiply</span>[img, colored]];
+   <span class='Identifier'>ColorNegate</span>[<span class='Identifier'>ImageMultiply</span>[<span class='Identifier'>ColorNegate</span>[img],
+       <span class='Identifier'>Blur</span>[<span class='Statement'>#</span>, blur] <span class='Statement'>&amp;</span><span class='Statement'>@</span><span class='Identifier'>ColorNegate</span>[colored]]] <span class='Statement'>//</span><span class='Identifier'> ImageAdjust</span>];
+
+<span class='Identifier'>Needs</span>[<span class='String'>&quot;PolyhedronOperations`&quot;</span>];
+vertices <span class='Statement'>=</span> <span class='Identifier'>OpenTruncate</span>[<span class='Identifier'>PolyhedronData</span>[<span class='String'>&quot;Icosahedron&quot;</span>, <span class='String'>&quot;Faces&quot;</span>]][[<span class='Type'>1</span>]];
+vertices <span class='Statement'>=</span> <span class='Identifier'>Rescale</span>[vertices] <span class='Statement'>-</span> <span class='Type'>1</span><span class='Statement'>/</span><span class='Type'>2</span>; <span class='Comment'>(*rescale to 1/2 {-1, 1} range*)</span>
+
+{numFrames, imageSize, numPoints} <span class='Statement'>=</span> {
+   {<span class='Type'>5</span><span class='Comment'>(*sec*)</span><span class='Type'>15</span><span class='Comment'>(*fps*)</span>, {<span class='Type'>16</span>, <span class='Type'>9</span>} (<span class='Type'>360</span><span class='Statement'>/</span><span class='Type'>9</span>), <span class='Type'>600000</span>},
+   {<span class='Type'>5</span><span class='Comment'>(*sec*)</span><span class='Type'>15</span><span class='Comment'>(*fps*)</span>, {<span class='Type'>16</span>, <span class='Type'>9</span>} (<span class='Type'>1080</span><span class='Statement'>/</span><span class='Type'>9</span>), <span class='Type'>10000000</span>}}[[<span class='Type'>2</span>]];
+
+label <span class='Statement'>=</span> {<span class='String'>&quot;NUCLEAR1080P&quot;</span>, numPoints, <span class='Identifier'>IntegerString</span>[<span class='Identifier'>Hash</span>[vertices, <span class='String'>&quot;CRC32&quot;</span>], <span class='Type'>36</span>]};
+
+process <span class='Statement'>=</span> {
+    {<span class='String'>&quot;[COLORDATA3]&quot;</span>, <span class='Identifier'>Composition</span>[
+      <span class='Identifier'>proc</span>[<span class='Statement'>#</span>, <span class='Identifier'>If</span>[<span class='Statement'>#</span> <span class='Statement'>==</span> <span class='Type'>1</span>, <span class='Identifier'>Blue</span>, <span class='Identifier'>ColorData</span>[<span class='Type'>3</span>][<span class='Statement'>#</span>]] <span class='Statement'>&amp;</span>, <span class='String'>&quot;Angelic&quot;</span>, <span class='Type'>1</span>] <span class='Statement'>&amp;</span>,
+      <span class='Identifier'>ImageResize</span>[<span class='Statement'>#</span>, <span class='Identifier'>Scaled</span>[<span class='Type'>1</span><span class='Statement'>/</span><span class='Type'>2</span>]] <span class='Statement'>&amp;</span>, <span class='Identifier'>Blur</span>[<span class='Statement'>#</span>, <span class='Type'>1</span>] <span class='Statement'>&amp;</span>, ImageAdjust]},
+    {<span class='String'>&quot;[HIGHBLUR]&quot;</span>, <span class='Identifier'>Composition</span>[
+      <span class='Identifier'>proc</span>[<span class='Statement'>#</span>, <span class='Identifier'>If</span>[<span class='Statement'>#</span> <span class='Statement'>==</span> <span class='Type'>1</span>, <span class='Identifier'>Blue</span>, <span class='Identifier'>ColorData</span>[<span class='Type'>3</span>][<span class='Statement'>#</span>]] <span class='Statement'>&amp;</span>, <span class='String'>&quot;Angelic&quot;</span>, <span class='Type'>40</span>] <span class='Statement'>&amp;</span>,
+      <span class='Identifier'>ImageResize</span>[<span class='Statement'>#</span>, <span class='Identifier'>Scaled</span>[<span class='Type'>1</span><span class='Statement'>/</span><span class='Type'>2</span>]] <span class='Statement'>&amp;</span>, ImageAdjust]}}[[<span class='Type'>2</span>]];
+
+<span class='Identifier'>frame</span>[<span class='Type'>w_</span>] <span class='Statement'>:=</span>
+  <span class='Identifier'>Graphics3D</span>[{<span class='Identifier'>Opacity</span>[<span class='Statement'>.</span><span class='Type'>1</span>], <span class='Identifier'>PointSize</span>[<span class='Type'>0</span>],
+    <span class='Identifier'>Point</span>[<span class='Identifier'>game</span>[vertices, numPoints, w]]},
+   ImageSize <span class='Statement'>-&gt;</span><span class='Comment'>(**)</span><span class='Type'>2</span><span class='Comment'>(**)</span>imageSize, ViewVertical <span class='Statement'>-&gt;</span> {<span class='Type'>0</span>, <span class='Type'>0</span>, <span class='Type'>1</span>}, Boxed <span class='Statement'>-&gt;</span> <span class='Identifier'>False</span>,
+   SphericalRegion <span class='Statement'>-&gt;</span> <span class='Identifier'>True</span>, Method <span class='Statement'>-&gt;</span> {<span class='String'>&quot;ShrinkWrap&quot;</span> <span class='Statement'>-&gt;</span> <span class='Identifier'>True</span>},
+   ViewVector <span class='Statement'>-&gt;</span> {<span class='Identifier'>RotationTransform</span>[<span class='Type'>2</span> <span class='Identifier'>Pi</span> w, {<span class='Type'>0</span>, <span class='Type'>0</span>, <span class='Type'>1</span>}][{<span class='Type'>1</span>, <span class='Type'>0</span>, (w <span class='Statement'>-</span> <span class='Statement'>.</span><span class='Type'>25</span>) <span class='Identifier'>Pi</span><span class='Statement'>/</span><span class='Type'>2</span>}], {<span class='Type'>0</span>, <span class='Type'>0</span>, <span class='Type'>0</span>}}];
+
+<span class='Identifier'>MovieMaker</span>[frame, {<span class='Statement'>.</span><span class='Type'>4</span>, <span class='Statement'>.</span><span class='Type'>75</span>, <span class='Type'>4</span> numFrames},
+ Label <span class='Statement'>-&gt;</span> label, Process <span class='Statement'>-&gt;</span> process]
+</pre>
+            </li>
+</ol>
+
+        </div>
+
+        <div class="section" style="margin-top: -22px; margin-bottom: -11px">
+            <!--center>
+                <img src="img/siermasterlock6.png" width="260" height="55" />
+            </center-->
+        </div>
+
+        <center>
+            <p class="consumable" style="font-size: 10px; max-width: 450px; text-align: left; margin-top: 4px;">
+            This page is an excerpt from <a href="sierpinski.htm">the sierpinski triangle page to end most sierpinski triangle pages &#0153;</a>.
+            </p>
+        </center>
+
+        <div class="links centered">
+            <a href="/" title="home" style="color: #333333" class="pagelink">&lt;&lt;</a>
+        </div>
+
+    </div>
+
+</body>
+</html>

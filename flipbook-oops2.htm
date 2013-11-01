@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+    <head>
+        <title> oftenpaper.net/oops2.htm </title>
+
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.9.0/build/reset-fonts-grids/reset-fonts-grids.css" />
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.9.0/build/base/base-min.css" />
+        <link rel="stylesheet" type="text/css" href="oftencss.css" />
+
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+
+        <script type="text/javascript" id="mathjax" src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax:{inlineMath:[['$','$']]}})</script>
+
+        <script type="text/javascript" src="flipbook.js"></script>
+    </head>
+
+<body>
+    <h1><a href="/"> oftenpaper.net </a></h1>
+    <h3>oops 2 &#0153;</h3>
+
+    <br />
+
+    <center class="consumable" style="margin-top: 20px; margin-bottom: 25px;">
+        <a href="sierpinski.htm">
+            <img src="img/siermasterlock22.png" width="181" height="157" />
+        </a>
+    </center>
+
+    <div class="content">
+
+        <div class="section">
+
+            <ol class='flipbook static'
+    name='oops 2'>
+ <li name='animation'>
+            <iframe frameborder='0' scrolling='auto' width='656' height='369' src='http://www.youtube-nocookie.com/embed/aV8cs7324FY' allowfullscreen='allowfullscreen' ></iframe
+            </li>
+ <li name='source'>
+
+        <ol class='flipbook static' name='oops 2 source'><li name='definitions'>
+<pre style='font-size: 10px'>
+toRiemann <span class='Statement'>=</span> <span class='Identifier'>Compile</span>[{{pts, <span class='Type'>_Real</span>, <span class='Type'>2</span>}}, <span class='Identifier'>Module</span>[{k},
+    <span class='Identifier'>Map</span>[(k <span class='Statement'>=</span> <span class='Type'>2</span><span class='Statement'>/</span>(<span class='Type'>1</span> <span class='Statement'>+</span> <span class='Statement'>#</span><span class='Statement'>.</span><span class='Statement'>#</span>);
+       {k <span class='Statement'>#</span>[[<span class='Type'>1</span>]], k <span class='Statement'>#</span>[[<span class='Type'>2</span>]], <span class='Type'>1</span> <span class='Statement'>-</span> k}) <span class='Statement'>&amp;</span>, pts]]];
+
+<span class='Identifier'>fromRiemann</span>[<span class='Type'>pts_</span>] <span class='Statement'>:=</span> (<span class='Statement'>-</span><span class='Type'>1</span><span class='Statement'>/</span>(<span class='Statement'>#3</span> <span class='Statement'>-</span> <span class='Type'>1</span>)) {<span class='Statement'>#1</span>, <span class='Statement'>#2</span>, <span class='Type'>0</span>} <span class='Statement'>&amp;</span> <span class='Statement'>@@@</span> pts;
+
+shuttle <span class='Statement'>=</span> <span class='Identifier'>ExampleData</span>[{<span class='String'>&quot;Geometry3D&quot;</span>, <span class='String'>&quot;SpaceShuttle&quot;</span>}, <span class='String'>&quot;GraphicsComplex&quot;</span>];
+cow <span class='Statement'>=</span> <span class='Identifier'>Append</span>[<span class='Identifier'>ExampleData</span>[{<span class='String'>&quot;Geometry3D&quot;</span>, <span class='String'>&quot;Cow&quot;</span>}, <span class='String'>&quot;GraphicsComplex&quot;</span>],
+   VertexTextureCoordinates <span class='Statement'>-&gt;</span> <span class='Type'>1</span><span class='Statement'>/</span><span class='Type'>500</span> <span class='Identifier'>ExampleData</span>[{<span class='String'>&quot;Geometry3D&quot;</span>, <span class='String'>&quot;Cow&quot;</span>}, <span class='String'>&quot;PolygonData&quot;</span>]];
+sphere <span class='Statement'>=</span> <span class='Identifier'>SphericalPlot3D</span>[<span class='Type'>1</span>, {<span class='String'>\[Theta]</span>, <span class='Type'>0</span>, <span class='Identifier'>Pi</span>}, {<span class='String'>\[Phi]</span>, <span class='Type'>0</span>, <span class='Type'>2</span> <span class='Identifier'>Pi</span>},
+   MeshStyle <span class='Statement'>-&gt;</span> <span class='Identifier'>Opacity</span>[<span class='Statement'>.</span><span class='Type'>05</span>], PlotStyle <span class='Statement'>-&gt;</span> <span class='Identifier'>Opacity</span>[<span class='Statement'>.</span><span class='Type'>1</span>]];
+plane <span class='Statement'>=</span> {Lighting <span class='Statement'>-&gt;</span> <span class='String'>&quot;Neutral&quot;</span>, <span class='Identifier'>Opacity</span>[<span class='Statement'>.</span><span class='Type'>5</span>], LightGray, <span class='Identifier'>EdgeForm</span>[<span class='Identifier'>None</span>],
+   <span class='Identifier'>Line</span>[{{<span class='Statement'>-</span><span class='Type'>50</span>, <span class='Type'>0</span>, <span class='Type'>0</span>}, {<span class='Type'>50</span>, <span class='Type'>0</span>, <span class='Type'>0</span>}}], <span class='Identifier'>Line</span>[{{<span class='Type'>0</span>, <span class='Statement'>-</span><span class='Type'>50</span>, <span class='Type'>0</span>}, {<span class='Type'>0</span>, <span class='Type'>50</span>, <span class='Type'>0</span>}}],
+   <span class='Identifier'>Polygon</span>[<span class='Type'>15</span> {{<span class='Statement'>-</span><span class='Type'>1</span>, <span class='Statement'>-</span><span class='Type'>1</span>, <span class='Type'>0</span>}, {<span class='Type'>1</span>, <span class='Statement'>-</span><span class='Type'>1</span>, <span class='Type'>0</span>}, {<span class='Type'>1</span>, <span class='Type'>1</span>, <span class='Type'>0</span>}, {<span class='Statement'>-</span><span class='Type'>1</span>, <span class='Type'>1</span>, <span class='Type'>0</span>}}]};
+
+numPoints <span class='Statement'>=</span> <span class='Type'>160</span><span class='Statement'>/</span><span class='Type'>4</span>;
+circle <span class='Statement'>=</span> <span class='Statement'>.</span><span class='Type'>25</span> {<span class='Type'>1</span> <span class='Statement'>+</span> <span class='Identifier'>Cos</span>[<span class='Statement'>#</span>], <span class='Identifier'>Sin</span>[<span class='Statement'>#</span>], <span class='Type'>0</span>} <span class='Statement'>&amp;</span> <span class='Statement'>/@</span> (<span class='Statement'>-</span><span class='Identifier'>Pi</span> <span class='Statement'>+</span> <span class='Type'>2</span> <span class='Identifier'>Pi</span> <span class='Identifier'>Range</span>[numPoints]<span class='Statement'>/</span>numPoints);
+rCircle <span class='Statement'>=</span> <span class='Identifier'>toRiemann</span>[circle];
+invRCircle <span class='Statement'>=</span> {<span class='Statement'>#1</span>, <span class='Statement'>#2</span>, <span class='Statement'>-</span><span class='Statement'>#3</span>} <span class='Statement'>&amp;</span> <span class='Statement'>@@@</span> rCircle;
+invCircle <span class='Statement'>=</span> <span class='Identifier'>Quiet</span>[<span class='Identifier'>fromRiemann</span>[invRCircle]];
+
+ind <span class='Statement'>=</span> <span class='Identifier'>Indeterminate</span> {<span class='Type'>1</span>, <span class='Type'>1</span>, <span class='Type'>1</span>};
+<span class='Identifier'>transform</span>[<span class='String'>\[Theta]</span><span class='Type'>_</span>] <span class='Statement'>:=</span> <span class='Identifier'>Composition</span>[
+   <span class='Identifier'>RotationTransform</span>[<span class='String'>\[Theta]</span>, {<span class='Type'>0</span>, <span class='Type'>0</span>, <span class='Type'>1</span>}],
+   <span class='Identifier'>TranslationTransform</span>[{<span class='Type'>0</span>, <span class='Type'>0</span>, <span class='Type'>1.2</span>}]];
+{l, r} <span class='Statement'>=</span> {{<span class='Statement'>.</span><span class='Type'>335</span>, <span class='Statement'>-.</span><span class='Type'>044</span>, <span class='Statement'>.</span><span class='Type'>1894</span>}, {<span class='Statement'>.</span><span class='Type'>335</span>, <span class='Statement'>.</span><span class='Type'>044</span>, <span class='Statement'>.</span><span class='Type'>1894</span>}};
+</pre>
+            </li><li name='Graphics'>
+<pre style='font-size: 10px'>
+slides <span class='Statement'>=</span> <span class='Identifier'>ParallelTable</span>[<span class='Identifier'>Module</span>[{angle},
+    angle <span class='Statement'>=</span> <span class='Identifier'>Quiet</span>[<span class='Identifier'>ArcTan </span><span class='Statement'>@@</span> (invCircle <span class='Statement'>/.</span> ind <span class='Statement'>-&gt;</span> {<span class='Type'>0</span>, <span class='Type'>0</span>})[[pti, <span class='Type'>1</span> ;; <span class='Type'>2</span>]] <span class='Statement'>/.</span>  <span class='Identifier'>ArcTan</span>[<span class='Type'>0</span>, <span class='Type'>0</span>] <span class='Statement'>-&gt;</span> <span class='Type'>0</span>];
+    <span class='Identifier'>Show</span>[sphere,
+     <span class='Identifier'>Graphics3D</span>[{
+       plane, <span class='Identifier'>Opacity</span>[<span class='Statement'>.</span><span class='Type'>7</span>], <span class='Identifier'>Sphere</span>[{<span class='Type'>0</span>, <span class='Type'>0</span>, <span class='Type'>1</span>}, <span class='Statement'>.</span><span class='Type'>01</span>],
+       <span class='Comment'>(*cow*)</span> <span class='Identifier'>Rotate</span>[<span class='Statement'>#</span>, angle, {<span class='Type'>0</span>, <span class='Type'>0</span>, <span class='Type'>1</span>}] <span class='Statement'>&amp;</span><span class='Statement'>@</span><span class='Identifier'>Translate</span>[<span class='Statement'>#</span>, {<span class='Type'>0</span>, <span class='Type'>0</span>, <span class='Type'>1.2</span>}] <span class='Statement'>&amp;</span><span class='Statement'>@</span>
+        {<span class='Identifier'>EdgeForm</span>[<span class='Identifier'>None</span>],<span class='Comment'>(*Opacity[.999],*)</span><span class='Identifier'>Texture</span>[<span class='Identifier'>Graphics</span>[<span class='Identifier'>Disk</span>[]]],
+         Lighting <span class='Statement'>-&gt;</span> <span class='String'>&quot;Neutral&quot;</span>, Lighting <span class='Statement'>-&gt;</span> {{<span class='String'>&quot;Point&quot;</span>, <span class='Identifier'>Darker</span>[<span class='Identifier'>Red</span>], l}},
+         cow, <span class='Identifier'>Red</span>, <span class='Identifier'>Glow</span>[<span class='Identifier'>Red</span>], <span class='Identifier'>Sphere</span>[{l, r}, <span class='Statement'>.</span><span class='Type'>01</span>]},
+       <span class='Comment'>(* keep shuttle in orbit in case need more cows *)</span>
+       {<span class='Identifier'>EdgeForm</span>[<span class='Identifier'>None</span>], <span class='Identifier'>Translate</span>[shuttle, {<span class='Type'>0</span>, <span class='Type'>0</span>, <span class='Type'>100</span>}]},
+       <span class='Comment'>(*lazerz*)</span> <span class='Identifier'>If</span>[<span class='Identifier'>invCircle</span>[[pti]] <span class='Statement'>=!=</span> ind, {<span class='Identifier'>Red</span>,
+         <span class='Identifier'>Line</span>[{<span class='Identifier'>transform</span>[angle][l], <span class='Identifier'>invCircle</span>[[pti]]}],
+         <span class='Identifier'>Line</span>[{<span class='Identifier'>transform</span>[angle][r], <span class='Identifier'>invCircle</span>[[pti]]}],
+         {<span class='Identifier'>Red</span>, <span class='Identifier'>Glow</span>[<span class='Identifier'>Red</span>], <span class='Identifier'>Opacity</span>[<span class='Statement'>.</span><span class='Type'>1</span>], <span class='Identifier'>Sphere</span>[<span class='Identifier'>invCircle</span>[[pti]], <span class='Statement'>.</span><span class='Type'>02</span> <span class='Identifier'>RandomReal</span>[]]}}],
+       <span class='Comment'>(*etc*)</span> {<span class='Identifier'>Lighter</span>[<span class='Identifier'>Gray</span>], Dashed, <span class='Identifier'>Line</span>[{<span class='Identifier'>rCircle</span>[[pti]], <span class='Identifier'>invRCircle</span>[[pti]]}]},
+       {<span class='Identifier'>Opacity</span>[<span class='Statement'>.</span><span class='Type'>1</span>], <span class='Identifier'>Lighter</span>[<span class='Identifier'>Blue</span>], <span class='Identifier'>Line</span>[circle]},
+       {<span class='Identifier'>Opacity</span>[<span class='Statement'>.</span><span class='Type'>5</span>], <span class='Identifier'>Lighter</span>[<span class='Identifier'>Blue</span>], <span class='Identifier'>Line</span>[<span class='Identifier'>Take</span>[circle, pti]]},
+       {<span class='Identifier'>Lighter</span>[<span class='Identifier'>Blue</span>], <span class='Identifier'>Line</span>[{{<span class='Type'>0</span>, <span class='Type'>0</span>, <span class='Type'>1</span>}, <span class='Type'>50</span> (<span class='Statement'>-</span>{<span class='Type'>0</span>, <span class='Type'>0</span>, <span class='Type'>1</span>} <span class='Statement'>+</span> <span class='Identifier'>circle</span>[[pti]])}]},
+       {<span class='Identifier'>Lighter</span>[<span class='Identifier'>Blue</span>], <span class='Identifier'>Line</span>[<span class='Identifier'>Take</span>[rCircle, pti]]},
+       {<span class='Identifier'>Red</span>, <span class='Identifier'>Line</span>[<span class='Identifier'>Take</span>[invRCircle, pti]]},
+       <span class='Comment'>(*Purple,Line[{{0,0,1},50(-{0,0,1}+invCircle[[pti]])}/.tride-&gt;{0,0,1}],*)</span>
+       <span class='Comment'>(*burn mark*)</span> Thick, <span class='Identifier'>Red</span>, <span class='Identifier'>Line</span>[<span class='Identifier'>DeleteCases</span>[<span class='Identifier'>Take</span>[invCircle, pti], ind]]}],
+     ImageSize <span class='Statement'>-&gt;</span> <span class='Type'>1</span><span class='Statement'>/</span><span class='Type'>4</span> {<span class='Type'>16</span>, <span class='Type'>9</span>} (<span class='Type'>1080</span><span class='Statement'>/</span><span class='Type'>9</span>),
+     ViewAngle <span class='Statement'>-&gt;</span> <span class='Type'>4</span> <span class='Identifier'>Degree</span>, PlotRange <span class='Statement'>-&gt;</span> <span class='Type'>10</span>, Boxed <span class='Statement'>-&gt;</span> <span class='Identifier'>False</span>, Axes <span class='Statement'>-&gt;</span> <span class='Identifier'>False</span>]],
+   {pti, <span class='Type'>1</span>, <span class='Identifier'>Length</span>[circle]}];
+<span class='Identifier'>ListAnimate</span>[slides]
+</pre>
+            </li></ol>
+
+            </li>
+</ol>
+
+        </div>
+
+        <div class="section" style="margin-top: -22px; margin-bottom: -11px">
+            <!--center>
+                <img src="img/siermasterlock6.png" width="260" height="55" />
+            </center-->
+        </div>
+
+        <center>
+            <p class="consumable" style="font-size: 10px; max-width: 450px; text-align: left; margin-top: 4px;">
+            This page is an excerpt from <a href="sierpinski.htm">the sierpinski triangle page to end most sierpinski triangle pages &#0153;</a>.
+            </p>
+        </center>
+
+        <div class="links centered">
+            <a href="/" title="home" style="color: #333333" class="pagelink">&lt;&lt;</a>
+        </div>
+
+    </div>
+
+</body>
+</html>

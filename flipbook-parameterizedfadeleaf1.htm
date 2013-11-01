@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+    <head>
+        <title> oftenpaper.net/parameterizedfadeleaf1.htm </title>
+
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.9.0/build/reset-fonts-grids/reset-fonts-grids.css" />
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.9.0/build/base/base-min.css" />
+        <link rel="stylesheet" type="text/css" href="oftencss.css" />
+
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+
+        <script type="text/javascript" id="mathjax" src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax:{inlineMath:[['$','$']]}})</script>
+
+        <script type="text/javascript" src="flipbook.js"></script>
+    </head>
+
+<body>
+    <h1><a href="/"> oftenpaper.net </a></h1>
+    <h3>parameterized fadeleaf 1 &#0153;</h3>
+
+    <br />
+
+    <center class="consumable" style="margin-top: 20px; margin-bottom: 25px;">
+        <a href="sierpinski.htm">
+            <img src="img/siermasterlock22.png" width="181" height="157" />
+        </a>
+    </center>
+
+    <div class="content">
+
+        <div class="section">
+
+            <ol class='flipbook static'
+    name='parameterized fadeleaf 1'>
+ <li>
+            <img src='img/sierrandermod13.png' width='640' height='565' />
+            </li>
+ <li>
+            <img src='img/sierrandermod5.png' width='640' height='640' />
+            </li>
+ <li>
+            <img src='img/sierrandermod15.png' width='640' height='656' />
+            </li>
+ <li>
+            <img src='img/sierrandermod9.png' width='640' height='640' />
+            </li>
+ <li>
+            <img src='img/sierrandermod11.png' width='640' height='640' />
+            </li>
+ <li>
+            <img src='img/sierrandermod16.png' width='640' height='609' />
+            </li>
+ <li>
+            <img src='img/sierrandermod6.png' width='640' height='640' />
+            </li>
+ <li>
+            <img src='img/sierrandermod14.png' width='640' height='639' />
+            </li>
+ <li>
+            <img src='img/sierrandermod7.png' width='640' height='640' />
+            </li>
+ <li name='source'>
+<pre style='font-size: 14px'>
+<span class='Identifier'>Module</span>[{gameC},
+  gameC <span class='Statement'>=</span> <span class='Identifier'>Compile</span>[{{spec, <span class='Type'>_Real</span>, <span class='Type'>1</span>}, {numPoints, <span class='Type'>_Integer</span>, <span class='Type'>0</span>}},
+    <span class='Identifier'>Module</span>[{vertices, diff, v, w, s, b, r, p, z, c},
+     {v, w, s, b, r, p, z, c} <span class='Statement'>=</span> spec;
+     vertices <span class='Statement'>=</span> {<span class='Identifier'>Cos</span>[<span class='Statement'>#</span>], <span class='Identifier'>Sin</span>[<span class='Statement'>#</span>]} <span class='Statement'>&amp;</span> <span class='Statement'>/@</span> (<span class='Type'>2</span> <span class='Identifier'>Pi</span> <span class='Identifier'>Range</span>[v]<span class='Statement'>/</span>v);
+
+     <span class='Identifier'>FoldList</span>[(
+        diff <span class='Statement'>=</span> <span class='Statement'>#2</span> <span class='Statement'>-</span> <span class='Statement'>#1</span>;
+        p <span class='Statement'>#1</span> <span class='Statement'>+</span> <span class='Identifier'>Clip</span>[(<span class='Statement'>#1</span> <span class='Statement'>+</span> z <span class='Statement'>#2</span>) <span class='Identifier'>Log</span>[b, (diff<span class='Statement'>.</span>diff)<span class='Statement'>^</span>(<span class='Type'>1</span><span class='Statement'>/</span>r) <span class='Statement'>+</span> w], c {<span class='Statement'>-</span><span class='Type'>1</span>, <span class='Type'>1</span>}]) <span class='Statement'>&amp;</span>,
+      {<span class='Type'>0</span>, <span class='Type'>0</span>}, <span class='Identifier'>RandomChoice</span>[s vertices, numPoints]]]];
+
+  <span class='Identifier'>game</span>[<span class='Type'>spec_</span>, <span class='Type'>numPoints_</span>] <span class='Statement'>:=</span>
+   <span class='Identifier'>gameC</span>[<span class='Identifier'>PadRight</span>[spec, <span class='Type'>8</span>, {<span class='Type'>3</span>, <span class='Statement'>.</span><span class='Type'>5</span>, <span class='Type'>1</span>, <span class='Identifier'>E</span>, <span class='Type'>2</span>, <span class='Type'>0</span>, <span class='Type'>1</span>, <span class='Type'>2</span>}], numPoints]
+  ];
+
+<span class='Identifier'>draw</span>[<span class='Type'>spec_</span>, <span class='Type'>numPoints_</span><span class='Statement'>:</span> <span class='Type'>100000</span>, <span class='Type'>rot_</span><span class='Statement'>:</span> <span class='Type'>0</span>, <span class='Type'>style___</span>] <span class='Statement'>:=</span> <span class='Identifier'>Graphics</span>[{
+    <span class='Identifier'>PointSize</span>[<span class='Type'>0</span>], <span class='Identifier'>Opacity</span>[<span class='Statement'>.</span><span class='Type'>1</span>], style,
+    <span class='Identifier'>Rotate</span>[<span class='Identifier'>Point</span>[<span class='Identifier'>game</span>[spec, numPoints]], rot]}];
+
+<span class='Identifier'>draw</span>[{<span class='Type'>5</span>, <span class='Statement'>.</span><span class='Type'>8</span>}]
+
+<span class='Comment'>(*{vertex count, w factor, scale, base, root, prefix, polarity, clip range}*)</span>
+<span class='Comment'>(*Show[draw[{3, .12, .3, 3.9, .9, 1, -.5 E, 1}, 2000000, -Pi/6],</span>
+<span class='Comment'>   ImageSize -&gt; 2 1280] // Rasterize // ImageResize[#, Scaled[1/4]] &amp;*)</span>
+</pre>
+            </li>
+</ol>
+
+        </div>
+
+        <div class="section" style="margin-top: -22px; margin-bottom: -11px">
+            <!--center>
+                <img src="img/siermasterlock6.png" width="260" height="55" />
+            </center-->
+        </div>
+
+        <center>
+            <p class="consumable" style="font-size: 10px; max-width: 450px; text-align: left; margin-top: 4px;">
+            This page is an excerpt from <a href="sierpinski.htm">the sierpinski triangle page to end most sierpinski triangle pages &#0153;</a>.
+            </p>
+        </center>
+
+        <div class="links centered">
+            <a href="/" title="home" style="color: #333333" class="pagelink">&lt;&lt;</a>
+        </div>
+
+    </div>
+
+</body>
+</html>

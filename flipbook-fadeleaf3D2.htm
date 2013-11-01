@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+    <head>
+        <title> oftenpaper.net/fadeleaf3D2.htm </title>
+
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.9.0/build/reset-fonts-grids/reset-fonts-grids.css" />
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.9.0/build/base/base-min.css" />
+        <link rel="stylesheet" type="text/css" href="oftencss.css" />
+
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+
+        <script type="text/javascript" id="mathjax" src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax:{inlineMath:[['$','$']]}})</script>
+
+        <script type="text/javascript" src="flipbook.js"></script>
+    </head>
+
+<body>
+    <h1><a href="/"> oftenpaper.net </a></h1>
+    <h3>fadeleaf 3D 2 &#0153;</h3>
+
+    <br />
+
+    <center class="consumable" style="margin-top: 20px; margin-bottom: 25px;">
+        <a href="sierpinski.htm">
+            <img src="img/siermasterlock22.png" width="181" height="157" />
+        </a>
+    </center>
+
+    <div class="content">
+
+        <div class="section">
+
+            <ol class='flipbook static'
+    name='fadeleaf 3D 2'>
+ <li>
+            <img src='img/sier3Drander12.png' width='640' height='627' />
+            </li>
+ <li>
+            <img src='img/sier3Drander9.png' width='640' height='655' />
+            </li>
+ <li>
+            <img src='img/sier3Drander7.png' width='640' height='640' />
+            </li>
+ <li>
+            <img src='img/sier3Drander14.png' width='644' height='608' />
+            </li>
+ <li>
+    <div style='width: 1280px; height: 393px; left: 50%; margin-left: -640px; position: relative;'>
+        <img src='img/sier3Drander36.png' width='1280' height='393' />
+    </div>
+            </li>
+ <li>
+    <div style='width: 640px; height: 941px; top: 50%; margin-top: -800px; position: relative;'>
+            <img src='img/sier3Drander22.png' width='640' height='941' />
+    </div>
+    </li>
+ <li>
+            <img src='img/sier3Drander30.png' width='640' height='666' />
+            </li>
+ <li>
+            <img src='img/sier3Drander24.png' width='640' height='736' />
+            </li>
+ <li>
+    <div style='width: 1280px; height: 1207px; top: 50%; margin-top: -657px; left: 50%; margin-left: -640px; position: relative'>
+        <img src='img/sier3Drander40.png' width='1280' height='1207' />
+    </div>
+            </li>
+ <li name='source'>
+            <pre style='font-size: 14px'>
+game <span class='Statement'>=</span> <span class='Identifier'>Compile</span>[{{vertices, <span class='Type'>_Real</span>, <span class='Type'>2</span>}, {w, <span class='Type'>_Real</span>}, {numpoints, <span class='Type'>_Integer</span>}},
+   <span class='Identifier'>Module</span>[{diff},
+    <span class='Identifier'>FoldList</span>[(diff <span class='Statement'>=</span> <span class='Statement'>#2</span> <span class='Statement'>-</span> <span class='Statement'>#1</span>;
+       <span class='Identifier'>Clip</span>[(<span class='Statement'>#1</span> <span class='Statement'>+</span> <span class='Statement'>#2</span>) <span class='Identifier'>Log</span>[<span class='Identifier'>Sqrt</span>[diff<span class='Statement'>.</span>diff] <span class='Statement'>+</span> w]]) <span class='Statement'>&amp;</span>,
+     {<span class='Type'>0</span>, <span class='Type'>0</span>, <span class='Type'>0</span>}, <span class='Identifier'>RandomChoice</span>[vertices, numpoints]]]];
+
+<span class='Identifier'>draw</span>[<span class='Type'>vertices_</span>, <span class='Type'>w_</span>, <span class='Type'>numPoints_</span>, <span class='Type'>options___</span>] <span class='Statement'>:=</span>
+  <span class='Identifier'>Graphics3D</span>[{<span class='Identifier'>PointSize</span>[<span class='Type'>0</span>], <span class='Identifier'>Opacity</span>[<span class='Type'>7</span> <span class='Statement'>.</span><span class='Type'>05</span>],
+    <span class='Identifier'>Point</span>[<span class='Identifier'>game</span>[vertices, w, numPoints]]},
+   options, Boxed <span class='Statement'>-&gt;</span> <span class='Identifier'>False</span>];
+
+<span class='Identifier'>proc</span>[<span class='Type'>img1_</span>, <span class='Type'>cf_</span><span class='Statement'>:</span> <span class='Identifier'>ColorData</span>[<span class='Type'>1</span>], <span class='Type'>mode_</span><span class='Statement'>:</span> <span class='Identifier'>None</span>, <span class='Type'>blur_</span><span class='Statement'>:</span> <span class='Type'>8</span>] <span class='Statement'>:=</span>
+  <span class='Identifier'>Module</span>[{img, components, rank, largest, colored},
+   img <span class='Statement'>=</span> <span class='Identifier'>RemoveAlphaChannel</span>[<span class='Identifier'>ColorNegate</span><span class='Statement'>@</span><span class='Identifier'>ColorConvert</span>[img1, <span class='String'>&quot;Grayscale&quot;</span>]];
+   components <span class='Statement'>=</span> <span class='Identifier'>MorphologicalComponents</span>[img];
+
+   <span class='Identifier'>Module</span>[{measurements, sorted},
+    measurements <span class='Statement'>=</span> <span class='Identifier'>ComponentMeasurements</span>[components, <span class='String'>&quot;Count&quot;</span>];
+    sorted <span class='Statement'>=</span> <span class='Identifier'>First </span><span class='Statement'>/@</span> <span class='Identifier'>Reverse</span><span class='Statement'>@</span><span class='Identifier'>SortBy</span>[measurements, Last];
+    <span class='Identifier'>rank</span>[<span class='Type'>label_</span>] <span class='Statement'>:=</span> (<span class='Identifier'>rank</span>[label] <span class='Statement'>=</span> <span class='Identifier'>Position</span>[sorted, label][[<span class='Type'>1</span>, <span class='Type'>1</span>]])];
+
+   colored <span class='Statement'>=</span> <span class='Identifier'>Colorize</span>[components,
+     ColorFunction <span class='Statement'>-&gt;</span> (<span class='Identifier'>cf</span>[<span class='Identifier'>rank</span>[<span class='Statement'>#</span>]] <span class='Statement'>&amp;</span>), ColorFunctionScaling <span class='Statement'>-&gt;</span> <span class='Identifier'>False</span>];
+
+   <span class='Identifier'>If</span>[mode <span class='Statement'>==</span> <span class='String'>&quot;Angelic&quot;</span>,
+    colored <span class='Statement'>=</span> <span class='Identifier'>ImageMultiply</span>[img, colored]];
+
+   <span class='Identifier'>ColorNegate</span>[<span class='Identifier'>ImageMultiply</span>[<span class='Identifier'>ColorNegate</span>[img],
+       <span class='Identifier'>Blur</span>[<span class='Statement'>#</span>, blur] <span class='Statement'>&amp;</span><span class='Statement'>@</span><span class='Identifier'>ColorNegate</span>[colored]]] <span class='Statement'>//</span><span class='Identifier'> ImageAdjust</span>];
+
+<span class='Identifier'>Needs</span>[<span class='String'>&quot;PolyhedronOperations`&quot;</span>];
+vertices <span class='Statement'>=</span> <span class='Identifier'>OpenTruncate</span>[<span class='Identifier'>PolyhedronData</span>[{<span class='String'>&quot;Pyramid&quot;</span>, <span class='Type'>3</span>}, <span class='String'>&quot;Faces&quot;</span>]][[<span class='Type'>1</span>]];
+g <span class='Statement'>=</span> <span class='Identifier'>draw</span>[vertices, <span class='Statement'>.</span><span class='Type'>5</span>, <span class='Type'>600000</span>, Method <span class='Statement'>-&gt;</span> {<span class='String'>&quot;ShrinkWrap&quot;</span> <span class='Statement'>-&gt;</span> <span class='Identifier'>True</span>}];
+
+<span class='Identifier'>proc</span>[g, <span class='Statement'>#</span> <span class='Statement'>/.</span> <span class='Identifier'>Join</span>[
+    <span class='Identifier'>Thread</span>[<span class='Identifier'>Range</span>[<span class='Type'>4</span>] <span class='Statement'>-&gt;</span> {<span class='Identifier'>Red</span>, <span class='Identifier'>Green</span>, <span class='Identifier'>Green</span>, <span class='Identifier'>Green</span>}],
+    {<span class='Type'>_</span> <span class='Statement'>-&gt;</span> <span class='Identifier'>Lighter</span>[<span class='Identifier'>Green</span>]}] <span class='Statement'>&amp;</span>]
+</pre>
+            </li>
+</ol>
+
+        </div>
+
+        <div class="section" style="margin-top: -22px; margin-bottom: -11px">
+            <!--center>
+                <img src="img/siermasterlock6.png" width="260" height="55" />
+            </center-->
+        </div>
+
+        <center>
+            <p class="consumable" style="font-size: 10px; max-width: 450px; text-align: left; margin-top: 4px;">
+            This page is an excerpt from <a href="sierpinski.htm">the sierpinski triangle page to end most sierpinski triangle pages &#0153;</a>.
+            </p>
+        </center>
+
+        <div class="links centered">
+            <a href="/" title="home" style="color: #333333" class="pagelink">&lt;&lt;</a>
+        </div>
+
+    </div>
+
+</body>
+</html>

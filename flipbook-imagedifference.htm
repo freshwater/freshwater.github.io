@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+    <head>
+        <title> oftenpaper.net/imagedifference.htm </title>
+
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.9.0/build/reset-fonts-grids/reset-fonts-grids.css" />
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.9.0/build/base/base-min.css" />
+        <link rel="stylesheet" type="text/css" href="oftencss.css" />
+
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+
+        <script type="text/javascript" id="mathjax" src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax:{inlineMath:[['$','$']]}})</script>
+
+        <script type="text/javascript" src="flipbook.js"></script>
+    </head>
+
+<body>
+    <h1><a href="/"> oftenpaper.net </a></h1>
+    <h3>image difference &#0153;</h3>
+
+    <br />
+
+    <center class="consumable" style="margin-top: 20px; margin-bottom: 25px;">
+        <a href="sierpinski.htm">
+            <img src="img/siermasterlock22.png" width="181" height="157" />
+        </a>
+    </center>
+
+    <div class="content">
+
+        <div class="section">
+
+            <ol class='flipbook static'
+    name='image difference'>
+ <li>
+            <img src='img/siergenetics14.png' width='600' height='599' />
+            </li>
+ <li>
+            <img src='img/siergenetics18.png' width='600' height='599' />
+            </li>
+ <li>
+            <img src='img/siergenetics19.png' width='600' height='599' />
+            </li>
+ <li>
+            <img src='img/siergenhisto5.png' width='439' height='291' />
+            <br clear='none' />
+            <br clear='none' />
+            <br clear='none' />
+            <pre>
+<span class='Identifier'>ListPlot</span>[<span class='Identifier'>FoldList</span>[(<span class='Statement'>#1</span> <span class='Statement'>+</span> <span class='Statement'>#2</span>)<span class='Statement'>/</span><span class='Type'>2</span> <span class='Statement'>&amp;</span>, <span class='Type'>1</span>,
+  <span class='Identifier'>Mod</span>[<span class='Identifier'>Range</span>[<span class='Type'>1000</span>], <span class='Type'>2</span>]], PlotRange <span class='Statement'>-&gt;</span> <span class='Type'>1</span>,
+ Ticks <span class='Statement'>-&gt;</span> {<span class='Identifier'>Automatic</span>, <span class='Identifier'>Range</span>[<span class='Type'>0</span>, <span class='Type'>1</span>, <span class='Type'>1</span><span class='Statement'>/</span><span class='Type'>3</span>]}]</pre>
+            </li>
+ <li name='source'>
+<pre style='font-size: 14px'>
+<span class='Identifier'>getStats</span>[<span class='Type'>data_</span>] <span class='Statement'>:=</span> <span class='Identifier'>Module</span>[{tallies, sum},
+   tallies <span class='Statement'>=</span> <span class='Identifier'>Tally</span>[<span class='Identifier'>Partition</span>[data, <span class='Type'>2</span>, <span class='Type'>1</span>]];
+   sum <span class='Statement'>=</span> <span class='Identifier'>Total</span>[<span class='Identifier'>Last </span><span class='Statement'>/@</span> tallies];
+   {<span class='Identifier'>Rule </span><span class='Statement'>@@</span> <span class='Statement'>#1</span>, <span class='Statement'>#2</span><span class='Statement'>/</span>sum} <span class='Statement'>&amp;</span> <span class='Statement'>@@@</span> tallies];
+
+<span class='Identifier'>draw</span>[<span class='Type'>data_</span>, <span class='Type'>options___</span>] <span class='Statement'>:=</span> <span class='Identifier'>Graphics</span>[{<span class='Identifier'>PointSize</span>[<span class='Type'>0</span>], <span class='Identifier'>Opacity</span>[<span class='Statement'>.</span><span class='Type'>01</span>],
+    <span class='Identifier'>Point</span>[<span class='Identifier'>FoldList</span>[(<span class='Statement'>#1</span> <span class='Statement'>+</span> <span class='Statement'>#2</span>)<span class='Statement'>/</span><span class='Type'>2</span> <span class='Statement'>&amp;</span>, <span class='Identifier'>N</span><span class='Statement'>@</span>{<span class='Type'>0</span>, <span class='Type'>0</span>}, data]]}, options];
+
+chars <span class='Statement'>=</span> <span class='Identifier'>Characters</span>[<span class='Identifier'>GenomeData</span>[{<span class='String'>&quot;ChromosomeX&quot;</span>, {<span class='Type'>28000000</span>, <span class='Type'>36000000</span>}}]];
+stats <span class='Statement'>=</span> <span class='Identifier'>getStats</span>[chars];
+
+<span class='Identifier'>Do</span>[<span class='Identifier'>With</span>[{weights <span class='Statement'>=</span>
+    <span class='Identifier'>Rule </span><span class='Statement'>@@</span> <span class='Identifier'>Transpose</span><span class='Statement'>@</span><span class='Identifier'>Cases</span>[stats, {letter <span class='Statement'>-&gt;</span> <span class='Type'>to_</span>, <span class='Type'>p_</span>} <span class='Statement'>:&gt;</span> {<span class='Identifier'>N</span>[p], to}]},
+  <span class='Identifier'>next</span>[letter] <span class='Statement'>:=</span> <span class='Identifier'>RandomChoice</span>[weights]],
+ {letter, <span class='Identifier'>DeleteDuplicates</span>[<span class='Identifier'>stats</span>[[<span class='Identifier'>All</span>, <span class='Type'>1</span>, <span class='Type'>1</span>]]]}]
+
+coords <span class='Statement'>=</span> <span class='Identifier'>N</span><span class='Statement'>@</span>{<span class='String'>&quot;A&quot;</span> <span class='Statement'>-&gt;</span> {<span class='Type'>1</span>, <span class='Type'>1</span>}, <span class='String'>&quot;T&quot;</span> <span class='Statement'>-&gt;</span> {<span class='Statement'>-</span><span class='Type'>1</span>, <span class='Statement'>-</span><span class='Type'>1</span>}, <span class='String'>&quot;G&quot;</span> <span class='Statement'>-&gt;</span> {<span class='Statement'>-</span><span class='Type'>1</span>, <span class='Type'>1</span>}, <span class='String'>&quot;C&quot;</span> <span class='Statement'>-&gt;</span> {<span class='Type'>1</span>, <span class='Statement'>-</span><span class='Type'>1</span>}};
+pseudoDat <span class='Statement'>=</span> <span class='Identifier'>NestList</span>[next, <span class='String'>&quot;A&quot;</span>, <span class='Identifier'>Length</span>[chars] <span class='Statement'>-</span> <span class='Type'>1</span>] <span class='Statement'>/.</span> coords;
+realDat <span class='Statement'>=</span> chars <span class='Statement'>/.</span> coords;
+
+<span class='Identifier'>With</span>[{upsc <span class='Statement'>=</span> <span class='Type'>2</span>},
+ pseudo <span class='Statement'>=</span> <span class='Identifier'>draw</span>[pseudoDat, ImageSize <span class='Statement'>-&gt;</span> upsc <span class='Type'>600</span>] <span class='Statement'>//</span><span class='Identifier'> Rasterize</span>;
+ real <span class='Statement'>=</span> <span class='Identifier'>draw</span>[realDat, ImageSize <span class='Statement'>-&gt;</span> upsc <span class='Type'>600</span>] <span class='Statement'>//</span><span class='Identifier'> Rasterize</span>;
+
+ <span class='Identifier'>With</span>[{<span class='String'>\[Theta]</span> <span class='Statement'>=</span> ColorNegate},
+   (<span class='Identifier'>ImageSubtract</span>[<span class='String'>\[Theta]</span>[real], <span class='String'>\[Theta]</span>[pseudo]] <span class='Statement'>//</span> <span class='String'>\[Theta]</span>)
+     <span class='Statement'>~</span><span class='Identifier'>MinFilter</span><span class='Statement'>~</span><span class='Type'>1</span>
+     <span class='Statement'>~</span><span class='Identifier'>ImageMultiply</span><span class='Statement'>~</span><span class='Type'>1.1</span>
+    <span class='Comment'>(*~ImageAdjust~(9!)*)</span>
+    <span class='Statement'>//</span><span class='Identifier'> ImageAdjust</span>]
+  <span class='Statement'>~</span><span class='Identifier'>ImageResize</span><span class='Statement'>~</span><span class='Identifier'>Scaled</span>[<span class='Type'>1</span><span class='Statement'>/</span>upsc]]
+</pre>
+            </li>
+</ol>
+
+        </div>
+
+        <div class="section" style="margin-top: -22px; margin-bottom: -11px">
+            <!--center>
+                <img src="img/siermasterlock6.png" width="260" height="55" />
+            </center-->
+        </div>
+
+        <center>
+            <p class="consumable" style="font-size: 10px; max-width: 450px; text-align: left; margin-top: 4px;">
+            This page is an excerpt from <a href="sierpinski.htm">the sierpinski triangle page to end most sierpinski triangle pages &#0153;</a>.
+            </p>
+        </center>
+
+        <div class="links centered">
+            <a href="/" title="home" style="color: #333333" class="pagelink">&lt;&lt;</a>
+        </div>
+
+    </div>
+
+</body>
+</html>

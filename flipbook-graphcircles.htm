@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+    <head>
+        <title> oftenpaper.net/graphcircles.htm </title>
+
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.9.0/build/reset-fonts-grids/reset-fonts-grids.css" />
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.9.0/build/base/base-min.css" />
+        <link rel="stylesheet" type="text/css" href="oftencss.css" />
+
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+
+        <script type="text/javascript" id="mathjax" src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax:{inlineMath:[['$','$']]}})</script>
+
+        <script type="text/javascript" src="flipbook.js"></script>
+    </head>
+
+<body>
+    <h1><a href="/"> oftenpaper.net </a></h1>
+    <h3>graph circles &#0153;</h3>
+
+    <br />
+
+    <center class="consumable" style="margin-top: 20px; margin-bottom: 25px;">
+        <a href="sierpinski.htm">
+            <img src="img/siermasterlock22.png" width="181" height="157" />
+        </a>
+    </center>
+
+    <div class="content">
+
+        <div class="section">
+
+            <ol class='flipbook static'
+    name='graph circles'>
+ <li>
+            <img src='img/siergraphcircles1.png' width='461' height='455' />
+            </li>
+ <li>
+            <img src='img/siergraphcircles5.png' width='461' height='455' />
+            </li>
+ <li>
+            <img src='img/siergraphcircles3.png' width='570' height='475' />
+            </li>
+ <li>
+            <img src='img/siergraphcircles4.png' width='568' height='421' />
+            </li>
+ <li name='source'>
+<pre style='font-size: 12px'>
+axiom <span class='Statement'>=</span> <span class='Identifier'>Polygon</span>[{{<span class='Type'>0</span>, <span class='Type'>0</span>}, {<span class='Type'>1</span>, <span class='Identifier'>Sqrt</span>[<span class='Type'>3</span>]}<span class='Statement'>/</span><span class='Type'>2</span>, {<span class='Type'>1</span>, <span class='Type'>0</span>}}];
+
+<span class='Identifier'>next</span>[<span class='Type'>prev_</span>] <span class='Statement'>:=</span> prev <span class='Statement'>/.</span> <span class='Identifier'>Polygon</span>[{<span class='Type'>p1_</span>, <span class='Type'>p2_</span>, <span class='Type'>p3_</span>}] <span class='Statement'>:&gt;</span> {
+     <span class='Identifier'>Polygon</span>[{p1, (p1 <span class='Statement'>+</span> p2)<span class='Statement'>/</span><span class='Type'>2</span>, (p1 <span class='Statement'>+</span> p3)<span class='Statement'>/</span><span class='Type'>2</span>}],
+     <span class='Identifier'>Polygon</span>[{p2, (p2 <span class='Statement'>+</span> p3)<span class='Statement'>/</span><span class='Type'>2</span>, (p1 <span class='Statement'>+</span> p2)<span class='Statement'>/</span><span class='Type'>2</span>}],
+     <span class='Identifier'>Polygon</span>[{p3, (p1 <span class='Statement'>+</span> p3)<span class='Statement'>/</span><span class='Type'>2</span>, (p2 <span class='Statement'>+</span> p3)<span class='Statement'>/</span><span class='Type'>2</span>}]};
+
+<span class='Identifier'>draw</span>[<span class='Type'>n_</span>] <span class='Statement'>:=</span> <span class='Identifier'>Module</span>[{edges},
+   edges <span class='Statement'>=</span> <span class='Identifier'>Flatten</span><span class='Statement'>@</span><span class='Identifier'>Nest</span>[next, <span class='Identifier'>N</span><span class='Statement'>@</span>axiom, n] <span class='Statement'>/.</span> <span class='Identifier'>Polygon</span>[<span class='Type'>pts_</span>] <span class='Statement'>:&gt;</span>
+      <span class='Identifier'>Sequence </span><span class='Statement'>@@</span> <span class='Identifier'>UndirectedEdge </span><span class='Statement'>@@@</span> <span class='Identifier'>Partition</span>[pts, <span class='Type'>2</span>, <span class='Type'>1</span>, <span class='Type'>1</span>];
+
+   <span class='Identifier'>Graph</span>[edges, VertexCoordinates <span class='Statement'>-&gt;</span> <span class='Identifier'>VertexList</span>[<span class='Identifier'>Graph</span>[edges]],
+    VertexSize <span class='Statement'>-&gt;</span> <span class='Statement'>.</span><span class='Type'>25</span>]];
+
+style <span class='Statement'>=</span> <span class='Identifier'>Sequence</span>[EdgeStyle <span class='Statement'>-&gt;</span> <span class='Identifier'>Orange</span>];
+<span class='Identifier'>circles</span>[<span class='Type'>g_Graph</span>, <span class='Type'>r_</span><span class='Statement'>:</span> <span class='Type'>1</span>] <span class='Statement'>:=</span> (<span class='Identifier'>circles</span>[g, r] <span class='Statement'>=</span>
+    <span class='Identifier'>Module</span>[{vs <span class='Statement'>=</span> <span class='Identifier'>VertexList</span>[g]},
+     <span class='Identifier'>DeleteDuplicates</span>[
+      <span class='Identifier'>NeighborhoodGraph</span>[g, <span class='Statement'>#</span>, r, style] <span class='Statement'>&amp;</span> <span class='Statement'>/@</span> vs,
+      IsomorphicGraphQ]]);
+
+<span class='Identifier'>Pane</span>[<span class='Statement'>#</span>, <span class='Type'>600</span>] <span class='Statement'>&amp;</span><span class='Statement'>@</span><span class='Identifier'>Column</span>[
+  <span class='Identifier'>Row</span>[<span class='Identifier'>Prepend</span>[
+      <span class='Identifier'>circles</span>[<span class='Identifier'>draw</span>[<span class='Type'>5</span>], <span class='Statement'>#</span>],
+      <span class='Identifier'>Style</span>[<span class='Statement'>#</span>, <span class='Identifier'>Lighter</span>[<span class='Identifier'>Black</span>, <span class='Type'>1</span><span class='Statement'>/</span><span class='Type'>6</span>]]], <span class='String'>&quot; &quot;</span>] <span class='Statement'>&amp;</span> <span class='Statement'>/@</span> <span class='Identifier'>Range</span>[<span class='Type'>1</span>, <span class='Type'>3</span>],
+  Alignment <span class='Statement'>-&gt;</span> Center, Spacings <span class='Statement'>-&gt;</span> <span class='Type'>1</span>]
+</pre>
+            </li>
+</ol>
+
+        </div>
+
+        <div class="section" style="margin-top: -22px; margin-bottom: -11px">
+            <!--center>
+                <img src="img/siermasterlock6.png" width="260" height="55" />
+            </center-->
+        </div>
+
+        <center>
+            <p class="consumable" style="font-size: 10px; max-width: 450px; text-align: left; margin-top: 4px;">
+            This page is an excerpt from <a href="sierpinski.htm">the sierpinski triangle page to end most sierpinski triangle pages &#0153;</a>.
+            </p>
+        </center>
+
+        <div class="links centered">
+            <a href="/" title="home" style="color: #333333" class="pagelink">&lt;&lt;</a>
+        </div>
+
+    </div>
+
+</body>
+</html>

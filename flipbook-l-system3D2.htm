@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+    <head>
+        <title> oftenpaper.net/l-system3D2.htm </title>
+
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.9.0/build/reset-fonts-grids/reset-fonts-grids.css" />
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.9.0/build/base/base-min.css" />
+        <link rel="stylesheet" type="text/css" href="oftencss.css" />
+
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+
+        <script type="text/javascript" id="mathjax" src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax:{inlineMath:[['$','$']]}})</script>
+
+        <script type="text/javascript" src="flipbook.js"></script>
+    </head>
+
+<body>
+    <h1><a href="/"> oftenpaper.net </a></h1>
+    <h3>l-system 3D 2 &#0153;</h3>
+
+    <br />
+
+    <center class="consumable" style="margin-top: 20px; margin-bottom: 25px;">
+        <a href="sierpinski.htm">
+            <img src="img/siermasterlock22.png" width="181" height="157" />
+        </a>
+    </center>
+
+    <div class="content">
+
+        <div class="section">
+
+            <ol class='flipbook static'
+    name='l-system 3D 2'>
+ <li>
+            <img src='img/sier3Dlsys7.png' width='640' height='669' />
+            </li>
+ <li>
+            <img src='img/sier3Dlsys6.png' width='640' height='745' />
+            </li>
+ <li>
+            <img src='img/sier3Dlsyshattracedemo2.jpg' width='550' height='550' />
+            </li>
+ <li>
+            <img src='img/sier3Dlsys16.png' width='566' height='423' />
+            </li>
+ <li>
+    <div style='width: 640px; height: 809px; top: 50%; margin-top: -750px; position: relative;'>
+            <img src='img/sier3Dlsys14.png' width='640' height='809' />
+    </div>
+            </li>
+ <li>
+            <img src='img/sier3Dlsysemblem1.png' width='640' height='571' />
+            </li>
+ <li>
+            <img title='space alien' src='img/sier3Dlsys20.png' width='550' height='683' />
+            </li>
+ <li>
+            <img src='img/papermotherfuckingclip.jpg' width='640' height='695' />
+            </li>
+ <li>
+            <img src='img/sier3Dlsys21.png' width='644' height='737' />
+            </li>
+ <li name='?'>
+<pre style='font-size: 10px'>
+<span class='Identifier'>proc</span>[<span class='Type'>img1_</span>, <span class='Type'>cf_</span><span class='Statement'>:</span> <span class='Identifier'>ColorData</span>[<span class='Type'>1</span>], <span class='Type'>mode_</span><span class='Statement'>:</span> <span class='Identifier'>None</span>, <span class='Type'>blur_</span><span class='Statement'>:</span> <span class='Type'>8</span>] <span class='Statement'>:=</span>
+  <span class='Identifier'>Module</span>[{img, components, rank, largest, colored},
+   img <span class='Statement'>=</span> <span class='Identifier'>RemoveAlphaChannel</span>[<span class='Identifier'>ColorNegate</span><span class='Statement'>@</span><span class='Identifier'>ColorConvert</span>[img1, <span class='String'>&quot;Grayscale&quot;</span>]];
+   components <span class='Statement'>=</span> <span class='Identifier'>MorphologicalComponents</span>[img];
+
+   <span class='Identifier'>Module</span>[{measurements, sorted},
+    measurements <span class='Statement'>=</span> <span class='Identifier'>ComponentMeasurements</span>[components, <span class='String'>&quot;Count&quot;</span>];
+    sorted <span class='Statement'>=</span> <span class='Identifier'>First </span><span class='Statement'>/@</span> <span class='Identifier'>Reverse</span><span class='Statement'>@</span><span class='Identifier'>SortBy</span>[measurements, Last];
+    <span class='Identifier'>rank</span>[<span class='Type'>label_</span>] <span class='Statement'>:=</span> (<span class='Identifier'>rank</span>[label] <span class='Statement'>=</span> <span class='Identifier'>Position</span>[sorted, label][[<span class='Type'>1</span>, <span class='Type'>1</span>]])];
+
+   colored <span class='Statement'>=</span> <span class='Identifier'>Colorize</span>[components, ColorFunction <span class='Statement'>-&gt;</span> (<span class='Identifier'>cf</span>[<span class='Identifier'>rank</span>[<span class='Statement'>#</span>]] <span class='Statement'>&amp;</span>), ColorFunctionScaling <span class='Statement'>-&gt;</span> <span class='Identifier'>False</span>];
+   <span class='Identifier'>If</span>[mode <span class='Statement'>==</span> <span class='String'>&quot;Angelic&quot;</span>, colored <span class='Statement'>=</span> <span class='Identifier'>ImageMultiply</span>[img, colored]];
+   <span class='Identifier'>ColorNegate</span>[<span class='Identifier'>ImageMultiply</span>[<span class='Identifier'>ColorNegate</span>[img], <span class='Identifier'>Blur</span>[<span class='Statement'>#</span>, blur] <span class='Statement'>&amp;</span><span class='Statement'>@</span><span class='Identifier'>ColorNegate</span>[colored]]] <span class='Statement'>//</span><span class='Identifier'> ImageAdjust</span>];
+
+<span class='Comment'>(**)</span>im <span class='Statement'>=</span> <span class='Identifier'>Draw</span>[Iterations <span class='Statement'>-&gt;</span> <span class='Type'>17</span>, {F <span class='Statement'>-&gt;</span> {B, <span class='Identifier'>left</span>[<span class='Type'>.020944</span>], B}, B <span class='Statement'>-&gt;</span> {L, F}}, RandomStuff <span class='Statement'>-&gt;</span> <span class='Identifier'>None</span>,
+    Angle <span class='Statement'>-&gt;</span> <span class='Identifier'>Pi</span><span class='Statement'>/</span><span class='Type'>5</span>, ImageSize <span class='Statement'>-&gt;</span> <span class='Type'>1280</span>, ViewPoint <span class='Statement'>-&gt;</span> {<span class='Type'>0</span>, <span class='Type'>0</span>, <span class='Identifier'>Infinity</span>}] <span class='Statement'>//</span><span class='Identifier'> Rasterize</span>;
+
+<span class='Identifier'>GradientFilter</span>[im, <span class='Type'>5</span>] <span class='Statement'>//</span><span class='Identifier'> ColorNegate</span> <span class='Statement'>//</span><span class='Identifier'> proc</span>[<span class='Statement'>#</span>, <span class='Identifier'>Blue</span> <span class='Statement'>&amp;</span>] <span class='Statement'>&amp;</span> <span class='Statement'>//</span><span class='Identifier'> ColorNegate</span> <span class='Statement'>//</span><span class='Identifier'> ImageResize</span>[<span class='Statement'>#</span>, <span class='Identifier'>Scaled</span>[<span class='Type'>1</span><span class='Statement'>/</span><span class='Type'>2</span>]] <span class='Statement'>&amp;</span>
+
+<span class='Comment'>(**)</span><span class='Identifier'>Draw</span>[{A <span class='Statement'>-&gt;</span> {B, L, B}, B <span class='Statement'>-&gt;</span> {A, R, A}}, Primitive <span class='Statement'>-&gt;</span> (<span class='Identifier'>Rotate</span>[<span class='Identifier'>Line</span>[<span class='Statement'>#</span>], <span class='Statement'>-</span><span class='Identifier'>Pi</span><span class='Statement'>/</span><span class='Type'>24</span>, {<span class='Type'>0</span>, <span class='Type'>0</span>, <span class='Type'>1</span>}] <span class='Statement'>&amp;</span>),
+ Iterations <span class='Statement'>-&gt;</span> <span class='Type'>13</span>, Angle <span class='Statement'>-&gt;</span> <span class='Type'>7</span> <span class='Identifier'>Pi</span><span class='Statement'>/</span><span class='Type'>12</span>, Definitions <span class='Statement'>-&gt;</span> {B <span class='Statement'>-&gt;</span> forward, A <span class='Statement'>-&gt;</span> forward},
+ DrawStyle <span class='Statement'>-&gt;</span> <span class='Identifier'>Opacity</span>[<span class='Statement'>.</span><span class='Type'>5</span>], RandomStuff <span class='Statement'>-&gt;</span> <span class='Identifier'>None</span>, ViewPoint <span class='Statement'>-&gt;</span> {<span class='Type'>0</span>, <span class='Type'>0</span>, <span class='Identifier'>Infinity</span>}]
+
+<span class='Comment'>(**)</span><span class='Identifier'>Draw</span>[Iterations <span class='Statement'>-&gt;</span> <span class='Type'>9</span>, {A <span class='Statement'>-&gt;</span> {B, L, B}, B <span class='Statement'>-&gt;</span> {A, R, A}}, Definitions <span class='Statement'>-&gt;</span> {B <span class='Statement'>-&gt;</span> forward, A <span class='Statement'>-&gt;</span> forward},
+   RandomStuff <span class='Statement'>-&gt;</span> {Transparent, <span class='Identifier'>Sphere</span>[{<span class='Type'>0</span>, <span class='Type'>0</span>, <span class='Type'>0</span>}, <span class='Statement'>.</span><span class='Type'>05</span>]}, DrawStyle <span class='Statement'>-&gt;</span> {<span class='Identifier'>Opacity</span>[<span class='Statement'>.</span><span class='Type'>8</span>], <span class='Identifier'>Yellow</span>, <span class='Identifier'>Glow</span>[<span class='Identifier'>Green</span>]},
+   ViewPoint <span class='Statement'>-&gt;</span> {<span class='Type'>0</span>, <span class='Type'>0</span>, <span class='Identifier'>Infinity</span>}]
+
+<span class='Comment'>(**)</span>d <span class='Statement'>=</span> <span class='Identifier'>Draw</span>[{swirl <span class='Statement'>-&gt;</span> <span class='Identifier'>ConstantArray</span>[{BF, F, BF, swirl, <span class='Identifier'>FO</span>[<span class='Identifier'>Pi</span><span class='Statement'>/</span><span class='Type'>12</span>]}, <span class='Type'>5</span>]}, DrawStyle <span class='Statement'>-&gt;</span> <span class='Identifier'>Opacity</span>[<span class='Statement'>.</span><span class='Type'>9</span>], RandomStuff <span class='Statement'>-&gt;</span> <span class='Identifier'>None</span>,
+    Primitive <span class='Statement'>-&gt;</span> (<span class='Identifier'>Line</span>[<span class='Identifier'>First</span><span class='Statement'>@</span><span class='Statement'>#</span>,
+      VertexColors <span class='Statement'>-&gt;</span> (<span class='Identifier'>Darker</span>[<span class='Statement'>#</span>, <span class='Type'>1</span><span class='Statement'>/</span><span class='Type'>8</span>] <span class='Statement'>&amp;</span> <span class='Statement'>/@</span> <span class='Identifier'>ColorData</span>[<span class='String'>&quot;AvocadoColors&quot;</span>] <span class='Statement'>/@</span> <span class='Identifier'>Range</span>[<span class='Type'>0</span><span class='Statement'>.</span>, <span class='Type'>1</span>, <span class='Type'>1</span><span class='Statement'>/</span>(<span class='Identifier'>Length</span>[<span class='Identifier'>First</span>[<span class='Statement'>#</span>]] <span class='Statement'>-</span> <span class='Type'>1</span>)])] <span class='Statement'>&amp;</span>),
+    Definitions <span class='Statement'>-&gt;</span> {swirl <span class='Statement'>-&gt;</span> backward}, Iterations <span class='Statement'>-&gt;</span> <span class='Type'>6</span>, ImageSize <span class='Statement'>-&gt;</span> <span class='Type'>2</span> <span class='Type'>1280</span>, Method <span class='Statement'>-&gt;</span> {<span class='String'>&quot;ShrinkWrap&quot;</span> <span class='Statement'>-&gt;</span> <span class='Identifier'>True</span>},
+    Background <span class='Statement'>-&gt;</span> <span class='Identifier'>Lighter</span>[LightGray, <span class='Type'>7</span><span class='Statement'>/</span><span class='Type'>12</span>]] <span class='Statement'>//</span><span class='Identifier'> Rasterize</span>;
+
+d <span class='Statement'>//</span><span class='Identifier'> ImageResize</span>[<span class='Statement'>#</span>, <span class='Identifier'>Scaled</span>[<span class='Type'>1</span><span class='Statement'>/</span><span class='Type'>4</span>]] <span class='Statement'>&amp;</span> <span class='Statement'>//</span><span class='Identifier'> ImageReflect</span>[<span class='Statement'>#</span>, Top <span class='Statement'>-&gt;</span> Bottom] <span class='Statement'>&amp;</span> <span class='Statement'>//</span><span class='Identifier'> ImagePad</span>[<span class='Statement'>#</span>, <span class='Type'>2</span>, <span class='Identifier'>Lighter</span>[LightGray, <span class='Type'>7</span><span class='Statement'>/</span><span class='Type'>12</span>]] <span class='Statement'>&amp;</span>
+
+<span class='Comment'>(**)</span><span class='Identifier'>Draw</span>[Iterations <span class='Statement'>-&gt;</span> <span class='Type'>8</span>, {F <span class='Statement'>:&gt;</span> {F, <span class='Identifier'>flipout</span>[<span class='Statement'>.</span><span class='Type'>2</span> <span class='Identifier'>RandomReal</span>[], <span class='Identifier'>Pi</span> <span class='Identifier'>RandomReal</span>[]], F}}]
+
+<span class='Comment'>(**)</span>h <span class='Statement'>=</span> <span class='Identifier'>Draw</span>[{R <span class='Statement'>-&gt;</span> {B, R, R, R, F}}, Iterations <span class='Statement'>-&gt;</span> <span class='Type'>8</span>, Primitive <span class='Statement'>-&gt;</span> Line, RandomStuff <span class='Statement'>-&gt;</span> <span class='Identifier'>None</span>,
+    Angle <span class='Statement'>-&gt;</span> <span class='Type'>1907</span><span class='Statement'>/</span><span class='Type'>2048</span>, ImageSize <span class='Statement'>-&gt;</span> <span class='Type'>2</span> <span class='Type'>1280</span>, ViewPoint <span class='Statement'>-&gt;</span> {<span class='Type'>0</span>, <span class='Type'>0</span>, <span class='Identifier'>Infinity</span>}] <span class='Statement'>//</span><span class='Identifier'> Rasterize</span>;
+
+<span class='Identifier'>proc</span>[h <span class='Statement'>//</span><span class='Identifier'> ImageAdjust</span>, <span class='Identifier'>Yellow</span> <span class='Statement'>&amp;</span>, <span class='String'>&quot;Anglic&quot;</span>, <span class='Type'>13</span>] <span class='Statement'>//</span><span class='Identifier'> ImageResize</span>[<span class='Statement'>#</span>, <span class='Identifier'>Scaled</span>[<span class='Type'>1</span><span class='Statement'>/</span><span class='Type'>4</span>]] <span class='Statement'>&amp;</span>
+
+<span class='Comment'>(**)</span>diff <span class='Statement'>=</span> <span class='Identifier'>ImageDifference </span><span class='Statement'>@@</span> <span class='Identifier'>Table</span>[
+   <span class='Identifier'>Draw</span>[{arc, F, arc}, {F <span class='Statement'>-&gt;</span> {F, F, arc, F, arc, F, arc, F, F}}, Primitive <span class='Statement'>-&gt;</span> (<span class='Identifier'>Tube</span>[<span class='Statement'>#</span>, <span class='Statement'>.</span><span class='Type'>115</span>] <span class='Statement'>&amp;</span>), Angle <span class='Statement'>-&gt;</span> <span class='Identifier'>Pi</span><span class='Statement'>/</span><span class='Type'>6</span>,
+     Definitions <span class='Statement'>-&gt;</span> {F <span class='Statement'>-&gt;</span> <span class='Identifier'>forward</span>[<span class='Type'>6</span>], arc <span class='Statement'>-&gt;</span> <span class='Identifier'>Flatten</span>[<span class='Identifier'>Table</span>[{<span class='Identifier'>forward</span>[<span class='Statement'>.</span><span class='Type'>1</span>], <span class='Identifier'>backflip</span>[<span class='Statement'>.</span><span class='Type'>899</span> <span class='Statement'>.</span><span class='Type'>1047</span>], <span class='Identifier'>right</span>[<span class='Type'>1</span><span class='Statement'>/</span><span class='Type'>4</span> <span class='Statement'>.</span><span class='Type'>1047</span>]}, {<span class='Type'>160</span>}]]},
+     Iterations <span class='Statement'>-&gt;</span> <span class='Type'>2</span>, DrawStyle <span class='Statement'>-&gt;</span> color, RandomStuff <span class='Statement'>-&gt;</span> <span class='Identifier'>None</span>, Lighting <span class='Statement'>-&gt;</span> <span class='String'>&quot;Neutral&quot;</span>, Method <span class='Statement'>-&gt;</span> {<span class='String'>&quot;ShrinkWrap&quot;</span> <span class='Statement'>-&gt;</span> <span class='Identifier'>True</span>},
+     ViewPoint <span class='Statement'>-&gt;</span> {<span class='Type'>3</span>, <span class='Statement'>-</span><span class='Type'>0.25</span>, <span class='Statement'>-</span><span class='Type'>1.5</span>}, ViewVertical <span class='Statement'>-&gt;</span> {<span class='Type'>0.56</span>, <span class='Statement'>-</span><span class='Type'>0.66</span>, <span class='Statement'>-</span><span class='Type'>0.7</span>}, ImageSize <span class='Statement'>-&gt;</span> <span class='Type'>2</span> <span class='Type'>1280</span>] <span class='Statement'>//</span><span class='Identifier'> Rasterize</span>,
+   {color, {LightGray, <span class='Identifier'>White</span>}}];
+
+diff <span class='Statement'>//</span><span class='Identifier'> ColorNegate</span> <span class='Statement'>//</span><span class='Identifier'> ImageAdjust</span> <span class='Statement'>//</span><span class='Identifier'> ImageResize</span>[<span class='Statement'>#</span>, <span class='Identifier'>Scaled</span>[<span class='Type'>1</span><span class='Statement'>/</span><span class='Type'>4</span>]] <span class='Statement'>&amp;</span>
+</pre>
+            </li>
+</ol>
+
+        </div>
+
+        <div class="section" style="margin-top: -22px; margin-bottom: -11px">
+            <!--center>
+                <img src="img/siermasterlock6.png" width="260" height="55" />
+            </center-->
+        </div>
+
+        <center>
+            <p class="consumable" style="font-size: 10px; max-width: 450px; text-align: left; margin-top: 4px;">
+            This page is an excerpt from <a href="sierpinski.htm">the sierpinski triangle page to end most sierpinski triangle pages &#0153;</a>.
+            </p>
+        </center>
+
+        <div class="links centered">
+            <a href="/" title="home" style="color: #333333" class="pagelink">&lt;&lt;</a>
+        </div>
+
+    </div>
+
+</body>
+</html>

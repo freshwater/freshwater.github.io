@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+    <head>
+        <title> oftenpaper.net/hanoi2.htm </title>
+
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.9.0/build/reset-fonts-grids/reset-fonts-grids.css" />
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.9.0/build/base/base-min.css" />
+        <link rel="stylesheet" type="text/css" href="oftencss.css" />
+
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+
+        <script type="text/javascript" id="mathjax" src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax:{inlineMath:[['$','$']]}})</script>
+
+        <script type="text/javascript" src="flipbook.js"></script>
+    </head>
+
+<body>
+    <h1><a href="/"> oftenpaper.net </a></h1>
+    <h3>hanoi 2 &#0153;</h3>
+
+    <br />
+
+    <center class="consumable" style="margin-top: 20px; margin-bottom: 25px;">
+        <a href="sierpinski.htm">
+            <img src="img/siermasterlock22.png" width="181" height="157" />
+        </a>
+    </center>
+
+    <div class="content">
+
+        <div class="section">
+
+            <ol class='flipbook static'
+    name='hanoi 2'>
+ <li>
+            <h4 /><pre style='text-align: center'><span class='Identifier'>hanoiGraph</span>[<span class='Identifier'>state</span>[{}, {}, {}, <span class='Identifier'>Range</span>[<span class='Type'>4</span>]]]</pre>
+            <img src='img/sierhanoi7.png' width='600' height='581' />
+            </li>
+ <li>
+            <h4 /><pre style='text-align: center'><span class='Identifier'>hanoiGraph</span>[<span class='Identifier'>state</span>[{}, {}, {}, {}, <span class='Identifier'>Range</span>[<span class='Type'>4</span>]]]
+</pre>
+            <img src='img/sierhanoi8.png' width='600' height='573' />
+            </li>
+ <li>
+            <h4 /><pre style='text-align: center'>
+<span class='Identifier'>hanoiGraph</span>[<span class='Identifier'>state</span>[{}, {}, <span class='Identifier'>Range</span>[<span class='Type'>3</span>], <span class='Identifier'>Range</span>[<span class='Type'>3</span>]]]
+</pre>
+            <img src='img/sierhanoi10.png' width='600' height='579' />
+            </li>
+ <li>
+            <h4 /><pre style='text-align: center'>
+<span class='Identifier'>hanoiGraph</span>[<span class='Identifier'>state</span>[{}, {}, {<span class='Type'>1</span>}, <span class='Identifier'>Range</span>[<span class='Type'>3</span>]]]
+</pre>
+            <img src='img/sierhanoi12.png' width='600' height='600' />
+            </li>
+ <li>
+            <h4 /><pre style='text-align: center'>
+<span class='Identifier'>hanoiGraph</span>[<span class='Identifier'>state</span>[{}, {}, {<span class='Type'>2</span>}, <span class='Identifier'>Range</span>[<span class='Type'>3</span>]]]
+</pre>
+            <img src='img/sierhanoi13.png' width='600' height='600' />
+            </li>
+ <li>
+            <h4 /><pre style='text-align: center'>
+<span class='Identifier'>hanoiGraph</span>[<span class='Identifier'>state</span>[{}, {}, {<span class='Type'>3</span>}, <span class='Identifier'>Range</span>[<span class='Type'>3</span>]]]
+</pre>
+            <img src='img/sierhanoi14.png' width='600' height='600' />
+            </li>
+ <li>
+            <h4 /><pre style='text-align: left'>
+<span class='Identifier'>validQ</span>[<span class='Type'>s_state</span>] <span class='Statement'>:=</span> <span class='Identifier'>And </span><span class='Statement'>@@</span> <span class='Identifier'>Equal </span><span class='Statement'>@@@</span> s;
+<span class='Identifier'>hanoiGraph</span>[<span class='Identifier'>state</span>[{}, {}, <span class='Identifier'>ConstantArray</span>[<span class='Type'>1</span>, <span class='Type'>5</span>]]]
+</pre>
+            <img src='img/sierhanoi15.png' width='600' height='528' />
+            </li>
+ <li>
+            <h4 /><pre style='text-align: left'>
+<span class='Identifier'>validQ</span>[<span class='Type'>s_state</span>] <span class='Statement'>:=</span> <span class='Identifier'>And </span><span class='Statement'>@@</span> <span class='Identifier'>LessEqual </span><span class='Statement'>@@@</span> s;
+<span class='Identifier'>hanoiGraph</span>[<span class='Identifier'>state</span>[{}, <span class='Identifier'>ConstantArray</span>[<span class='Type'>2</span>, <span class='Type'>3</span>], <span class='Identifier'>ConstantArray</span>[<span class='Type'>1</span>, <span class='Type'>3</span>]]]</pre>
+            <img src='img/sierhanoi16.png' width='600' height='600' />
+            </li>
+ <li>
+            <h4 /><pre style='text-align: left'>
+<span class='Identifier'>validQ</span>[<span class='Type'>s_state</span>] <span class='Statement'>:=</span> <span class='Identifier'>And </span><span class='Statement'>@@</span> <span class='Identifier'>Equal </span><span class='Statement'>@@@</span> s;
+<span class='Identifier'>hanoiGraph</span>[<span class='Identifier'>state</span>[{}, <span class='Identifier'>ConstantArray</span>[<span class='Type'>2</span>, <span class='Type'>3</span>], <span class='Identifier'>ConstantArray</span>[<span class='Type'>1</span>, <span class='Type'>3</span>]]]</pre>
+            <img src='img/sierhanoi17.png' width='600' height='600' />
+            </li>
+</ol>
+
+        </div>
+
+        <div class="section" style="margin-top: -22px; margin-bottom: -11px">
+            <!--center>
+                <img src="img/siermasterlock6.png" width="260" height="55" />
+            </center-->
+        </div>
+
+        <center>
+            <p class="consumable" style="font-size: 10px; max-width: 450px; text-align: left; margin-top: 4px;">
+            This page is an excerpt from <a href="sierpinski.htm">the sierpinski triangle page to end most sierpinski triangle pages &#0153;</a>.
+            </p>
+        </center>
+
+        <div class="links centered">
+            <a href="/" title="home" style="color: #333333" class="pagelink">&lt;&lt;</a>
+        </div>
+
+    </div>
+
+</body>
+</html>

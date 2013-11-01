@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+    <head>
+        <title> oftenpaper.net/matrixreplacementsource.htm </title>
+
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.9.0/build/reset-fonts-grids/reset-fonts-grids.css" />
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.9.0/build/base/base-min.css" />
+        <link rel="stylesheet" type="text/css" href="oftencss.css" />
+
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+
+        <script type="text/javascript" id="mathjax" src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax:{inlineMath:[['$','$']]}})</script>
+
+        <script type="text/javascript" src="flipbook.js"></script>
+    </head>
+
+<body>
+    <h1><a href="/"> oftenpaper.net </a></h1>
+    <h3>matrix replacement source &#0153;</h3>
+
+    <br />
+
+    <center class="consumable" style="margin-top: 20px; margin-bottom: 25px;">
+        <a href="sierpinski.htm">
+            <img src="img/siermasterlock22.png" width="181" height="157" />
+        </a>
+    </center>
+
+    <div class="content">
+
+        <div class="section">
+
+            <ol class='flipbook static'
+    name='matrix replacement source'
+    default='2'>
+ <li name='[minimal]'>
+<pre style='font-size: 14px'>
+<span class='Comment'>(* minimal *)</span>
+
+<span class='Identifier'>iterate</span>[<span class='Type'>matrix_</span>, <span class='Type'>power_</span>] <span class='Statement'>:=</span> <span class='Identifier'>Nest</span>[<span class='Identifier'>ArrayFlatten</span>[
+     <span class='Identifier'>ConstantArray</span>[<span class='Statement'>#</span>, <span class='Identifier'>Dimensions</span>[matrix]] matrix] <span class='Statement'>&amp;</span>, <span class='Type'>1</span>, power];
+
+<span class='Identifier'>draw</span>[<span class='Type'>matrix_</span>, <span class='Type'>power_</span>] <span class='Statement'>:=</span>
+  <span class='Identifier'>ArrayPlot</span>[<span class='Identifier'>iterate</span>[matrix, power],
+   Frame <span class='Statement'>-&gt;</span> <span class='Identifier'>False</span>, PixelConstrained <span class='Statement'>-&gt;</span> <span class='Type'>1</span>];
+
+<span class='Identifier'>draw</span>[{{<span class='Type'>1</span>, <span class='Type'>0</span>}, {<span class='Type'>1</span>, <span class='Type'>1</span>}}, <span class='Type'>10</span>]
+</pre>
+                </li>
+ <li name='definitions'>
+<pre style='font-size: 12px'>
+<span class='Identifier'>matrixInput</span>[<span class='Identifier'>Dynamic</span>[<span class='Type'>m_</span>], <span class='Identifier'>Dynamic</span>[<span class='Type'>rot_</span>]] <span class='Statement'>:=</span>
+  <span class='Identifier'>Dynamic</span>[<span class='Identifier'>Rotate</span>[<span class='Identifier'>Deploy</span>[<span class='Identifier'>MatrixForm</span>[<span class='Statement'>#</span>, TableSpacing <span class='Statement'>-&gt;</span> {<span class='Type'>0</span>, <span class='Type'>0</span>}]], rot] <span class='Statement'>&amp;</span><span class='Statement'>@</span>
+    <span class='Identifier'>Array</span>[<span class='Comment'>(*(*better performance*)Rotate[#,-rot]&amp;@*)</span>
+     <span class='Identifier'>Checkbox</span>[<span class='Identifier'>Dynamic</span>[<span class='Identifier'>m</span>[[<span class='Statement'>##</span>]]], {<span class='Type'>0</span>, <span class='Type'>1</span>}] <span class='Statement'>&amp;</span>, <span class='Identifier'>Dimensions</span>[m]]];
+
+bg <span class='Statement'>=</span> <span class='Identifier'>White</span>;
+dims <span class='Statement'>=</span> <span class='Statement'>#</span> <span class='Statement'>-&gt;</span> <span class='Identifier'>If</span>[<span class='Statement'>#</span> <span class='Statement'>&gt;</span> <span class='Type'>4</span>, <span class='Identifier'>Style</span>[<span class='Statement'>#</span>, <span class='Identifier'>Red</span>], <span class='Statement'>#</span>] <span class='Statement'>&amp;</span> <span class='Statement'>/@</span> <span class='Identifier'>Range</span>[<span class='Type'>7</span>];
+
+<span class='Identifier'>iterate</span>[<span class='Type'>matrix_</span>, <span class='Type'>power_</span>] <span class='Statement'>:=</span> <span class='Identifier'>Nest</span>[<span class='Identifier'>ArrayFlatten</span>[
+     <span class='Identifier'>ConstantArray</span>[<span class='Statement'>#</span>, <span class='Identifier'>Dimensions</span>[matrix]] matrix] <span class='Statement'>&amp;</span>, <span class='Type'>1</span>, power];
+
+controls <span class='Statement'>=</span> <span class='Identifier'>With</span>[{
+    mC <span class='Statement'>=</span> <span class='Identifier'>Control</span>[{{m, <span class='Type'>2</span>, <span class='String'>&quot;&quot;</span>}, dims, ControlType <span class='Statement'>-&gt;</span> PopupMenu}],
+    nC <span class='Statement'>=</span> <span class='Identifier'>Control</span>[{{n, <span class='Type'>2</span>, <span class='String'>&quot;&quot;</span>}, dims, ControlType <span class='Statement'>-&gt;</span> PopupMenu}],
+    matrixInputC <span class='Statement'>=</span> <span class='Identifier'>matrixInput</span>[<span class='Identifier'>Dynamic</span>[matrix], <span class='Identifier'>Dynamic</span>[rot]],
+    colorC <span class='Statement'>=</span> <span class='Identifier'>Control</span>[{{color, <span class='Identifier'>Black</span>}, ColorSlider}],
+    rotC <span class='Statement'>=</span> <span class='Identifier'>Control</span>[{{rot, <span class='Type'>0</span>, <span class='String'>&quot;\[Theta]&quot;</span>}, <span class='Identifier'>Pi</span>, <span class='Statement'>-</span><span class='Identifier'>Pi</span>, <span class='Identifier'>Pi</span><span class='Statement'>/</span><span class='Type'>16</span>}],
+    powerC <span class='Statement'>=</span> <span class='Identifier'>Control</span>[{{power, <span class='Type'>3</span>}, <span class='Type'>1</span>, <span class='Type'>4</span>, <span class='Type'>1</span>, Appearance <span class='Statement'>-&gt;</span> <span class='String'>&quot;Labeled&quot;</span>}],
+    opacityC <span class='Statement'>=</span> <span class='Identifier'>Control</span>[{{opacity, <span class='Type'>1</span>}, <span class='Type'>0</span>, <span class='Type'>1</span>, ImageSize <span class='Statement'>-&gt;</span> Small}],
+    primitiveC <span class='Statement'>=</span> <span class='Identifier'>Control</span>[{{primitive, <span class='Identifier'>Rectangle</span>[]},
+       (<span class='Statement'>#</span> <span class='Statement'>-&gt;</span> <span class='Identifier'>Graphics</span>[{color, <span class='Statement'>#</span>}, ImageSize <span class='Statement'>-&gt;</span> <span class='Type'>20</span>] <span class='Statement'>&amp;</span>) <span class='Statement'>/@</span> {
+         {<span class='Identifier'>PointSize</span>[Tiny], <span class='Identifier'>Point</span>[<span class='Identifier'>N</span><span class='Statement'>@</span>{<span class='Type'>0</span>, <span class='Type'>0</span>}]},
+         {<span class='Identifier'>EdgeForm</span>[<span class='Identifier'>None</span>], <span class='Identifier'>Disk</span>[<span class='Identifier'>N</span><span class='Statement'>@</span>{<span class='Type'>0</span>, <span class='Type'>0</span>}, <span class='Statement'>.</span><span class='Type'>5</span>]},
+         <span class='Identifier'>Rotate</span>[<span class='Identifier'>Scale</span>[<span class='Identifier'>Rectangle</span>[], <span class='Type'>1</span><span class='Statement'>./</span><span class='Identifier'>Sqrt</span>[<span class='Type'>2</span>]], <span class='Identifier'>Pi</span><span class='Statement'>/</span><span class='Type'>4</span>],
+         <span class='Identifier'>Rectangle</span>[]}, SetterBar}],
+    backgroundC <span class='Statement'>=</span> <span class='Identifier'>Row</span>[{<span class='String'>&quot;background   &quot;</span>,
+       <span class='Identifier'>Framed</span>[<span class='Identifier'>ColorSlider</span>[<span class='Identifier'>Dynamic</span>[background, (bg <span class='Statement'>=</span> background <span class='Statement'>=</span> <span class='Statement'>#</span>) <span class='Statement'>&amp;</span>],
+         AppearanceElements <span class='Statement'>-&gt;</span> <span class='String'>&quot;Swatch&quot;</span>], FrameStyle <span class='Statement'>-&gt;</span> <span class='Identifier'>Darker</span>[<span class='Identifier'>Gray</span>]],
+        <span class='String'>&quot; &quot;</span>,
+       <span class='Identifier'>ColorSlider</span>[<span class='Identifier'>Dynamic</span>[background, (bg <span class='Statement'>=</span> background <span class='Statement'>=</span> <span class='Statement'>#</span>) <span class='Statement'>&amp;</span>],
+        AppearanceElements <span class='Statement'>-&gt;</span> <span class='String'>&quot;Spectrum&quot;</span>, ImageSize <span class='Statement'>-&gt;</span> Small]}]},
+
+   <span class='Identifier'>Row</span>[{
+     <span class='Identifier'>Column</span>[{
+       <span class='Identifier'>Row</span>[{mC, <span class='String'>&quot;   \[Times]&quot;</span>, nC}],
+       <span class='Identifier'>Row</span>[{<span class='String'>&quot;    &quot;</span>, matrixInputC}]}],
+     <span class='Identifier'>Spacer</span>[<span class='Type'>40</span>],
+     <span class='Identifier'>Column</span>[{colorC, rotC, powerC}],
+     <span class='Identifier'>Column</span>[{backgroundC, opacityC, primitiveC}]}]];
+</pre>
+                </li>
+ <li name='Manipulate'>
+<pre style='font-size: 12px'>
+<span class='Identifier'>Panel</span>[<span class='Statement'>#</span>, Background <span class='Statement'>-&gt;</span> <span class='Identifier'>Dynamic</span>[bg]] <span class='Statement'>&amp;</span><span class='Statement'>@</span>
+ <span class='Identifier'>Manipulate</span>[
+  <span class='Identifier'>If</span>[{m, n} <span class='Statement'>=!=</span> <span class='Identifier'>Dimensions</span>[matrix], matrix <span class='Statement'>=</span> <span class='Identifier'>PadRight</span>[matrix, {m, n}]];
+
+  <span class='Identifier'>With</span>[{primitives <span class='Statement'>=</span> <span class='Identifier'>Rotate</span>[<span class='Statement'>#</span>, rot <span class='Statement'>-</span> <span class='Identifier'>Pi</span><span class='Statement'>/</span><span class='Type'>2</span>] <span class='Statement'>&amp;</span><span class='Statement'>@</span>
+      <span class='Identifier'>Translate</span>[primitive, <span class='Identifier'>Position</span>[
+        <span class='Identifier'>iterate</span>[matrix <span class='Statement'>/.</span> <span class='Type'>0</span> matrix <span class='Statement'>-&gt;</span> {{<span class='Type'>1</span>}}, power], <span class='Type'>1</span>]]},
+
+   <span class='Identifier'>Graphics</span>[{<span class='Identifier'>Dynamic</span>[<span class='Identifier'>EdgeForm</span>[{<span class='Identifier'>Opacity</span>[opacity], color}]],
+     <span class='Identifier'>Dynamic</span>[color], <span class='Identifier'>Dynamic</span>[<span class='Identifier'>Opacity</span>[opacity]], primitives},
+    ImageSize <span class='Statement'>-&gt;</span> {{<span class='Type'>400</span>, Large}, {<span class='Type'>400</span>, Large}},
+    Background <span class='Statement'>-&gt;</span> <span class='Identifier'>Dynamic</span>[background]]],
+
+  <span class='Identifier'>Evaluate</span>[controls],
+
+  <span class='Comment'>(*declare variables here for persistence*)</span>
+  {{background, bg <span class='Statement'>=</span> <span class='Identifier'>White</span>}, ControlType <span class='Statement'>-&gt;</span> <span class='Identifier'>None</span>},
+  {{matrix, {{<span class='Type'>1</span>, <span class='Type'>0</span>}, {<span class='Type'>1</span>, <span class='Type'>1</span>}}}, ControlType <span class='Statement'>-&gt;</span> <span class='Identifier'>None</span>},
+
+  Bookmarks <span class='Statement'>:&gt;</span> {
+    <span class='String'>&quot;Random&quot;</span> <span class='Statement'>:&gt;</span> (matrix <span class='Statement'>=</span> <span class='Identifier'>RandomChoice</span>[{<span class='Statement'>.</span><span class='Type'>4</span>, <span class='Statement'>.</span><span class='Type'>6</span>} <span class='Statement'>-&gt;</span> {<span class='Type'>0</span>, <span class='Type'>1</span>}, <span class='Identifier'>Dimensions</span>[matrix]]),
+    <span class='String'>&quot;Invert&quot;</span> <span class='Statement'>:&gt;</span> (matrix <span class='Statement'>=</span> <span class='Identifier'>BitXor</span>[matrix, <span class='Type'>1</span>]),
+    <span class='String'>&quot;Array Print&quot;</span> <span class='Statement'>:&gt;</span> (<span class='Identifier'>With</span>[{p <span class='Statement'>=</span> power, m <span class='Statement'>=</span> matrix, c <span class='Statement'>=</span> color, o <span class='Statement'>=</span> opacity, bg <span class='Statement'>=</span> background},
+      <span class='Identifier'>CellPrint</span>[<span class='Identifier'>ExpressionCell</span>[<span class='Identifier'>Defer</span>[
+         <span class='Identifier'>ArrayPlot</span>[<span class='Identifier'>iterate</span>[m, p], Frame <span class='Statement'>-&gt;</span> <span class='Identifier'>False</span>, PixelConstrained <span class='Statement'>-&gt;</span> <span class='Type'>1</span>,
+          ColorRules <span class='Statement'>-&gt;</span> {<span class='Type'>0</span> <span class='Statement'>-&gt;</span> bg, <span class='Type'>1</span> <span class='Statement'>-&gt;</span> c <span class='Statement'>/.</span> <span class='Identifier'>RGBColor</span>[<span class='Type'>r_</span>, <span class='Type'>g_</span>, <span class='Type'>b_</span>] <span class='Statement'>:&gt;</span> <span class='Identifier'>RGBColor</span>[r, g, b, o]}]],
+        <span class='String'>&quot;Input&quot;</span>]]]),
+    <span class='String'>&quot;Clear&quot;</span> <span class='Statement'>:&gt;</span> (matrix <span class='Statement'>=</span> <span class='Type'>0</span> matrix)},
+
+  Paneled <span class='Statement'>-&gt;</span> <span class='Identifier'>False</span>, SynchronousUpdating <span class='Statement'>-&gt;</span> <span class='Identifier'>Automatic</span>,
+  SaveDefinitions <span class='Statement'>-&gt;</span> <span class='Identifier'>True</span>, LabelStyle <span class='Statement'>-&gt;</span> <span class='Identifier'>Darker</span>[<span class='Identifier'>Gray</span>], Alignment <span class='Statement'>-&gt;</span> Center]
+</pre>
+                </li>
+</ol>
+
+        </div>
+
+        <div class="section" style="margin-top: -22px; margin-bottom: -11px">
+            <!--center>
+                <img src="img/siermasterlock6.png" width="260" height="55" />
+            </center-->
+        </div>
+
+        <center>
+            <p class="consumable" style="font-size: 10px; max-width: 450px; text-align: left; margin-top: 4px;">
+            This page is an excerpt from <a href="sierpinski.htm">the sierpinski triangle page to end most sierpinski triangle pages &#0153;</a>.
+            </p>
+        </center>
+
+        <div class="links centered">
+            <a href="/" title="home" style="color: #333333" class="pagelink">&lt;&lt;</a>
+        </div>
+
+    </div>
+
+</body>
+</html>

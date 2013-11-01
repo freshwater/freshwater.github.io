@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+    <head>
+        <title> oftenpaper.net/fadeleafsamples.htm </title>
+
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.9.0/build/reset-fonts-grids/reset-fonts-grids.css" />
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.9.0/build/base/base-min.css" />
+        <link rel="stylesheet" type="text/css" href="oftencss.css" />
+
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+
+        <script type="text/javascript" id="mathjax" src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax:{inlineMath:[['$','$']]}})</script>
+
+        <script type="text/javascript" src="flipbook.js"></script>
+    </head>
+
+<body>
+    <h1><a href="/"> oftenpaper.net </a></h1>
+    <h3>fadeleaf samples &#0153;</h3>
+
+    <br />
+
+    <center class="consumable" style="margin-top: 20px; margin-bottom: 25px;">
+        <a href="sierpinski.htm">
+            <img src="img/siermasterlock22.png" width="181" height="157" />
+        </a>
+    </center>
+
+    <div class="content">
+
+        <div class="section">
+
+            <ol class='flipbook static'
+    name='fadeleaf samples'>
+ <li>
+            <img src='img/sierrandergen15.png' width='616' height='634' />
+            </li>
+ <li>
+            <img src='img/sierrandergen18.png' width='640' height='640' />
+            </li>
+ <li>
+            <img src='img/sierrandergen3.png' width='640' height='583' />
+            </li>
+ <li>
+            <img src='img/sierrandergen12.png' width='640' height='609' />
+            </li>
+ <li>
+            <img src='img/sierrandergen11.png' width='640' height='570' />
+            </li>
+ <li>
+            <img src='img/sierrandergen10.png' width='640' height='580' />
+            </li>
+ <li>
+            <img src='img/sierrandergen14.png' width='640' height='624' />
+            </li>
+ <li>
+            <img src='img/sierrandergen13.png' width='640' height='630' />
+            </li>
+ <li>
+        <ol class='flipbook static' name='fadeleaf sine parameterspaceish'><li name='image'>
+            <img src='img/sierrandergenparameterspaceish3.png' width='550' height='550' />
+            </li><li name='source'>
+        <pre style='font-size: 12px'>
+vertices <span class='Statement'>=</span> <span class='Comment'>(**)</span><span class='Type'>5</span><span class='Comment'>(**)</span> {<span class='Identifier'>Cos</span>[<span class='Statement'>#</span>], <span class='Identifier'>Sin</span>[<span class='Statement'>#</span>]} <span class='Statement'>&amp;</span> <span class='Statement'>/@</span> (<span class='Type'>2</span> <span class='Identifier'>Pi</span> <span class='Identifier'>Range</span>[<span class='Type'>3</span>]<span class='Statement'>/</span><span class='Type'>3</span>);
+
+check <span class='Statement'>=</span> <span class='Identifier'>Compile</span>[{{x, <span class='Type'>_Real</span>, <span class='Type'>0</span>}, {y, <span class='Type'>_Real</span>, <span class='Type'>0</span>}},
+   <span class='Identifier'>Module</span>[{i, b, diff, z <span class='Statement'>=</span> {<span class='Type'>0</span><span class='Statement'>.</span>, <span class='Type'>0</span><span class='Statement'>.</span>}, vertices <span class='Statement'>=</span> vertices},
+    <span class='Identifier'>Total</span><span class='Statement'>@</span><span class='Identifier'>Table</span>[
+      i <span class='Statement'>=</span> <span class='Type'>0</span>; z <span class='Statement'>=</span> {x, y};
+      <span class='Identifier'>While</span>[z<span class='Statement'>.</span>z <span class='Statement'>&lt;</span> <span class='Type'>40</span> <span class='Statement'>&amp;&amp;</span> i<span class='Statement'>++</span> <span class='Statement'>&lt;</span> <span class='Type'>120</span>,
+       b <span class='Statement'>=</span> <span class='Identifier'>RandomChoice</span>[vertices];
+       diff <span class='Statement'>=</span> b <span class='Statement'>-</span> z;
+       z <span class='Statement'>=</span> (z <span class='Statement'>+</span> b) <span class='Identifier'>Sin</span>[<span class='Identifier'>Sqrt</span>[diff<span class='Statement'>.</span>diff] <span class='Statement'>+</span> <span class='Statement'>.</span><span class='Type'>01</span>]];
+      <span class='Statement'>-</span>i,
+      {<span class='Type'>20</span><span class='Comment'>(*0*)(*number of trials*)</span>}]]];
+
+img <span class='Statement'>=</span> <span class='Identifier'>ImageAdjust</span><span class='Statement'>@</span><span class='Identifier'>Image</span><span class='Statement'>@</span>
+    <span class='Identifier'>ParallelTable</span>[<span class='Identifier'>check</span>[x, y],
+     {y, <span class='Statement'>-</span><span class='Type'>6.5</span>, <span class='Type'>6.5</span>, <span class='Statement'>.</span><span class='Type'>01</span>}, {x, <span class='Statement'>-</span><span class='Type'>6.5</span>, <span class='Type'>6.5</span>, <span class='Statement'>.</span><span class='Type'>01</span>}];
+
+img <span class='Statement'>//</span><span class='Identifier'> Colorize</span> <span class='Statement'>//</span><span class='Identifier'> ImageAdjust</span> <span class='Statement'>//</span><span class='Identifier'> ColorConvert</span>[<span class='Statement'>#</span>, <span class='String'>&quot;Grayscale&quot;</span>] <span class='Statement'>&amp;</span> <span class='Statement'>//</span><span class='Identifier'> ImageAdjust</span> <span class='Statement'>//</span>
+    <span class='Identifier'>ImageResize</span>[<span class='Statement'>#</span>, <span class='Identifier'>Scaled</span>[<span class='Type'>1</span><span class='Statement'>/</span><span class='Type'>2</span>]] <span class='Statement'>&amp;</span> <span class='Statement'>//</span><span class='Identifier'> ImageRotate</span>[<span class='Statement'>#</span>, <span class='Statement'>-</span><span class='Identifier'>Pi</span><span class='Statement'>/</span><span class='Type'>2</span>] <span class='Statement'>&amp;</span> <span class='Statement'>//</span><span class='Identifier'> ColorNegate</span> <span class='Statement'>//</span>
+ <span class='Identifier'>ImageApply</span>[<span class='Statement'>#</span><span class='Statement'>^</span>(<span class='Type'>1</span><span class='Statement'>/</span><span class='Type'>1.3</span>) <span class='Statement'>&amp;</span>, <span class='Statement'>#</span>] <span class='Statement'>&amp;</span></pre>
+            </li></ol>
+            </li>
+ <li name='source'>
+<pre>
+<span class='Identifier'>game</span>[<span class='Type'>f_</span>, <span class='Type'>rest__</span>] <span class='Statement'>:=</span> rest <span class='Statement'>//</span>
+   <span class='Identifier'>Compile</span>[{{v, <span class='Type'>_Integer</span>}, {w, <span class='Type'>_Real</span>}, {numPoints, <span class='Type'>_Integer</span>}, {rot, <span class='Type'>_Real</span>}},
+    <span class='Identifier'>Module</span>[{diff, tmp, vertices},
+     vertices <span class='Statement'>=</span> {<span class='Identifier'>Cos</span>[<span class='Statement'>#</span>], <span class='Identifier'>Sin</span>[<span class='Statement'>#</span>]} <span class='Statement'>&amp;</span> <span class='Statement'>/@</span> (rot <span class='Statement'>+</span> <span class='Type'>2</span> <span class='Identifier'>Pi</span> <span class='Identifier'>Range</span>[v]<span class='Statement'>/</span>v);
+
+     <span class='Identifier'>FoldList</span>[(
+        diff <span class='Statement'>=</span> <span class='Statement'>#2</span> <span class='Statement'>-</span> <span class='Statement'>#1</span>;
+        tmp <span class='Statement'>=</span> <span class='Identifier'>f</span>[<span class='Identifier'>Sqrt</span>[diff<span class='Statement'>.</span>diff] <span class='Statement'>+</span> w];
+        <span class='Identifier'>Clip</span>[(<span class='Statement'>#1</span> <span class='Statement'>+</span> <span class='Statement'>#2</span>) tmp, <span class='Type'>24</span> {<span class='Statement'>-</span><span class='Type'>1</span>, <span class='Type'>1</span>}]) <span class='Statement'>&amp;</span>,
+      {<span class='Type'>0</span>, <span class='Type'>0</span>}, <span class='Identifier'>RandomChoice</span>[vertices, numPoints]]]];
+
+<span class='Identifier'>draw</span>[{<span class='Type'>args__</span>}, <span class='Type'>rot_</span><span class='Statement'>:</span> <span class='Type'>0</span>, <span class='Type'>options___</span>] <span class='Statement'>:=</span>
+  <span class='Identifier'>Graphics</span>[{<span class='Identifier'>PointSize</span>[<span class='Type'>0</span>], <span class='Identifier'>Opacity</span>[<span class='Statement'>.</span><span class='Type'>25</span>],
+    <span class='Identifier'>Point</span>[<span class='Identifier'>game</span>[args, rot]]}, options];
+
+<span class='Identifier'>draw</span>[{Sin, <span class='Type'>5</span>, <span class='Statement'>-</span><span class='Type'>1.23</span>, <span class='Type'>100000</span>}, <span class='Statement'>-</span><span class='Identifier'>Pi</span><span class='Statement'>/</span><span class='Type'>10</span>]
+<span class='Identifier'>draw</span>[{Cos, <span class='Type'>3</span>, <span class='Identifier'>Pi</span><span class='Statement'>/</span><span class='Type'>2.675</span>, <span class='Type'>100000</span>}, <span class='Statement'>-</span><span class='Identifier'>Pi</span><span class='Statement'>/</span><span class='Type'>6</span>]
+<span class='Identifier'>draw</span>[{RamanujanTauL, <span class='Type'>5</span>, <span class='Type'>3.1</span>, <span class='Type'>10000</span>}, <span class='Statement'>-</span><span class='Identifier'>Pi</span><span class='Statement'>/</span><span class='Type'>10</span>]
+</pre>
+            </li>
+</ol>
+
+        </div>
+
+        <div class="section" style="margin-top: -22px; margin-bottom: -11px">
+            <!--center>
+                <img src="img/siermasterlock6.png" width="260" height="55" />
+            </center-->
+        </div>
+
+        <center>
+            <p class="consumable" style="font-size: 10px; max-width: 450px; text-align: left; margin-top: 4px;">
+            This page is an excerpt from <a href="sierpinski.htm">the sierpinski triangle page to end most sierpinski triangle pages &#0153;</a>.
+            </p>
+        </center>
+
+        <div class="links centered">
+            <a href="/" title="home" style="color: #333333" class="pagelink">&lt;&lt;</a>
+        </div>
+
+    </div>
+
+</body>
+</html>

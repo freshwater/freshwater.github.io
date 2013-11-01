@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+    <head>
+        <title> oftenpaper.net/cowpinski1.htm </title>
+
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.9.0/build/reset-fonts-grids/reset-fonts-grids.css" />
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.9.0/build/base/base-min.css" />
+        <link rel="stylesheet" type="text/css" href="oftencss.css" />
+
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+
+        <script type="text/javascript" id="mathjax" src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax:{inlineMath:[['$','$']]}})</script>
+
+        <script type="text/javascript" src="flipbook.js"></script>
+    </head>
+
+<body>
+    <h1><a href="/"> oftenpaper.net </a></h1>
+    <h3>cowpinski 1 &#0153;</h3>
+
+    <br />
+
+    <center class="consumable" style="margin-top: 20px; margin-bottom: 25px;">
+        <a href="sierpinski.htm">
+            <img src="img/siermasterlock22.png" width="181" height="157" />
+        </a>
+    </center>
+
+    <div class="content">
+
+        <div class="section">
+
+            <ol class='flipbook static'
+    name='cowpinski 1'>
+ <li>
+            <img src='img/cowpinski4.png' width='640' height='500' />
+            </li>
+ <li>
+            <img src='img/cowpinski3.png' width='640' height='500' />
+            </li>
+ <li>
+            <img src='img/cowpinski2.png' width='640' height='500' />
+            </li>
+ <li>
+            <img src='img/cowpinski1.png' width='623' height='730' />
+            </li>
+ <li name='source'>
+<pre style='font-size: 12px'>
+toRiemann <span class='Statement'>=</span> <span class='Identifier'>Compile</span>[{{pts, <span class='Type'>_Real</span>, <span class='Type'>2</span>}}, <span class='Identifier'>Module</span>[{k},
+    <span class='Identifier'>Map</span>[(k <span class='Statement'>=</span> <span class='Type'>2</span><span class='Statement'>/</span>(<span class='Type'>1</span> <span class='Statement'>+</span> <span class='Statement'>#</span><span class='Statement'>.</span><span class='Statement'>#</span>); {k <span class='Statement'>#</span>[[<span class='Type'>1</span>]], k <span class='Statement'>#</span>[[<span class='Type'>2</span>]], <span class='Type'>1</span> <span class='Statement'>-</span> k}) <span class='Statement'>&amp;</span>, pts]]];
+
+cow <span class='Statement'>=</span> {<span class='Identifier'>EdgeForm</span>[<span class='Identifier'>None</span>], <span class='Identifier'>Texture</span>[<span class='Identifier'>Graphics</span>[<span class='Identifier'>Disk</span>[]]], Lighting <span class='Statement'>-&gt;</span> <span class='String'>&quot;Neutral&quot;</span>,
+   <span class='Identifier'>Append</span>[<span class='Identifier'>ExampleData</span>[{<span class='String'>&quot;Geometry3D&quot;</span>, <span class='String'>&quot;Cow&quot;</span>}, <span class='String'>&quot;GraphicsComplex&quot;</span>],
+    VertexTextureCoordinates <span class='Statement'>-&gt;</span> <span class='Type'>1</span><span class='Statement'>/</span><span class='Type'>500</span> <span class='Identifier'>ExampleData</span>[{<span class='String'>&quot;Geometry3D&quot;</span>, <span class='String'>&quot;Cow&quot;</span>}, <span class='String'>&quot;PolygonData&quot;</span>]]};
+
+<span class='Identifier'>riemannize</span>[<span class='Identifier'>Graphics</span>[<span class='Type'>g_</span>, <span class='Type'>___</span>], <span class='Type'>options___</span>] <span class='Statement'>:=</span> <span class='Identifier'>Graphics3D</span>[{
+    <span class='Comment'>(*sphere*)</span>{Lighting <span class='Statement'>-&gt;</span> <span class='String'>&quot;Neutral&quot;</span>, <span class='Identifier'>Opacity</span>[<span class='Statement'>.</span><span class='Type'>07</span>], <span class='Identifier'>Sphere</span>[{<span class='Type'>0</span>, <span class='Type'>0</span>, <span class='Type'>0</span>}, <span class='Type'>1</span>]},
+    <span class='Comment'>(*cow*)</span><span class='Identifier'>Rotate</span>[<span class='Identifier'>Rotate</span>[<span class='Identifier'>Translate</span>[cow, {<span class='Type'>0</span>, <span class='Type'>0</span>, <span class='Type'>1.2</span>}], <span class='Statement'>-</span><span class='Identifier'>Pi</span><span class='Statement'>/</span><span class='Type'>2</span>, {<span class='Type'>0</span>, <span class='Type'>0</span>, <span class='Type'>1</span>}], <span class='Statement'>-</span><span class='Identifier'>Pi</span><span class='Statement'>/</span> <span class='Type'>2</span>, {<span class='Type'>1</span>, <span class='Type'>0</span>, <span class='Type'>0</span>}],
+    <span class='Comment'>(*curves*)</span>g <span class='Statement'>/.</span> (<span class='Type'>h </span><span class='Statement'>:</span> Line <span class='Statement'>|</span> Polygon)[<span class='Type'>pts_</span>] <span class='Statement'>:&gt;</span> {<span class='Identifier'>h</span>[{<span class='Statement'>##</span>, <span class='Type'>0</span>} <span class='Statement'>&amp;</span> <span class='Statement'>@@@</span> pts], <span class='Identifier'>h</span>[<span class='Identifier'>toRiemann</span>[pts]]}},
+   options, Boxed <span class='Statement'>-&gt;</span> <span class='Identifier'>False</span>];
+
+axiom <span class='Statement'>=</span> <span class='Identifier'>Polygon</span>[<span class='Type'>2</span> {<span class='Identifier'>Cos</span>[<span class='Statement'>#</span>], <span class='Identifier'>Sin</span>[<span class='Statement'>#</span>]} <span class='Statement'>&amp;</span> <span class='Statement'>/@</span> (<span class='Identifier'>Pi</span><span class='Statement'>/</span><span class='Type'>2</span> <span class='Statement'>-</span> <span class='Type'>2</span> <span class='Identifier'>Pi</span> <span class='Identifier'>Range</span>[<span class='Type'>3</span>]<span class='Statement'>/</span><span class='Type'>3</span>)];
+
+<span class='Identifier'>next</span>[<span class='Type'>prev_</span>] <span class='Statement'>:=</span> prev <span class='Statement'>/.</span> <span class='Identifier'>Polygon</span>[{<span class='Type'>p1_</span>, <span class='Type'>p2_</span>, <span class='Type'>p3_</span>}] <span class='Statement'>:&gt;</span> {
+     <span class='Identifier'>Polygon</span>[{p1, (p1 <span class='Statement'>+</span> p2)<span class='Statement'>/</span><span class='Type'>2</span>, (p1 <span class='Statement'>+</span> p3)<span class='Statement'>/</span><span class='Type'>2</span>}],
+     <span class='Identifier'>Polygon</span>[{p2, (p2 <span class='Statement'>+</span> p3)<span class='Statement'>/</span><span class='Type'>2</span>, (p1 <span class='Statement'>+</span> p2)<span class='Statement'>/</span><span class='Type'>2</span>}],
+     <span class='Identifier'>Polygon</span>[{p3, (p1 <span class='Statement'>+</span> p3)<span class='Statement'>/</span><span class='Type'>2</span>, (p2 <span class='Statement'>+</span> p3)<span class='Statement'>/</span><span class='Type'>2</span>}]};
+
+<span class='Identifier'>draw</span>[<span class='Type'>n_</span>] <span class='Statement'>:=</span> <span class='Identifier'>Graphics</span>[{Transparent, <span class='Identifier'>EdgeForm</span>[<span class='Identifier'>Black</span>], <span class='Identifier'>Nest</span>[next, <span class='Identifier'>N</span><span class='Statement'>@</span>axiom, n]}];
+
+<span class='Identifier'>riemannize</span>[<span class='Identifier'>draw</span>[<span class='Type'>5</span>], ViewPoint <span class='Statement'>-&gt;</span> Top]
+</pre>
+            </li>
+</ol>
+
+        </div>
+
+        <div class="section" style="margin-top: -22px; margin-bottom: -11px">
+            <!--center>
+                <img src="img/siermasterlock6.png" width="260" height="55" />
+            </center-->
+        </div>
+
+        <center>
+            <p class="consumable" style="font-size: 10px; max-width: 450px; text-align: left; margin-top: 4px;">
+            This page is an excerpt from <a href="sierpinski.htm">the sierpinski triangle page to end most sierpinski triangle pages &#0153;</a>.
+            </p>
+        </center>
+
+        <div class="links centered">
+            <a href="/" title="home" style="color: #333333" class="pagelink">&lt;&lt;</a>
+        </div>
+
+    </div>
+
+</body>
+</html>

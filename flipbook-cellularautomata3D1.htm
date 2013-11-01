@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+    <head>
+        <title> oftenpaper.net/cellularautomata3D1.htm </title>
+
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.9.0/build/reset-fonts-grids/reset-fonts-grids.css" />
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.9.0/build/base/base-min.css" />
+        <link rel="stylesheet" type="text/css" href="oftencss.css" />
+
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+
+        <script type="text/javascript" id="mathjax" src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax:{inlineMath:[['$','$']]}})</script>
+
+        <script type="text/javascript" src="flipbook.js"></script>
+    </head>
+
+<body>
+    <h1><a href="/"> oftenpaper.net </a></h1>
+    <h3>cellular automata 3D 1 &#0153;</h3>
+
+    <br />
+
+    <center class="consumable" style="margin-top: 20px; margin-bottom: 25px;">
+        <a href="sierpinski.htm">
+            <img src="img/siermasterlock22.png" width="181" height="157" />
+        </a>
+    </center>
+
+    <div class="content">
+
+        <div class="section">
+
+            <ol class='flipbook static'
+    name='cellular automata 3D 1'>
+ <li>
+            <img src='img/sier3Dca3.png' width='640' height='640' />
+            </li>
+ <li>
+            <img src='img/sier3Dca4.png' width='500' height='381' />
+            </li>
+ <li>
+            <img src='img/sier3Dca6.png' width='640' height='640' />
+            </li>
+ <li>
+            <img src='img/sier3Dca1.png' width='640' height='640' />
+            </li>
+ <li>
+            <img src='img/sier3Dca16.png' width='640' height='508' />
+            </li>
+ <li>
+            <img src='img/sier3Dca12.png' width='640' height='640' />
+            </li>
+ <li>
+            <img src='img/sier3Dca20.png' width='640' height='640' />
+            </li>
+ <li>
+            <img src='img/sier3Dcakitty1.png' width='640' height='543' />
+            </li>
+ <li>
+            <img src='img/sier3Dcatomoe1.png' width='644' height='644' />
+            </li>
+ <li name='source'>
+            <pre>
+<span class='Identifier'>draw</span>[<span class='Type'>array_</span>, <span class='Type'>options___</span>] <span class='Statement'>:=</span> <span class='Identifier'>Module</span>[
+   {interval, topinterval, width, height, f, coords},
+   {height, width} <span class='Statement'>=</span> <span class='Identifier'>Dimensions</span>[array];
+   interval <span class='Statement'>=</span> <span class='Type'>2</span><span class='Statement'>.</span> <span class='Identifier'>Pi</span><span class='Statement'>/</span>width;
+   topinterval <span class='Statement'>=</span> <span class='Type'>2</span><span class='Statement'>.</span> <span class='Identifier'>Pi</span> (<span class='Type'>1</span> <span class='Statement'>+</span> interval)<span class='Statement'>/</span>width;
+   coords <span class='Statement'>=</span> <span class='Identifier'>Position</span>[array, <span class='Type'>1</span>];
+
+   <span class='Identifier'>f</span>[{<span class='Type'>x_</span>, <span class='Type'>r_</span>}] <span class='Statement'>:=</span> <span class='Identifier'>Rotate</span>[<span class='Identifier'>Translate</span>[
+      <span class='Identifier'>Cuboid</span>[<span class='Statement'>-</span><span class='Statement'>#</span>, <span class='Statement'>#</span>] <span class='Statement'>&amp;</span>[<span class='Statement'>.</span><span class='Type'>5</span> topinterval {<span class='Type'>1</span>, <span class='Type'>1</span>, <span class='Type'>1</span>}],
+      {<span class='Type'>1</span>, <span class='Type'>0</span>, <span class='Statement'>-</span>interval x}], interval r, {<span class='Type'>0</span>, <span class='Type'>0</span>, <span class='Type'>1</span>}<span class='Comment'>(*;{1,0,0}*)</span>, {<span class='Type'>0</span>, <span class='Type'>0</span>, <span class='Type'>0</span>}];
+
+   <span class='Identifier'>Graphics3D</span>[{{<span class='Identifier'>Lighter</span>[LightBlue], <span class='Identifier'>Opacity</span>[<span class='Statement'>.</span><span class='Type'>5</span>],
+      <span class='Identifier'>Sphere</span>[{<span class='Type'>0</span>, <span class='Type'>0</span>, <span class='Statement'>-</span>interval height<span class='Statement'>/</span><span class='Type'>2</span>}, <span class='Statement'>.</span><span class='Type'>5</span>]},
+     <span class='Identifier'>EdgeForm</span>[<span class='Identifier'>None</span>], <span class='Identifier'>White</span>, <span class='Identifier'>f </span><span class='Statement'>/@</span> coords}, options, Boxed <span class='Statement'>-&gt;</span> <span class='Identifier'>False</span>]];
+
+<span class='Identifier'>draw</span>[<span class='Identifier'>CellularAutomaton</span>[<span class='Type'>22</span>,
+  <span class='Identifier'>ConstantArray</span>[<span class='Type'>0</span>, <span class='Type'>500</span>]<span class='Statement'>~</span><span class='Identifier'>ReplacePart</span><span class='Statement'>~</span>{<span class='Type'>1</span> <span class='Statement'>-&gt;</span> <span class='Type'>1</span>, <span class='Type'>251</span> <span class='Statement'>-&gt;</span> <span class='Type'>1</span>}, <span class='Type'>125</span>],
+ Lighting <span class='Statement'>-&gt;</span> <span class='String'>&quot;Neutral&quot;</span>]</pre>
+            </li>
+ <li name='?'>
+            <pre style='font-size: 12px'>
+<span class='Identifier'>draw2</span>[<span class='Type'>im_Image</span>, <span class='Type'>options___</span>] <span class='Statement'>:=</span> <span class='Identifier'>draw2</span>[<span class='Identifier'>ImageData</span>[<span class='Identifier'>ColorConvert</span>[im, <span class='String'>&quot;RGB&quot;</span>]], options];
+<span class='Identifier'>draw2</span>[<span class='Type'>array_</span>, <span class='Type'>options___</span>] <span class='Statement'>:=</span> <span class='Identifier'>Module</span>[
+   {interval, width, height, f, cubes, coords},
+   {height, width} <span class='Statement'>=</span> <span class='Identifier'>Dimensions</span>[array][[{<span class='Type'>1</span>, <span class='Type'>2</span>}]];
+   interval <span class='Statement'>=</span> <span class='Type'>2</span><span class='Statement'>.</span> <span class='Identifier'>Pi</span><span class='Statement'>/</span>width;
+   coords <span class='Statement'>=</span> <span class='Identifier'>Position</span>[array, <span class='Type'>p_</span> <span class='Statement'>/;</span> p <span class='Statement'>!=</span> {<span class='Type'>0</span>, <span class='Type'>0</span>, <span class='Type'>0</span>}, {<span class='Type'>2</span>}];
+
+   <span class='Identifier'>f</span>[{<span class='Type'>x_</span>, <span class='Type'>r_</span>}] <span class='Statement'>:=</span> <span class='Identifier'>Rotate</span>[<span class='Identifier'>Translate</span>[
+      <span class='Identifier'>Cuboid</span>[<span class='Statement'>-</span><span class='Statement'>#</span>, <span class='Statement'>#</span>] <span class='Statement'>&amp;</span>[<span class='Statement'>.</span><span class='Type'>5</span> interval {<span class='Type'>1</span>, <span class='Type'>1</span>, <span class='Type'>1</span>}],
+      {<span class='Type'>1</span>, <span class='Type'>0</span>, <span class='Statement'>-</span>interval x}], interval r, {<span class='Type'>0</span>, <span class='Type'>0</span>, <span class='Type'>1</span>}, {<span class='Type'>0</span>, <span class='Type'>0</span>, <span class='Type'>0</span>}];
+
+   cubes <span class='Statement'>=</span> <span class='Identifier'>MapThread</span>[{<span class='Identifier'>RGBColor </span><span class='Statement'>@@</span> <span class='Statement'>#1</span>, <span class='Identifier'>f</span>[<span class='Statement'>#2</span>]} <span class='Statement'>&amp;</span>,
+     {<span class='Identifier'>array</span>[[<span class='Statement'>##</span>]] <span class='Statement'>&amp;</span> <span class='Statement'>@@@</span> coords, coords}];
+
+   <span class='Identifier'>Graphics3D</span>[{{<span class='Identifier'>Lighter</span>[LightBlue], <span class='Identifier'>Opacity</span>[<span class='Statement'>.</span><span class='Type'>5</span>],
+      <span class='Identifier'>Sphere</span>[{<span class='Type'>0</span>, <span class='Type'>0</span>, <span class='Statement'>-</span>interval height<span class='Statement'>/</span><span class='Type'>2</span>}, <span class='Statement'>.</span><span class='Type'>5</span>]},
+     <span class='Identifier'>EdgeForm</span>[<span class='Identifier'>None</span>], cubes}, options, Boxed <span class='Statement'>-&gt;</span> <span class='Identifier'>False</span>]];
+
+<span class='Comment'>(*this rule from </span><span class='String'>&quot;<a shape='rect' href='http://web.cecs.pdx.edu/~mm/evca-review.pdf'>http://web.cecs.pdx.edu/~mm/evca-review.pdf</a>&quot;</span><span class='Comment'>*)</span>
+rules <span class='Statement'>=</span> <span class='Identifier'>Thread</span>[<span class='Identifier'>Tuples</span>[{<span class='Type'>0</span>, <span class='Type'>1</span>}, {<span class='Type'>7</span>}] <span class='Statement'>-&gt;</span>
+    <span class='Identifier'>IntegerDigits</span>[<span class='Identifier'>FromDigits</span>[<span class='String'>&quot;0504058705000f77037755837bffb77f&quot;</span>, <span class='Type'>16</span>], <span class='Type'>2</span>, <span class='Type'>128</span>]];
+
+arr <span class='Statement'>=</span> <span class='Identifier'>FixedPointList</span>[<span class='Identifier'>CellularAutomaton</span>[rules], <span class='Identifier'>RandomInteger</span>[<span class='Type'>1</span>, <span class='Type'>600</span>]];
+arrEdge <span class='Statement'>=</span> <span class='Identifier'>ArrayPlot</span>[arr, PixelConstrained <span class='Statement'>-&gt;</span> <span class='Type'>1</span>, Frame <span class='Statement'>-&gt;</span> <span class='Identifier'>False</span>] <span class='Statement'>//</span><span class='Identifier'> EdgeDetect</span> <span class='Statement'>//</span><span class='Identifier'> ImageData</span>;
+
+<span class='Comment'>(*ad hoc coloring, originally intended for particle animation*)</span>
+pat1 <span class='Statement'>=</span> {{<span class='Type'>_</span>, <span class='Type'>_</span>, <span class='Type'>_</span>, <span class='Type'>_</span>, <span class='Type'>_</span>}, {<span class='Type'>_</span>, <span class='Type'>1</span>, <span class='Type'>0</span>, <span class='Type'>0</span>, <span class='Type'>1</span>}, {<span class='Type'>_</span>, <span class='Type'>_</span>, <span class='Type'>_</span>, <span class='Type'>_</span>, <span class='Type'>_</span>}};
+pat2 <span class='Statement'>=</span> {{<span class='Type'>_</span>, <span class='Type'>1</span>, <span class='Type'>_</span>, <span class='Type'>_</span>, <span class='Type'>_</span>}, {<span class='Type'>_</span>, <span class='Type'>_</span>, <span class='Type'>1</span>, <span class='Type'>_</span>, <span class='Type'>_</span>}, {<span class='Type'>_</span>, <span class='Type'>_</span>, <span class='Type'>_</span>, <span class='Type'>1</span>, <span class='Type'>_</span>}};
+pat3 <span class='Statement'>=</span> {{<span class='Type'>_</span>, <span class='Type'>_</span>, <span class='Type'>_</span>, <span class='Type'>_</span>, <span class='Type'>_</span>}, {<span class='Type'>_</span>, <span class='Type'>1</span>, <span class='Type'>1</span>, <span class='Type'>1</span>, <span class='Type'>_</span>}, {<span class='Type'>_</span>, <span class='Type'>_</span>, <span class='Type'>_</span>, <span class='Type'>_</span>, <span class='Type'>_</span>}};
+(<span class='Identifier'>f</span>[<span class='Statement'>#1</span> <span class='Statement'>|</span> <span class='Identifier'>Reverse </span><span class='Statement'>/@</span> <span class='Statement'>#1</span>, <span class='Type'>_</span>] <span class='Statement'>=</span> <span class='Statement'>#2</span>) <span class='Statement'>&amp;</span> <span class='Statement'>@@@</span>
+  {<span class='Type'>_</span> <span class='Statement'>-&gt;</span> {<span class='Type'>0</span>, <span class='Type'>0</span>, <span class='Type'>0</span>}, pat1 <span class='Statement'>-&gt;</span> {<span class='Type'>1</span>, <span class='Type'>0</span>, <span class='Type'>0</span>}, pat2 <span class='Statement'>-&gt;</span> {<span class='Type'>0</span>, <span class='Type'>1</span>, <span class='Type'>0</span>}, pat3 <span class='Statement'>-&gt;</span> {<span class='Type'>0</span>, <span class='Type'>0</span>, <span class='Type'>1</span>}};
+
+<span class='Comment'>(*see also ImageFilter, ImageConvolve, a million other things*)</span>
+colored <span class='Statement'>=</span> <span class='Identifier'>CellularAutomaton</span>[{f, {}, {<span class='Type'>1</span>, <span class='Type'>2</span>}}, arrEdge];
+
+<span class='Identifier'>Image</span>[colored]
+<span class='Identifier'>draw2</span>[colored, Lighting <span class='Statement'>-&gt;</span> <span class='String'>&quot;Neutral&quot;</span>]
+</pre>
+            </li>
+</ol>
+
+        </div>
+
+        <div class="section" style="margin-top: -22px; margin-bottom: -11px">
+            <!--center>
+                <img src="img/siermasterlock6.png" width="260" height="55" />
+            </center-->
+        </div>
+
+        <center>
+            <p class="consumable" style="font-size: 10px; max-width: 450px; text-align: left; margin-top: 4px;">
+            This page is an excerpt from <a href="sierpinski.htm">the sierpinski triangle page to end most sierpinski triangle pages &#0153;</a>.
+            </p>
+        </center>
+
+        <div class="links centered">
+            <a href="/" title="home" style="color: #333333" class="pagelink">&lt;&lt;</a>
+        </div>
+
+    </div>
+
+</body>
+</html>
