@@ -1,0 +1,167 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+    <head>
+        <title> oftenpaper.net/cyclotron4000 </title>
+
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.9.0/build/reset-fonts-grids/reset-fonts-grids.css" />
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.9.0/build/base/base-min.css" />
+        <link rel="stylesheet" type="text/css" href="oftencss.css" />
+
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+
+        <script type="text/javascript" id="mathjax" src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax:{inlineMath:[['$','$']]}})</script>
+
+        <script type="text/javascript" src="flipbook.js"></script>
+    </head>
+
+<body>
+    <h1><a href="/"> oftenpaper.net </a></h1>
+    <h3>
+            
+                <img src='img/mlogo1.png' /><span> Cyclotron 4000 </span>  &#8482;</h3>
+
+    <div class="content">
+
+        <div class='section'>
+            
+
+            <p>
+                When I was young my parents bought me a Spirograph set at the
+                flea market. I wasted lots and lots of paper with it. A
+                modern tree-friendly rendition:
+            </p>
+
+            <ol class='flipbook static' name='cyclotron 4000'><li>
+                    <img src='img/cyclotron1.png' width='603' height='562' />
+                </li><li>
+                    <img src='img/cyclotron2.png' width='594' height='562' />
+                </li><li>
+                    <img src='img/cyclotron3.png' width='595' height='565' />
+                </li><li>
+                    <img src='img/cyclotron4.png' width='595' height='565' />
+                </li><li>
+                    <img src='img/cyclotron5.png' width='595' height='565' />
+                </li><li>
+                    <img src='img/cyclotron6.png' width='595' height='565' />
+                </li><li name='source'>
+                <pre style='font-size: 4px'>
+
+
+
+
+
+<span class='Identifier'>Manipulate</span>[
+ <span class='Identifier'>Module</span>[{
+   <span class='Comment'>(* non-integer values of </span><span class='String'>\[Zeta]</span><span class='Comment'> give progressively more entwined paths, </span>
+<span class='Comment'>   but require smaller cycle widths to keep the plot from looking scrambled *)</span>
+   <span class='String'>\[Psi]</span> <span class='Statement'>=</span> <span class='Identifier'>Round</span>[<span class='Identifier'>Abs</span>[<span class='Identifier'>FractionalPart</span>[<span class='String'>\[Zeta]</span>]]<span class='Statement'>*</span><span class='Type'>1</span><span class='Statement'>.</span>, <span class='Statement'>.</span><span class='Type'>25</span>] <span class='Statement'>/.</span> {
+      <span class='Type'>0</span><span class='Statement'>.</span> <span class='Statement'>-&gt;</span> y,
+      <span class='Statement'>.</span><span class='Type'>5</span> <span class='Statement'>-&gt;</span> y<span class='Statement'>/</span><span class='Type'>2</span>,
+      <span class='Statement'>.</span><span class='Type'>25</span> <span class='Statement'>|</span> <span class='Statement'>.</span><span class='Type'>75</span> <span class='Statement'>-&gt;</span> y<span class='Statement'>/</span><span class='Type'>4</span>}},
+
+  <span class='Identifier'>ParametricPlot</span>[
+
+   (<span class='Type'>1</span><span class='Statement'>.</span> <span class='Statement'>+</span> spirality<span class='Statement'>*</span>(<span class='Identifier'>Log</span>[<span class='String'>\[Theta]</span> <span class='Statement'>+</span> <span class='Type'>1</span><span class='Statement'>.</span>] <span class='Statement'>-</span> <span class='Type'>1</span><span class='Statement'>.</span>))<span class='Statement'>*</span>
+    {<span class='String'>\[Psi]</span> <span class='Identifier'>Cos</span>[<span class='String'>\[Theta]</span>] <span class='Statement'>+</span> x  <span class='Identifier'>Cos</span>[<span class='Type'>64</span><span class='Statement'>.</span> <span class='String'>\[Theta]</span>] <span class='Statement'>+</span> (<span class='Type'>1</span> <span class='Statement'>-</span> effect<span class='Statement'>*</span><span class='Identifier'>RandomReal</span>[])<span class='Statement'>*</span><span class='String'>\[Zeta]</span><span class='Statement'>*</span> (<span class='Identifier'>Cos</span>[<span class='Type'>512</span><span class='Statement'>.</span> <span class='String'>\[Theta]</span>] <span class='Statement'>+</span> <span class='Identifier'>Cos</span>[<span class='Type'>64</span><span class='Statement'>.</span> <span class='String'>\[Zeta]</span> <span class='String'>\[Theta]</span>]),
+     <span class='String'>\[Psi]</span> <span class='Identifier'>Sin</span>[<span class='String'>\[Theta]</span>] <span class='Statement'>-</span> x <span class='Identifier'>Sin</span>[<span class='Type'>64</span><span class='Statement'>.</span> <span class='String'>\[Theta]</span>] <span class='Statement'>+</span> (<span class='Type'>1</span> <span class='Statement'>-</span> effect<span class='Statement'>*</span><span class='Identifier'>RandomReal</span>[])<span class='Statement'>*</span> inflection<span class='Statement'>*</span><span class='String'>\[Zeta]</span><span class='Statement'>*</span> (<span class='Identifier'>Sin</span>[<span class='Type'>512</span><span class='Statement'>.</span> <span class='String'>\[Theta]</span>] <span class='Statement'>+</span> <span class='Identifier'>Sin</span>[<span class='Type'>64</span><span class='Statement'>.</span> <span class='String'>\[Zeta]</span> <span class='String'>\[Theta]</span>])}
+
+   , {<span class='String'>\[Theta]</span>, <span class='Type'>0</span>, <span class='Type'>2</span> <span class='String'>\[Pi]</span>},
+
+   ImageSize <span class='Statement'>-&gt;</span> {<span class='Type'>470</span>, <span class='Type'>410</span>},
+   PerformanceGoal <span class='Statement'>-&gt;</span> <span class='String'>&quot;Quality&quot;</span>,
+
+   <span class='Comment'>(* reduced opacity helps bring the shape out and gives an elegant tone *)</span>
+   PlotStyle <span class='Statement'>-&gt;</span> {{color, <span class='Identifier'>Opacity</span>[<span class='Statement'>.</span><span class='Type'>43</span>], <span class='Identifier'>AbsoluteThickness</span>[thickness]}},
+   PlotRange <span class='Statement'>-&gt;</span> Full,
+    PlotPoints <span class='Statement'>-&gt;</span> <span class='Type'>270</span>,<span class='Comment'>(* increase for higher-resolution images *)</span>
+   Axes <span class='Statement'>-&gt;</span> <span class='Identifier'>None</span>]],
+
+ <span class='Identifier'>OpenerView</span>[{<span class='String'>&quot;Style&quot;</span>, <span class='Identifier'>Column</span>[{
+     <span class='Identifier'>Control</span><span class='Statement'>@</span>{{color, <span class='Identifier'>Black</span>, <span class='String'>&quot;line color&quot;</span>}, ColorSlider},
+     <span class='Identifier'>Column</span><span class='Statement'>@</span>{
+       <span class='Comment'>(* these controls are smallerized for consistency *)</span>
+       <span class='Identifier'>Control</span><span class='Statement'>@</span>{{thickness, <span class='Type'>0</span><span class='Statement'>.</span>, <span class='String'>&quot;line thickness&quot;</span>}, <span class='Type'>0</span>, <span class='Type'>20</span>, Appearance <span class='Statement'>-&gt;</span> <span class='String'>&quot;Labeled&quot;</span>, ImageSize <span class='Statement'>-&gt;</span> Small},
+       <span class='Identifier'>Control</span><span class='Statement'>@</span>{{effect, <span class='Type'>0</span><span class='Statement'>.</span>, <span class='String'>&quot;charcoal effect&quot;</span>}, <span class='Type'>0</span>, <span class='Statement'>.</span><span class='Type'>25</span>, Appearance <span class='Statement'>-&gt;</span> <span class='String'>&quot;Labeled&quot;</span>, ImageSize <span class='Statement'>-&gt;</span> Small}}}]}],
+
+ <span class='Identifier'>Row</span>[{
+   <span class='Identifier'>Control</span><span class='Statement'>@</span>{{inflection, <span class='Type'>1</span>}, {<span class='Type'>1</span> <span class='Statement'>-&gt;</span> <span class='String'>&quot; concave &quot;</span>, <span class='Statement'>-</span><span class='Type'>1</span> <span class='Statement'>-&gt;</span> <span class='String'>&quot; convex &quot;</span>}, Appearance <span class='Statement'>-&gt;</span> <span class='String'>&quot;Vertical&quot;</span>},
+
+   <span class='Identifier'>Spacer</span>[<span class='Type'>30</span>],
+
+   <span class='Identifier'>Column</span><span class='Statement'>@</span>{
+     <span class='Identifier'>Control</span><span class='Statement'>@</span>{{<span class='String'>\[Zeta]</span>, <span class='Type'>2</span><span class='Statement'>.</span>, <span class='String'>&quot;angularity&quot;</span>}, <span class='Statement'>-</span><span class='Type'>7.5</span>, <span class='Type'>7.5</span>, <span class='Statement'>.</span><span class='Type'>5</span>, Appearance <span class='Statement'>-&gt;</span> <span class='String'>&quot;Labeled&quot;</span>, ImageSize <span class='Statement'>-&gt;</span> Small},
+     <span class='Identifier'>Control</span><span class='Statement'>@</span>{{x, <span class='Type'>8</span><span class='Statement'>.</span>, <span class='String'>&quot;tension&quot;</span>}, <span class='Type'>0</span>, <span class='Type'>12</span>, Appearance <span class='Statement'>-&gt;</span> <span class='String'>&quot;Labeled&quot;</span>, ImageSize <span class='Statement'>-&gt;</span> Small}},
+
+   <span class='Identifier'>Column</span><span class='Statement'>@</span>{
+     <span class='Identifier'>Control</span><span class='Statement'>@</span>{{y, <span class='Type'>2</span><span class='Statement'>.</span>, <span class='String'>&quot;cycle width&quot;</span>}, <span class='Type'>0</span>, <span class='Type'>2</span>, ImageSize <span class='Statement'>-&gt;</span> Tiny},
+     <span class='Identifier'>Control</span>[{{spirality, <span class='Type'>0</span><span class='Statement'>.</span>}, <span class='Type'>0</span>, <span class='Type'>1</span>, ImageSize <span class='Statement'>-&gt;</span> Tiny}]}
+
+   }],
+
+ Alignment <span class='Statement'>-&gt;</span> Center,
+ SynchronousUpdating <span class='Statement'>-&gt;</span> <span class='Identifier'>False</span>,
+ AppearanceElements <span class='Statement'>-&gt;</span> <span class='String'>&quot;ManipulateMenu&quot;</span>,
+
+ Bookmarks <span class='Statement'>-&gt;</span> {
+
+   <span class='Comment'>(* this bookmark assigns random values to the factors.</span>
+<span class='Comment'>   I intentionally didn&apos;t make this feature rapid-fireable *)</span>
+   <span class='String'>&quot;Random&quot;</span> <span class='Statement'>:&gt;</span> (
+     color <span class='Statement'>=</span> <span class='Identifier'>RGBColor</span>[<span class='Identifier'>RandomReal</span>[], <span class='Identifier'>RandomReal</span>[], <span class='Identifier'>RandomReal</span>[]];
+     inflection <span class='Statement'>=</span> <span class='Identifier'>RandomChoice</span>[{<span class='Type'>1</span>, <span class='Statement'>-</span><span class='Type'>1</span>}];
+
+     <span class='Comment'>(* effect, thickness, and spirality have distributions that make</span>
+<span class='Comment'>     small values smaller and large values rarer [you mean </span><span class='String'>&quot;power law&quot;</span><span class='Comment'> -- future version of myself]*)</span>
+     effect <span class='Statement'>=</span> <span class='Statement'>.</span><span class='Type'>25</span><span class='Statement'>*</span><span class='Identifier'>RandomReal</span>[]<span class='Statement'>^</span><span class='Type'>8</span>;
+     thickness <span class='Statement'>=</span> <span class='Type'>10</span><span class='Statement'>*</span><span class='Identifier'>RandomReal</span>[]<span class='Statement'>^</span><span class='Type'>8</span>;
+     spirality <span class='Statement'>=</span> <span class='Identifier'>RandomReal</span>[]<span class='Statement'>^</span><span class='Type'>3</span>;
+
+     <span class='Identifier'>If</span>[spirality <span class='Statement'>&lt;</span> <span class='Statement'>.</span><span class='Type'>035</span>, spirality <span class='Statement'>=</span> <span class='Type'>0</span>];
+
+     x <span class='Statement'>=</span> <span class='Identifier'>RandomReal</span>[]<span class='Statement'>*</span><span class='Type'>12</span>;
+     y <span class='Statement'>=</span> <span class='Identifier'>RandomReal</span>[]<span class='Statement'>*</span><span class='Type'>2</span>;
+
+     <span class='Identifier'>Module</span>[{
+       <span class='Comment'>(* +/- .5 are generally not interesting when x &gt; 3 *)</span>
+       weights <span class='Statement'>=</span> <span class='Identifier'>If</span>[x <span class='Statement'>&gt;</span> <span class='Type'>3</span>, {<span class='Statement'>.</span><span class='Type'>1</span>, <span class='Statement'>.</span><span class='Type'>03</span>, <span class='Statement'>.</span><span class='Type'>87</span>}, {<span class='Statement'>.</span><span class='Type'>1</span>, <span class='Statement'>.</span><span class='Type'>07</span>, <span class='Statement'>.</span><span class='Type'>83</span>}]},
+      <span class='String'>\[Zeta]</span> <span class='Statement'>=</span> <span class='Identifier'>RandomChoice</span>[{<span class='Statement'>-</span><span class='Type'>1</span>, <span class='Type'>1</span>}]<span class='Statement'>*</span><span class='Identifier'>RandomChoice</span>[weights <span class='Statement'>-&gt;</span>
+          {<span class='Identifier'>RandomReal</span>[<span class='Type'>7.5</span>], <span class='Comment'>(* small chance to fall on non-integral </span><span class='String'>\[Zeta]</span><span class='Comment'> *)</span>
+           <span class='Identifier'>RandomChoice</span>[{<span class='Type'>0</span>, <span class='Statement'>.</span><span class='Type'>5</span>, <span class='Statement'>.</span><span class='Type'>5</span>}],<span class='Comment'>(* multiple .5 isn&apos;t a typo *)</span>
+           <span class='Identifier'>Round</span>[<span class='Identifier'>RandomReal</span>[{<span class='Type'>1</span>, <span class='Type'>7.5</span>}], <span class='Statement'>.</span><span class='Type'>5</span>]}]];
+     ),
+
+   <span class='String'>&quot;Rose&quot;</span> <span class='Statement'>:&gt;</span> {thickness <span class='Statement'>=</span> <span class='Type'>0</span>, color <span class='Statement'>=</span> <span class='Identifier'>Red</span>, effect <span class='Statement'>=</span> <span class='Type'>0</span>, inflection <span class='Statement'>=</span> <span class='Statement'>-</span><span class='Type'>1</span>, x <span class='Statement'>=</span> <span class='Type'>0</span>, y <span class='Statement'>=</span> <span class='Type'>1.1343</span>, spirality <span class='Statement'>=</span> <span class='Type'>0</span>, <span class='String'>\[Zeta]</span> <span class='Statement'>=</span> <span class='Type'>3</span>},
+   <span class='String'>&quot;Glyph&quot;</span> <span class='Statement'>:&gt;</span> {thickness <span class='Statement'>=</span> <span class='Type'>0</span>, color <span class='Statement'>=</span> <span class='Identifier'>Black</span>, effect <span class='Statement'>=</span> <span class='Type'>0.198</span>, inflection <span class='Statement'>=</span> <span class='Type'>1</span>, x <span class='Statement'>=</span> <span class='Type'>5.2</span>, y <span class='Statement'>=</span> <span class='Type'>0</span><span class='Statement'>.</span>, spirality <span class='Statement'>=</span> <span class='Type'>0</span>, <span class='String'>\[Zeta]</span> <span class='Statement'>=</span> <span class='Type'>2</span>},
+   <span class='String'>&quot;Mass Atomic&quot;</span> <span class='Statement'>:&gt;</span> {thickness <span class='Statement'>=</span> <span class='Type'>0</span>, effect <span class='Statement'>=</span> <span class='Type'>0</span>, inflection <span class='Statement'>=</span> <span class='Statement'>-</span><span class='Type'>1</span>, x <span class='Statement'>=</span> <span class='Type'>5.84</span>, y <span class='Statement'>=</span> <span class='Type'>0.412</span>, spirality <span class='Statement'>=</span> <span class='Type'>0</span>, <span class='String'>\[Zeta]</span> <span class='Statement'>=</span> <span class='Statement'>-</span><span class='Type'>4.2504</span>},
+   <span class='String'>&quot;Jello&quot;</span> <span class='Statement'>:&gt;</span> {thickness <span class='Statement'>=</span> <span class='Type'>0</span>, color <span class='Statement'>=</span> <span class='Identifier'>Red</span>, effect <span class='Statement'>=</span> <span class='Type'>0</span>, inflection <span class='Statement'>=</span> <span class='Statement'>-</span><span class='Type'>1</span>, x <span class='Statement'>=</span> <span class='Type'>12</span><span class='Statement'>.</span>, y <span class='Statement'>=</span> <span class='Type'>0.846</span>, spirality <span class='Statement'>=</span> <span class='Type'>1</span><span class='Statement'>.</span>, <span class='String'>\[Zeta]</span> <span class='Statement'>=</span> <span class='Statement'>-</span><span class='Type'>1</span><span class='Statement'>.</span>},
+   <span class='String'>&quot;Grim&quot;</span> <span class='Statement'>:&gt;</span> {thickness <span class='Statement'>=</span> <span class='Type'>3.35</span>, color <span class='Statement'>=</span> <span class='Identifier'>Black</span>, effect <span class='Statement'>=</span> <span class='Type'>0.0675</span>, inflection <span class='Statement'>=</span> <span class='Type'>1</span>, x <span class='Statement'>=</span> <span class='Type'>8</span><span class='Statement'>.</span>, y <span class='Statement'>=</span> <span class='Type'>0.296</span>, spirality <span class='Statement'>=</span> <span class='Type'>1</span><span class='Statement'>.</span>, <span class='String'>\[Zeta]</span> <span class='Statement'>=</span> <span class='Statement'>-</span><span class='Type'>1</span><span class='Statement'>.</span>},
+   <span class='String'>&quot;Angelwings&quot;</span> <span class='Statement'>:&gt;</span> {color <span class='Statement'>=</span> <span class='Identifier'>RGBColor</span>[<span class='Type'>0.07693598840314336</span>, <span class='Type'>0.39046311131456474</span>, <span class='Type'>1</span>], effect <span class='Statement'>=</span> <span class='Type'>0</span>, inflection <span class='Statement'>=</span> <span class='Type'>1</span>, spirality <span class='Statement'>=</span> <span class='Type'>1</span><span class='Statement'>.</span>`, thickness <span class='Statement'>=</span> <span class='Type'>0</span>, x <span class='Statement'>=</span> <span class='Type'>12</span>, y <span class='Statement'>=</span> <span class='Type'>0</span>, <span class='String'>\[Zeta]</span> <span class='Statement'>=</span> <span class='Statement'>-</span><span class='Type'>5.4946511679431715</span>`},
+   <span class='String'>&quot;Rollers&quot;</span> <span class='Statement'>:&gt;</span> {color <span class='Statement'>=</span> <span class='Identifier'>RGBColor</span>[<span class='Type'>0</span><span class='Statement'>.</span>`, <span class='Type'>0</span><span class='Statement'>.</span>`, <span class='Type'>0</span><span class='Statement'>.</span>`], effect <span class='Statement'>=</span> <span class='Type'>0</span><span class='Statement'>.</span>`, inflection <span class='Statement'>=</span> <span class='Statement'>-</span><span class='Type'>1</span>, spirality <span class='Statement'>=</span> <span class='Type'>0</span><span class='Statement'>.</span>`, thickness <span class='Statement'>=</span> <span class='Type'>0</span><span class='Statement'>.</span>`, x <span class='Statement'>=</span> <span class='Type'>5.5</span>`, y <span class='Statement'>=</span> <span class='Type'>0.1</span>`, <span class='String'>\[Zeta]</span> <span class='Statement'>=</span> <span class='Statement'>-</span><span class='Type'>0.984032039033508</span>`},
+   <span class='String'>&quot;Lifespark&quot;</span> <span class='Statement'>:&gt;</span> {color <span class='Statement'>=</span> <span class='Identifier'>RGBColor</span>[<span class='Type'>0.1026</span>, <span class='Statement'>.</span><span class='Type'>9878</span>, <span class='Statement'>.</span><span class='Type'>0201</span>], effect <span class='Statement'>=</span> <span class='Type'>0</span>, inflection <span class='Statement'>=</span> <span class='Type'>1</span>, spirality <span class='Statement'>=</span> <span class='Statement'>.</span><span class='Type'>0995</span>, x <span class='Statement'>=</span> <span class='Type'>3.2757</span>, y <span class='Statement'>=</span> <span class='Statement'>.</span><span class='Type'>2002</span>, <span class='String'>\[Zeta]</span> <span class='Statement'>=</span> <span class='Statement'>-</span><span class='Type'>5.5</span>}
+   }
+ ]
+
+
+
+
+
+</pre>
+            </li></ol>
+
+            <p>
+            I&apos;m particularly proud of this program because it can produce a wide variety of images from just a few parameters. Though that&apos;s not an accident. A lot of fine-tuning and experimentation was involved. For the &quot;Super Mario 64&quot; to this program&apos;s &quot;Super Mario,&quot; see my <a shape='rect' href='flipbook-cycowtron4800deluxe.htm'>Cycowtron 4800 Deluxe</a>.
+            </p>
+            
+        <br /></div>
+
+        <div class="section" style="margin-top: -22px; margin-bottom: -11px"> </div>
+
+        <div class="links centered">
+            <a href="/" title="home" style="color: #333333" class="pagelink">&lt;&lt;</a>
+        </div>
+
+    </div>
+
+</body>
+</html>

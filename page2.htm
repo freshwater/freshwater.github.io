@@ -1,0 +1,438 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+    <head>
+        <title> oftenpaper.net </title>
+
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.9.0/build/reset-fonts-grids/reset-fonts-grids.css">
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.9.0/build/base/base-min.css">
+        <link rel="stylesheet" type="text/css" href="oftencss.css">
+
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+        <script type="text/javascript" src="flipbook.js"></script>
+
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax:{inlineMath:[['$','$']]}})</script>
+        <script type="text/javascript" id="mathjax" src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </head>
+
+<body>
+    <h1><a href="/"> oftenpaper.net </a></h1>
+    <h3>a website that i put stuff (on top of it) &#0153;</h3>
+
+    <div class="content">
+        <div class="links centered">
+            <a href="index.htm" class="pagelink">&lt;&lt;</a>
+            <a href="index.htm" class="pagelink">1</a>
+            <span class="pagelink inactivePagelink">2</span>
+            <a class="pagelink" style="color: white;">&gt;&gt;</a>
+        </div>
+
+        <div class="section">
+            <div class="header"> <img src="img/arclogo1.png" /> <a href="permanent-coroutinesinarc.htm"><h2>Coroutines in Arc</h2></a> </div>
+
+            <p>
+            One of the nice things about Lisp is that you can color the parentheses pink, which looks pretty:
+            </p>
+
+        <ol class="flipbook static" default="4" name="coroutines in Arc">
+            <li>
+        <pre style="background: white">
+<span class="Comment">; simple iterator</span>
+
+<span class="Delimiter">(</span><span class="Identifier">=</span> f <span class="Delimiter">(</span>co
+    <span class="Delimiter">(</span><span class="Statement">let</span> x <span class="Constant">0</span>
+      <span class="Delimiter">(</span><span class="Statement">while</span> <span class="Statement">t</span>
+          <span class="Delimiter">(</span>yield <span class="Delimiter">(</span><span class="Statement">++</span> x<span class="Delimiter">))))))</span>
+
+
+<span class="Delimiter">(</span>f<span class="Delimiter">)</span> <span class="Comment">;returns 1</span>
+<span class="Delimiter">(</span>f<span class="Delimiter">)</span> <span class="Comment">;returns 2</span>
+<span class="Delimiter">(</span>f<span class="Delimiter">)</span> <span class="Comment">;returns 3</span>
+        </pre>
+            </li>
+
+            <li>
+        <pre style="background: white">
+<span class="Comment">;passing yield into a tree-traversal function</span>
+
+<span class="Delimiter">(</span><span class="Identifier">=</span> f <span class="Delimiter">(</span>co
+    <span class="Delimiter">(</span>co:treewise
+     <span class="Delimiter">(</span><span class="Statement">fn</span> <span class="Delimiter">(</span>a b<span class="Delimiter">))</span> <span class="Comment">;empty function given as the join function</span>    
+     yield   <span class="Comment">;yield given as the leaf function</span>
+     <span class="Delimiter">'(</span>a <span class="Constant">.</span> <span class="Delimiter">((</span>b <span class="Constant">.</span> c<span class="Delimiter">)</span> <span class="Constant">.</span> d<span class="Delimiter">)))))</span>
+
+<span class="Delimiter">(</span>f<span class="Delimiter">)</span> <span class="Comment">;returns 'a</span>
+<span class="Delimiter">(</span>f<span class="Delimiter">)</span> <span class="Comment">;returns 'b</span>
+<span class="Delimiter">(</span>f<span class="Delimiter">)</span> <span class="Comment">;returns 'c</span>
+<span class="Delimiter">(</span>f<span class="Delimiter">)</span> <span class="Comment">;returns 'd</span>
+<span class="Delimiter">(</span>f<span class="Delimiter">)</span> <span class="Comment">;returns nil</span>
+</pre>
+            </li>
+
+            <li>
+        <pre style="background: white">
+<span class="Comment">;passing values into the coroutine</span>
+
+<span class="Delimiter">(</span><span class="Identifier">=</span> x <span class="Constant">1</span><span class="Delimiter">)</span>
+<span class="Delimiter">(</span><span class="Identifier">=</span> f <span class="Delimiter">(</span>co
+    <span class="Delimiter">(</span><span class="Statement">while</span> <span class="Statement">t</span>
+        <span class="Delimiter">(</span><span class="Statement">if</span> <span class="Delimiter">(</span><span class="Identifier">=</span> in <span class="Delimiter">(</span>yield x<span class="Delimiter">))</span> <span class="Comment">;if the call supplied an argument</span>
+            <span class="Delimiter">(</span><span class="Statement">do</span> <span class="Delimiter">(</span><span class="Identifier">=</span> x in<span class="Delimiter">)</span> <span class="Comment">;reassign x and print message</span>
+                <span class="Delimiter">(</span><span class="Statement">prn</span> <span class="Delimiter">(</span><span class="Identifier">string</span> <span class="String">&quot;you gave me: &quot;</span> x<span class="Delimiter">)))))))</span>
+
+<span class="Delimiter">(</span>f<span class="Delimiter">)</span> <span class="Comment">;returns 1</span>
+<span class="Delimiter">(</span>f<span class="Delimiter">)</span> <span class="Comment">;returns 1</span>
+<span class="Delimiter">(</span>f <span class="Constant">0</span><span class="Delimiter">)</span> <span class="Comment">;prints &quot;you gave me: 0&quot; and returns 0</span>
+<span class="Delimiter">(</span>f<span class="Delimiter">)</span> <span class="Comment">;returns 0</span>
+<span class="Delimiter">(</span>f<span class="Delimiter">)</span> <span class="Comment">;returns 0</span>
+<span class="Delimiter">(</span>f <span class="Delimiter">'</span>hello<span class="Delimiter">)</span> <span class="Comment">;prints &quot;you gave me: hello&quot; and returns 'hello</span>
+<span class="Delimiter">(</span>f<span class="Delimiter">)</span> <span class="Comment">;returns 'hello</span>
+</pre>
+            </li>
+            <li name="definition">
+<pre style="background: white">
+<span class="Delimiter">(</span><span class="Statement">mac</span> co body
+  <span class="Delimiter">(</span><span class="Statement">w/uniq</span> <span class="Delimiter">(</span>con1 con2 argl<span class="Delimiter">)</span>
+
+    <span class="Delimiter">`(</span>withs <span class="Delimiter">(,</span>con1 nil <span class="Delimiter">,</span>con2 nil
+             yield <span class="Delimiter">(</span>fn <span class="Delimiter">((</span>o val nil<span class="Delimiter">))</span>
+                      <span class="Delimiter">(</span>ccc <span class="Delimiter">[</span>do <span class="Delimiter">(</span>= <span class="Delimiter">,</span>con2 _<span class="Delimiter">)</span> <span class="Delimiter">(,</span>con1 val<span class="Delimiter">)])))</span>
+
+      <span class="Delimiter">(</span>def <span class="Delimiter">,</span>con2 <span class="Delimiter">,</span>argl
+          <span class="Comment">;(while t ;make generation cyclic</span>
+          <span class="Delimiter">,@</span>body
+          <span class="Comment">;)</span>
+          <span class="Delimiter">(</span>def <span class="Delimiter">,</span>con2 args nil<span class="Delimiter">)</span>
+          <span class="Delimiter">(,</span>con1 nil<span class="Delimiter">))</span>
+
+      <span class="Delimiter">(</span>fn args
+        <span class="Delimiter">(</span>ccc <span class="Delimiter">[</span>do <span class="Delimiter">(</span>= <span class="Delimiter">,</span>con1 _<span class="Delimiter">)</span> <span class="Delimiter">(</span>apply <span class="Delimiter">,</span>con2 <span class="Delimiter">(</span>or args <span class="Delimiter">(</span>list nil<span class="Delimiter">)))]))</span>
+<span class="Delimiter">)))</span>
+</pre>
+            </li>
+        </ol>
+
+        <p>
+        Speaking of pink, just the other day I saw this awesome Hello Kitty folder at Target, and even though she didn't ask, I let the cashier know that I was buying it for myself. That's how secure I am in my manliness.
+        </p>
+
+        <p>
+        On a serious note, the design of <a href="http://www.arclanguage.org/">Arc</a> is very pretty on many levels. My own language that I'm currently designing has a similar kind of aesthetic, although it's a completely different language.
+        </p>
+
+
+        </div>
+
+        <div class="section">
+            <div class="header">
+            <a href="#cyclotron4000" name="cyclotron4000"></a>
+                <img src="img/mlogo1.png" /> <a href="permanent-cyclotron4000.htm"><h2>Cyclotron 4000</h2></a> </div>
+
+            <p>
+                When I was young my parents bought me a Spirograph set at the
+                flea market. I wasted lots and lots of paper with it. A
+                modern tree-friendly rendition:
+            </p>
+
+            <ol class="flipbook static" name="cyclotron 4000">
+                <li>
+                    <img src="img/cyclotron1.png" width="603" height="562" />
+                </li>
+                <li>
+                    <img src="img/cyclotron2.png" width="594" height="562" />
+                </li>
+                <li>
+                    <img src="img/cyclotron3.png" width="595" height="565" />
+                </li>
+                <li>
+                    <img src="img/cyclotron4.png" width="595" height="565" />
+                </li>
+                <li>
+                    <img src="img/cyclotron5.png" width="595" height="565" />
+                </li>
+                <li>
+                    <img src="img/cyclotron6.png" width="595" height="565" />
+                </li>
+                <li name="source">
+                <pre style="font-size: 4px">
+
+
+
+
+
+<span class="Identifier">Manipulate</span>[
+ <span class="Identifier">Module</span>[{
+   <span class="Comment">(* non-integer values of </span><span class="String">\[Zeta]</span><span class="Comment"> give progressively more entwined paths, </span>
+<span class="Comment">   but require smaller cycle widths to keep the plot from looking scrambled *)</span>
+   <span class="String">\[Psi]</span> <span class="Statement">=</span> <span class="Identifier">Round</span>[<span class="Identifier">Abs</span>[<span class="Identifier">FractionalPart</span>[<span class="String">\[Zeta]</span>]]<span class="Statement">*</span><span class="Type">1</span><span class="Statement">.</span>, <span class="Statement">.</span><span class="Type">25</span>] <span class="Statement">/.</span> {
+      <span class="Type">0</span><span class="Statement">.</span> <span class="Statement">-&gt;</span> y,
+      <span class="Statement">.</span><span class="Type">5</span> <span class="Statement">-&gt;</span> y<span class="Statement">/</span><span class="Type">2</span>,
+      <span class="Statement">.</span><span class="Type">25</span> <span class="Statement">|</span> <span class="Statement">.</span><span class="Type">75</span> <span class="Statement">-&gt;</span> y<span class="Statement">/</span><span class="Type">4</span>}},
+
+  <span class="Identifier">ParametricPlot</span>[
+
+   (<span class="Type">1</span><span class="Statement">.</span> <span class="Statement">+</span> spirality<span class="Statement">*</span>(<span class="Identifier">Log</span>[<span class="String">\[Theta]</span> <span class="Statement">+</span> <span class="Type">1</span><span class="Statement">.</span>] <span class="Statement">-</span> <span class="Type">1</span><span class="Statement">.</span>))<span class="Statement">*</span>
+    {<span class="String">\[Psi]</span> <span class="Identifier">Cos</span>[<span class="String">\[Theta]</span>] <span class="Statement">+</span> x  <span class="Identifier">Cos</span>[<span class="Type">64</span><span class="Statement">.</span> <span class="String">\[Theta]</span>] <span class="Statement">+</span> (<span class="Type">1</span> <span class="Statement">-</span> effect<span class="Statement">*</span><span class="Identifier">RandomReal</span>[])<span class="Statement">*</span><span class="String">\[Zeta]</span><span class="Statement">*</span> (<span class="Identifier">Cos</span>[<span class="Type">512</span><span class="Statement">.</span> <span class="String">\[Theta]</span>] <span class="Statement">+</span> <span class="Identifier">Cos</span>[<span class="Type">64</span><span class="Statement">.</span> <span class="String">\[Zeta]</span> <span class="String">\[Theta]</span>]),
+     <span class="String">\[Psi]</span> <span class="Identifier">Sin</span>[<span class="String">\[Theta]</span>] <span class="Statement">-</span> x <span class="Identifier">Sin</span>[<span class="Type">64</span><span class="Statement">.</span> <span class="String">\[Theta]</span>] <span class="Statement">+</span> (<span class="Type">1</span> <span class="Statement">-</span> effect<span class="Statement">*</span><span class="Identifier">RandomReal</span>[])<span class="Statement">*</span> inflection<span class="Statement">*</span><span class="String">\[Zeta]</span><span class="Statement">*</span> (<span class="Identifier">Sin</span>[<span class="Type">512</span><span class="Statement">.</span> <span class="String">\[Theta]</span>] <span class="Statement">+</span> <span class="Identifier">Sin</span>[<span class="Type">64</span><span class="Statement">.</span> <span class="String">\[Zeta]</span> <span class="String">\[Theta]</span>])}
+
+   , {<span class="String">\[Theta]</span>, <span class="Type">0</span>, <span class="Type">2</span> <span class="String">\[Pi]</span>},
+
+   ImageSize <span class="Statement">-&gt;</span> {<span class="Type">470</span>, <span class="Type">410</span>},
+   PerformanceGoal <span class="Statement">-&gt;</span> <span class="String">&quot;Quality&quot;</span>,
+
+   <span class="Comment">(* reduced opacity helps bring the shape out and gives an elegant tone *)</span>
+   PlotStyle <span class="Statement">-&gt;</span> {{color, <span class="Identifier">Opacity</span>[<span class="Statement">.</span><span class="Type">43</span>], <span class="Identifier">AbsoluteThickness</span>[thickness]}},
+   PlotRange <span class="Statement">-&gt;</span> Full,
+    PlotPoints <span class="Statement">-&gt;</span> <span class="Type">270</span>,<span class="Comment">(* increase for higher-resolution images *)</span>
+   Axes <span class="Statement">-&gt;</span> <span class="Identifier">None</span>]],
+
+ <span class="Identifier">OpenerView</span>[{<span class="String">&quot;Style&quot;</span>, <span class="Identifier">Column</span>[{
+     <span class="Identifier">Control</span><span class="Statement">@</span>{{color, <span class="Identifier">Black</span>, <span class="String">&quot;line color&quot;</span>}, ColorSlider},
+     <span class="Identifier">Column</span><span class="Statement">@</span>{
+       <span class="Comment">(* these controls are smallerized for consistency *)</span>
+       <span class="Identifier">Control</span><span class="Statement">@</span>{{thickness, <span class="Type">0</span><span class="Statement">.</span>, <span class="String">&quot;line thickness&quot;</span>}, <span class="Type">0</span>, <span class="Type">20</span>, Appearance <span class="Statement">-&gt;</span> <span class="String">&quot;Labeled&quot;</span>, ImageSize <span class="Statement">-&gt;</span> Small},
+       <span class="Identifier">Control</span><span class="Statement">@</span>{{effect, <span class="Type">0</span><span class="Statement">.</span>, <span class="String">&quot;charcoal effect&quot;</span>}, <span class="Type">0</span>, <span class="Statement">.</span><span class="Type">25</span>, Appearance <span class="Statement">-&gt;</span> <span class="String">&quot;Labeled&quot;</span>, ImageSize <span class="Statement">-&gt;</span> Small}}}]}],
+
+ <span class="Identifier">Row</span>[{
+   <span class="Identifier">Control</span><span class="Statement">@</span>{{inflection, <span class="Type">1</span>}, {<span class="Type">1</span> <span class="Statement">-&gt;</span> <span class="String">&quot; concave &quot;</span>, <span class="Statement">-</span><span class="Type">1</span> <span class="Statement">-&gt;</span> <span class="String">&quot; convex &quot;</span>}, Appearance <span class="Statement">-&gt;</span> <span class="String">&quot;Vertical&quot;</span>},
+
+   <span class="Identifier">Spacer</span>[<span class="Type">30</span>],
+
+   <span class="Identifier">Column</span><span class="Statement">@</span>{
+     <span class="Identifier">Control</span><span class="Statement">@</span>{{<span class="String">\[Zeta]</span>, <span class="Type">2</span><span class="Statement">.</span>, <span class="String">&quot;angularity&quot;</span>}, <span class="Statement">-</span><span class="Type">7.5</span>, <span class="Type">7.5</span>, <span class="Statement">.</span><span class="Type">5</span>, Appearance <span class="Statement">-&gt;</span> <span class="String">&quot;Labeled&quot;</span>, ImageSize <span class="Statement">-&gt;</span> Small},
+     <span class="Identifier">Control</span><span class="Statement">@</span>{{x, <span class="Type">8</span><span class="Statement">.</span>, <span class="String">&quot;tension&quot;</span>}, <span class="Type">0</span>, <span class="Type">12</span>, Appearance <span class="Statement">-&gt;</span> <span class="String">&quot;Labeled&quot;</span>, ImageSize <span class="Statement">-&gt;</span> Small}},
+
+   <span class="Identifier">Column</span><span class="Statement">@</span>{
+     <span class="Identifier">Control</span><span class="Statement">@</span>{{y, <span class="Type">2</span><span class="Statement">.</span>, <span class="String">&quot;cycle width&quot;</span>}, <span class="Type">0</span>, <span class="Type">2</span>, ImageSize <span class="Statement">-&gt;</span> Tiny},
+     <span class="Identifier">Control</span>[{{spirality, <span class="Type">0</span><span class="Statement">.</span>}, <span class="Type">0</span>, <span class="Type">1</span>, ImageSize <span class="Statement">-&gt;</span> Tiny}]}
+
+   }],
+
+ Alignment <span class="Statement">-&gt;</span> Center,
+ SynchronousUpdating <span class="Statement">-&gt;</span> <span class="Identifier">False</span>,
+ AppearanceElements <span class="Statement">-&gt;</span> <span class="String">&quot;ManipulateMenu&quot;</span>,
+
+ Bookmarks <span class="Statement">-&gt;</span> {
+
+   <span class="Comment">(* this bookmark assigns random values to the factors.</span>
+<span class="Comment">   I intentionally didn't make this feature rapid-fireable *)</span>
+   <span class="String">&quot;Random&quot;</span> <span class="Statement">:&gt;</span> (
+     color <span class="Statement">=</span> <span class="Identifier">RGBColor</span>[<span class="Identifier">RandomReal</span>[], <span class="Identifier">RandomReal</span>[], <span class="Identifier">RandomReal</span>[]];
+     inflection <span class="Statement">=</span> <span class="Identifier">RandomChoice</span>[{<span class="Type">1</span>, <span class="Statement">-</span><span class="Type">1</span>}];
+
+     <span class="Comment">(* effect, thickness, and spirality have distributions that make</span>
+<span class="Comment">     small values smaller and large values rarer [you mean </span><span class="String">&quot;power law&quot;</span><span class="Comment"> -- future version of myself]*)</span>
+     effect <span class="Statement">=</span> <span class="Statement">.</span><span class="Type">25</span><span class="Statement">*</span><span class="Identifier">RandomReal</span>[]<span class="Statement">^</span><span class="Type">8</span>;
+     thickness <span class="Statement">=</span> <span class="Type">10</span><span class="Statement">*</span><span class="Identifier">RandomReal</span>[]<span class="Statement">^</span><span class="Type">8</span>;
+     spirality <span class="Statement">=</span> <span class="Identifier">RandomReal</span>[]<span class="Statement">^</span><span class="Type">3</span>;
+
+     <span class="Identifier">If</span>[spirality <span class="Statement">&lt;</span> <span class="Statement">.</span><span class="Type">035</span>, spirality <span class="Statement">=</span> <span class="Type">0</span>];
+
+     x <span class="Statement">=</span> <span class="Identifier">RandomReal</span>[]<span class="Statement">*</span><span class="Type">12</span>;
+     y <span class="Statement">=</span> <span class="Identifier">RandomReal</span>[]<span class="Statement">*</span><span class="Type">2</span>;
+
+     <span class="Identifier">Module</span>[{
+       <span class="Comment">(* +/- .5 are generally not interesting when x &gt; 3 *)</span>
+       weights <span class="Statement">=</span> <span class="Identifier">If</span>[x <span class="Statement">&gt;</span> <span class="Type">3</span>, {<span class="Statement">.</span><span class="Type">1</span>, <span class="Statement">.</span><span class="Type">03</span>, <span class="Statement">.</span><span class="Type">87</span>}, {<span class="Statement">.</span><span class="Type">1</span>, <span class="Statement">.</span><span class="Type">07</span>, <span class="Statement">.</span><span class="Type">83</span>}]},
+      <span class="String">\[Zeta]</span> <span class="Statement">=</span> <span class="Identifier">RandomChoice</span>[{<span class="Statement">-</span><span class="Type">1</span>, <span class="Type">1</span>}]<span class="Statement">*</span><span class="Identifier">RandomChoice</span>[weights <span class="Statement">-&gt;</span>
+          {<span class="Identifier">RandomReal</span>[<span class="Type">7.5</span>], <span class="Comment">(* small chance to fall on non-integral </span><span class="String">\[Zeta]</span><span class="Comment"> *)</span>
+           <span class="Identifier">RandomChoice</span>[{<span class="Type">0</span>, <span class="Statement">.</span><span class="Type">5</span>, <span class="Statement">.</span><span class="Type">5</span>}],<span class="Comment">(* multiple .5 isn't a typo *)</span>
+           <span class="Identifier">Round</span>[<span class="Identifier">RandomReal</span>[{<span class="Type">1</span>, <span class="Type">7.5</span>}], <span class="Statement">.</span><span class="Type">5</span>]}]];
+     ),
+
+   <span class="String">&quot;Rose&quot;</span> <span class="Statement">:&gt;</span> {thickness <span class="Statement">=</span> <span class="Type">0</span>, color <span class="Statement">=</span> <span class="Identifier">Red</span>, effect <span class="Statement">=</span> <span class="Type">0</span>, inflection <span class="Statement">=</span> <span class="Statement">-</span><span class="Type">1</span>, x <span class="Statement">=</span> <span class="Type">0</span>, y <span class="Statement">=</span> <span class="Type">1.1343</span>, spirality <span class="Statement">=</span> <span class="Type">0</span>, <span class="String">\[Zeta]</span> <span class="Statement">=</span> <span class="Type">3</span>},
+   <span class="String">&quot;Glyph&quot;</span> <span class="Statement">:&gt;</span> {thickness <span class="Statement">=</span> <span class="Type">0</span>, color <span class="Statement">=</span> <span class="Identifier">Black</span>, effect <span class="Statement">=</span> <span class="Type">0.198</span>, inflection <span class="Statement">=</span> <span class="Type">1</span>, x <span class="Statement">=</span> <span class="Type">5.2</span>, y <span class="Statement">=</span> <span class="Type">0</span><span class="Statement">.</span>, spirality <span class="Statement">=</span> <span class="Type">0</span>, <span class="String">\[Zeta]</span> <span class="Statement">=</span> <span class="Type">2</span>},
+   <span class="String">&quot;Mass Atomic&quot;</span> <span class="Statement">:&gt;</span> {thickness <span class="Statement">=</span> <span class="Type">0</span>, effect <span class="Statement">=</span> <span class="Type">0</span>, inflection <span class="Statement">=</span> <span class="Statement">-</span><span class="Type">1</span>, x <span class="Statement">=</span> <span class="Type">5.84</span>, y <span class="Statement">=</span> <span class="Type">0.412</span>, spirality <span class="Statement">=</span> <span class="Type">0</span>, <span class="String">\[Zeta]</span> <span class="Statement">=</span> <span class="Statement">-</span><span class="Type">4.2504</span>},
+   <span class="String">&quot;Jello&quot;</span> <span class="Statement">:&gt;</span> {thickness <span class="Statement">=</span> <span class="Type">0</span>, color <span class="Statement">=</span> <span class="Identifier">Red</span>, effect <span class="Statement">=</span> <span class="Type">0</span>, inflection <span class="Statement">=</span> <span class="Statement">-</span><span class="Type">1</span>, x <span class="Statement">=</span> <span class="Type">12</span><span class="Statement">.</span>, y <span class="Statement">=</span> <span class="Type">0.846</span>, spirality <span class="Statement">=</span> <span class="Type">1</span><span class="Statement">.</span>, <span class="String">\[Zeta]</span> <span class="Statement">=</span> <span class="Statement">-</span><span class="Type">1</span><span class="Statement">.</span>},
+   <span class="String">&quot;Grim&quot;</span> <span class="Statement">:&gt;</span> {thickness <span class="Statement">=</span> <span class="Type">3.35</span>, color <span class="Statement">=</span> <span class="Identifier">Black</span>, effect <span class="Statement">=</span> <span class="Type">0.0675</span>, inflection <span class="Statement">=</span> <span class="Type">1</span>, x <span class="Statement">=</span> <span class="Type">8</span><span class="Statement">.</span>, y <span class="Statement">=</span> <span class="Type">0.296</span>, spirality <span class="Statement">=</span> <span class="Type">1</span><span class="Statement">.</span>, <span class="String">\[Zeta]</span> <span class="Statement">=</span> <span class="Statement">-</span><span class="Type">1</span><span class="Statement">.</span>},
+   <span class="String">&quot;Angelwings&quot;</span> <span class="Statement">:&gt;</span> {color <span class="Statement">=</span> <span class="Identifier">RGBColor</span>[<span class="Type">0.07693598840314336</span>, <span class="Type">0.39046311131456474</span>, <span class="Type">1</span>], effect <span class="Statement">=</span> <span class="Type">0</span>, inflection <span class="Statement">=</span> <span class="Type">1</span>, spirality <span class="Statement">=</span> <span class="Type">1</span><span class="Statement">.</span>`, thickness <span class="Statement">=</span> <span class="Type">0</span>, x <span class="Statement">=</span> <span class="Type">12</span>, y <span class="Statement">=</span> <span class="Type">0</span>, <span class="String">\[Zeta]</span> <span class="Statement">=</span> <span class="Statement">-</span><span class="Type">5.4946511679431715</span>`},
+   <span class="String">&quot;Rollers&quot;</span> <span class="Statement">:&gt;</span> {color <span class="Statement">=</span> <span class="Identifier">RGBColor</span>[<span class="Type">0</span><span class="Statement">.</span>`, <span class="Type">0</span><span class="Statement">.</span>`, <span class="Type">0</span><span class="Statement">.</span>`], effect <span class="Statement">=</span> <span class="Type">0</span><span class="Statement">.</span>`, inflection <span class="Statement">=</span> <span class="Statement">-</span><span class="Type">1</span>, spirality <span class="Statement">=</span> <span class="Type">0</span><span class="Statement">.</span>`, thickness <span class="Statement">=</span> <span class="Type">0</span><span class="Statement">.</span>`, x <span class="Statement">=</span> <span class="Type">5.5</span>`, y <span class="Statement">=</span> <span class="Type">0.1</span>`, <span class="String">\[Zeta]</span> <span class="Statement">=</span> <span class="Statement">-</span><span class="Type">0.984032039033508</span>`},
+   <span class="String">&quot;Lifespark&quot;</span> <span class="Statement">:&gt;</span> {color <span class="Statement">=</span> <span class="Identifier">RGBColor</span>[<span class="Type">0.1026</span>, <span class="Statement">.</span><span class="Type">9878</span>, <span class="Statement">.</span><span class="Type">0201</span>], effect <span class="Statement">=</span> <span class="Type">0</span>, inflection <span class="Statement">=</span> <span class="Type">1</span>, spirality <span class="Statement">=</span> <span class="Statement">.</span><span class="Type">0995</span>, x <span class="Statement">=</span> <span class="Type">3.2757</span>, y <span class="Statement">=</span> <span class="Statement">.</span><span class="Type">2002</span>, <span class="String">\[Zeta]</span> <span class="Statement">=</span> <span class="Statement">-</span><span class="Type">5.5</span>}
+   }
+ ]
+
+
+
+
+
+</pre>
+            </li>
+            </ol>
+
+            <p>
+            I'm particularly proud of this program because it can produce a wide variety of images from just a few parameters. Though that's not an accident. A lot of fine-tuning and experimentation was involved. For the "Super Mario 64" to this program's "Super Mario," see my <a href="flipbook-cycowtron4800deluxe.htm">Cycowtron 4800 Deluxe</a>.
+            </p>
+            
+        </div>
+
+    <div class="section" style="margin-bottom: -2em">
+        <div class="header">
+            <a href="#hexagon" name="hexagon"></a> <img src="img/hex.png"/> <a href="permanent-hexagongeometry.htm"><h2>Hexagon geometry</h2></a> </div>
+        <p>
+            How do you programmatically construct a hexagon? Easy, we can just use equiangular points on the circle, taking advantage of the fact that for a complex number $z$ on the complex plane,
+        </p>
+
+        <div style="font-size: large">
+            $$z e^{i \phi}$$
+        </div>
+
+        <p>
+        represents a rotation of $z$ about the origin by $\phi$ radians. From this rotation definition you can derive $e^{i \small{\frac{1}{2}} \tau} = -1$. If you rotate a point $\small {\frac 1 2}$ way around the circle, you've effectively multiplied its real and imaginary components by -1. Since $i$ itself is a quarter turn, two quarter turns <span style="white-space: nowrap;">$i^2$</span> is also -1. If you go one full swing (a.k.a. 4 quarter turns), you've done nothing:
+        </p>
+
+        <div style="font-size: large">
+            $$i^4 = e^{i \tau} = 1$$
+        </div>
+
+        <p>
+        Although this is commonly understood, I encountered this coherent description for complex numbers in <a href="http://arxiv.org/abs/1205.5935">geometric algebra</a>, wherein $i$ is just one instance of a "directional plane" in the same sense that a vector is a "directional line." (The proper description may be more subtle, but this is a good approximation). Most importantly, the
+
+        "<span style="color:orange;">m</span><i><span style="color:red; font-size: 18px">y</span><span style="color:purple">s</span></i><b style="color: green; font-family: monospace;">t</b><b><span style="color: darkorange">e</span><i style="color: orange">r</i></b><span style="font-size: 12px; color: purple">i</span><span style="color:green"><i>o</i><b>U</b></span><i style="color: purple">s</i>"
+
+        complex numbers can be seen as a non-mysterious encoding of geometric truths. And so within a broader context no less.
+        </p>
+
+        <p>
+        Our code for a hexagon is:
+        </p>
+
+        <ol class="flipbook static" name="its hexagon what more do you need to know" default="2">
+            <li name="image">
+            <img src="img/zomghexagon1.png" width="360" height="313" />
+            </li>
+            <li name="source">
+            <pre>
+<span class="Identifier">Graphics</span>[<span class="Identifier">Polygon</span>[{<span class="Identifier">Re</span>[<span class="Statement">#</span>], <span class="Identifier">Im</span>[<span class="Statement">#</span>]} <span class="Statement">&amp;</span> <span class="Statement">/@</span> (<span class="Identifier">E</span><span class="Statement">^</span>(<span class="Identifier">I</span> <span class="Type">2</span> <span class="Identifier">Pi</span> <span class="Identifier">Range</span>[<span class="Type">6</span>]<span class="Statement">/</span><span class="Type">6</span>))]]</pre>
+            </li>
+        </ol>
+
+        <p style="padding-top: 5px">
+        It's of course easily parameterized. What if we alternate the polarity of the points (using $(-1)^x$) as we generate the polygon? We get stars:
+        </p>
+
+            <ol class="flipbook static" name="alternating polygons">
+                <li>
+                    <h4> 8 vertices </h4>
+                    <img src="img/awesomepossum8.png" width="600" height="600" />
+                </li>
+                <li>
+                    <h4> 32 vertices </h4>
+                    <img src="img/awesomepossum32.png" width="600" height="600" />
+                </li>
+                <li>
+                    <h4> 65 vertices </h4>
+                    <img src="img/awesomepossum65.png" width="600" height="600" />
+                </li>
+                <li>
+                    <h4> 4000 vertices </h4>
+                    <img src="img/awesomepossum4000.png" width="600" height="600" />
+                </li>
+                <li>
+                    <h4> 12000 vertices </h4>
+                    <img src="img/awesomepossum12000.png" width="600" height="600" />
+                </li>
+                <li>
+                    <h4> 40000 vertices (downsampled) </h4>
+                    <img src="img/awesomepossum40000.png" width="600" height="600" />
+                </li>
+                <li>
+                    <h4> 40000 vertices (close up) </h4>
+                    <img src="img/awesomepossumzoom101.png" width="500" height="600" />
+                </li>
+                <li name="source">
+<pre>
+<span class="Identifier">draw</span>[<span class="Type">v_</span>] <span class="Statement">:=</span> <span class="Identifier">Module</span>[{vertices},
+   vertices <span class="Statement">=</span> (<span class="Statement">-</span><span class="Type">1</span>)<span class="Statement">^</span><span class="Identifier">Range</span>[v] <span class="Identifier">E</span><span class="Statement">^</span>(<span class="Identifier">I</span> <span class="Type">2</span><span class="Statement">.</span> <span class="Identifier">Pi</span> <span class="Identifier">Range</span>[v]<span class="Statement">/</span>v);
+   <span class="Identifier">Graphics</span>[<span class="Identifier">Polygon</span>[{<span class="Identifier">Re</span>[<span class="Statement">#</span>], <span class="Identifier">Im</span>[<span class="Statement">#</span>]} <span class="Statement">&amp;</span> <span class="Statement">/@</span> vertices]]];
+</pre>
+                </li>
+            </ol>
+
+            <p>
+            Vector graphics renderers typically use the so-called even-odd rule for handling polygon self-intersections, which results in the checkered appearance. Notice that the images are fractal-like towards the center, as if the rings repeat endlessly.
+            </p>
+
+            <p>
+            <span class="flipbookLink" name="alternating polygons" index="4">Higher vertex counts</span> have strong <a href="http://en.wikipedia.org/wiki/Moire_pattern">Moire patterns</a>. These depend on a variety of factors and contain a lot of interesting patterns, like parabolic-looking arcs and <span class="flipbookLink" name="alternating polygons" index="7">thumbprint artifacts</span>. It's like looking into the soul of the rendering engine. For a potential Twilight Zone experience, take a look at high-resolution <a href="img/star120k.png">120k-vertex</a> and <a href="img/twighlightzone.png">4k-vertex</a> renderings at different zooms.
+            </p>
+
+            <p>
+            $(-1)^x$ generates $\{1, -1\}$ cyclically. What if we use
+            $i^x$ instead? It generates $\{1, i, -1, -i\}$. What if we make the distance taper up or down as we generate the vertices? What if we use logarithms, or hyperbolic sines and cosines. What if we add color depending on the performance of the stock market?? What if we get totally smashed and plot points at different positions depending on how many chunks of pizza we can identify after we projectile vomit all over ourselves??? <b><a href="http://www.youtube.com/watch?v=KDwODbl3muE&t=20s">YEA!!!</a></b>
+        
+            <ol class="flipbook static" name="epicsauce polygons">
+                <li>
+                    <h4> $(-1)^x x e^{\frac{i 2 \pi x}{n}}$ with 128 vertices</h4>
+                    <img src="img/epicsaucetaper1.png" width="600" height="600" />
+                </li>
+                <li>
+                    <h4> $i^x i^{\frac{i 2 \pi  x}{n}}$ &nbsp; with 128 vertices </h4>
+                    <img src="img/epicsaucetaper4.png" width="600" height="600" />
+                </li>
+                <!--li>
+                    <h4> $i^x x (e i)^{\frac{i 2 \pi  x}{n}}$ &nbsp; with 128 vertices </h4>
+                    <img src="img/epicsaucetaper2.png" width="600" height="600" />
+                </li-->
+                <!--li>
+                    <h4> $i^x x (e i)^{\frac{i 2 \pi  x}{n}}$ &nbsp; with 500 vertices </h4>
+                    <img src="img/epicsaucetaper3.png" width="600" height="600" />
+                </li-->
+                <li>
+                    <h4> $i^x \log(x)^{e^{\frac{i 2 \pi  x}{n}}}$ &nbsp; with 600 vertices </h4>
+                    <img src="img/epicsaucetaper6.png" width="600" height="600" />
+                </li>
+                <li>
+                    <h4> $i^x x e^{\frac {i 2 \pi p_x} n}$ &nbsp; ($p_x$ the $x$th prime) with 500 vertices </h4>
+                    <img src="img/epicsaucetaper5.png" width="600" height="600" />
+                </li>
+                <li>
+                <h4> $\text{krabby patty formul'r}$ </h4>
+                    <img src="img/epicsaucetaper8.png" width="600" height="600" />
+                </li>
+                <!--li>
+                    <h4> $(-1)^x \cos(\log x) e^{\frac{i 2 \pi  x}{n}}$ &nbsp; &nbsp; with 1600 vertices (close up) </h4>
+                    <img src="img/epicsaucetaper7.png" width="600" height="600" />
+                </li-->
+                <li name="source">
+                <pre>
+<span class="Identifier">draw</span>[<span class="Type">expr_</span>, <span class="Type">v_</span>] <span class="Statement">:=</span> <span class="Identifier">Module</span>[{vertices},
+   vertices <span class="Statement">=</span> <span class="Identifier">Table</span>[expr <span class="Statement">/.</span> n <span class="Statement">-&gt;</span> v, {x, v}];
+   <span class="Identifier">Graphics</span>[<span class="Identifier">Polygon</span>[{<span class="Identifier">Re</span>[<span class="Statement">#</span>], <span class="Identifier">Im</span>[<span class="Statement">#</span>]} <span class="Statement">&amp;</span> <span class="Statement">/@</span> vertices]]];
+
+<span class="Identifier">draw</span>[(<span class="Statement">-</span><span class="Type">1</span>)<span class="Statement">^</span>x x <span class="Identifier">E</span><span class="Statement">^</span>(<span class="Identifier">I</span> <span class="Type">2</span> <span class="Identifier">Pi</span> x<span class="Statement">/</span>n), <span class="Type">128</span>]</pre>
+                </li>
+            </ol>
+
+            <p>
+            Sadly there is a small storm on our parade. Since we have to eventually convert the points to regular cartesian coordinates using <span style="font-family: monospace">{<span class="Identifier">Re</span>[<span class="Statement">#</span>], <span class="Identifier">Im</span>[<span class="Statement">#</span>]} <span class="Statement">&amp;</span></span>, it's more prudent for us to skip complex numbers and just use sines and cosines instead:
+
+        <ol class="flipbook static" default="2" name="its hexagon what more do you need to know 2">
+            <li name="image">
+            <img src="img/zomghexagon2.png" width="360" height="313" />
+            </li>
+            <li name="source">
+<pre>
+<span class="Identifier">Graphics</span>[<span class="Identifier">Polygon</span>[{<span class="Identifier">Cos</span>[<span class="Statement">#</span>], <span class="Identifier">Sin</span>[<span class="Statement">#</span>]} <span class="Statement">&amp;</span> <span class="Statement">/@</span> (<span class="Type">2</span> <span class="Identifier">Pi</span> <span class="Identifier">Range</span>[<span class="Type">6</span>]<span class="Statement">/</span><span class="Type">6</span>)]]
+</pre>
+            </li>
+        </ol>
+
+        <p>
+        $\cos(\phi)$ and $\sin(\phi)$ themselves are the $x$ and $y$ coordinates of a point at angle $\phi$, which trigonometrists think of as the adjacent and opposite legs of the right triangle specified by that point. This is about as direct as it gets, so we have to accept the straightforwardness of cos-sine vs re-im-E^I.
+        </p>
+
+        <br />
+
+        </div>
+
+        <div class="section"></div>
+        
+        <div class="links centered">
+            <a href="index.htm" class="pagelink">&lt;&lt;</a>
+            <a href="index.htm" class="pagelink">1</a>
+            <span class="pagelink inactivePagelink">2</span>
+            <a class="pagelink" style="color: white;">&gt;&gt;</a>
+        </div>
+
+    </div>
+</body>
+</html>

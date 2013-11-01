@@ -1,0 +1,159 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+    <head>
+        <title> oftenpaper.net/hexagongeometry </title>
+
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.9.0/build/reset-fonts-grids/reset-fonts-grids.css" />
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.9.0/build/base/base-min.css" />
+        <link rel="stylesheet" type="text/css" href="oftencss.css" />
+
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+
+        <script type="text/javascript" id="mathjax" src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax:{inlineMath:[['$','$']]}})</script>
+
+        <script type="text/javascript" src="flipbook.js"></script>
+    </head>
+
+<body>
+    <h1><a href="/"> oftenpaper.net </a></h1>
+    <h3>
+             <img src='img/hex.png' /> <span> Hexagon geometry </span>  &#8482;</h3>
+
+    <div class="content">
+
+        <div class='section' style='margin-bottom: -2em'>
+        
+        <p>
+            How do you programmatically construct a hexagon? Easy, we can just use equiangular points on the circle, taking advantage of the fact that for a complex number $z$ on the complex plane,
+        </p>
+
+        <div style='font-size: large'>
+            $$z e^{i \phi}$$
+        </div>
+
+        <p>
+        represents a rotation of $z$ about the origin by $\phi$ radians. From this rotation definition you can derive $e^{i \small{\frac{1}{2}} \tau} = -1$. If you rotate a point $\small {\frac 1 2}$ way around the circle, you&apos;ve effectively multiplied its real and imaginary components by -1. Since $i$ itself is a quarter turn, two quarter turns <span style='white-space: nowrap;'>$i^2$</span> is also -1. If you go one full swing (a.k.a. 4 quarter turns), you&apos;ve done nothing:
+        </p>
+
+        <div style='font-size: large'>
+            $$i^4 = e^{i \tau} = 1$$
+        </div>
+
+        <p>
+        Although this is commonly understood, I encountered this coherent description for complex numbers in <a shape='rect' href='http://arxiv.org/abs/1205.5935'>geometric algebra</a>, wherein $i$ is just one instance of a &quot;directional plane&quot; in the same sense that a vector is a &quot;directional line.&quot; (The proper description may be more subtle, but this is a good approximation). Most importantly, the
+
+        &quot;<span style='color:orange;'>m</span><i><span style='color:red; font-size: 18px'>y</span><span style='color:purple'>s</span></i><b style='color: green; font-family: monospace;'>t</b><b><span style='color: darkorange'>e</span><i style='color: orange'>r</i></b><span style='font-size: 12px; color: purple'>i</span><span style='color:green'><i>o</i><b>U</b></span><i style='color: purple'>s</i>&quot;
+
+        complex numbers can be seen as a non-mysterious encoding of geometric truths. And so within a broader context no less.
+        </p>
+
+        <p>
+        Our code for a hexagon is:
+        </p>
+
+        <ol class='flipbook static' name='its hexagon what more do you need to know' default='2'><li name='image'>
+            <img src='img/zomghexagon1.png' width='360' height='313' />
+            </li><li name='source'>
+            <pre>
+<span class='Identifier'>Graphics</span>[<span class='Identifier'>Polygon</span>[{<span class='Identifier'>Re</span>[<span class='Statement'>#</span>], <span class='Identifier'>Im</span>[<span class='Statement'>#</span>]} <span class='Statement'>&amp;</span> <span class='Statement'>/@</span> (<span class='Identifier'>E</span><span class='Statement'>^</span>(<span class='Identifier'>I</span> <span class='Type'>2</span> <span class='Identifier'>Pi</span> <span class='Identifier'>Range</span>[<span class='Type'>6</span>]<span class='Statement'>/</span><span class='Type'>6</span>))]]</pre>
+            </li></ol>
+
+        <p style='padding-top: 5px'>
+        It&apos;s of course easily parameterized. What if we alternate the polarity of the points (using $(-1)^x$) as we generate the polygon? We get stars:
+        </p>
+
+            <ol class='flipbook static' name='alternating polygons'><li>
+                    <h4> 8 vertices </h4>
+                    <img src='img/awesomepossum8.png' width='600' height='600' />
+                </li><li>
+                    <h4> 32 vertices </h4>
+                    <img src='img/awesomepossum32.png' width='600' height='600' />
+                </li><li>
+                    <h4> 65 vertices </h4>
+                    <img src='img/awesomepossum65.png' width='600' height='600' />
+                </li><li>
+                    <h4> 4000 vertices </h4>
+                    <img src='img/awesomepossum4000.png' width='600' height='600' />
+                </li><li>
+                    <h4> 12000 vertices </h4>
+                    <img src='img/awesomepossum12000.png' width='600' height='600' />
+                </li><li>
+                    <h4> 40000 vertices (downsampled) </h4>
+                    <img src='img/awesomepossum40000.png' width='600' height='600' />
+                </li><li>
+                    <h4> 40000 vertices (close up) </h4>
+                    <img src='img/awesomepossumzoom101.png' width='500' height='600' />
+                </li><li name='source'>
+<pre>
+<span class='Identifier'>draw</span>[<span class='Type'>v_</span>] <span class='Statement'>:=</span> <span class='Identifier'>Module</span>[{vertices},
+   vertices <span class='Statement'>=</span> (<span class='Statement'>-</span><span class='Type'>1</span>)<span class='Statement'>^</span><span class='Identifier'>Range</span>[v] <span class='Identifier'>E</span><span class='Statement'>^</span>(<span class='Identifier'>I</span> <span class='Type'>2</span><span class='Statement'>.</span> <span class='Identifier'>Pi</span> <span class='Identifier'>Range</span>[v]<span class='Statement'>/</span>v);
+   <span class='Identifier'>Graphics</span>[<span class='Identifier'>Polygon</span>[{<span class='Identifier'>Re</span>[<span class='Statement'>#</span>], <span class='Identifier'>Im</span>[<span class='Statement'>#</span>]} <span class='Statement'>&amp;</span> <span class='Statement'>/@</span> vertices]]];
+</pre>
+                </li></ol>
+
+            <p>
+            Vector graphics renderers typically use the so-called even-odd rule for handling polygon self-intersections, which results in the checkered appearance. Notice that the images are fractal-like towards the center, as if the rings repeat endlessly.
+            </p>
+
+            <p>
+            <span class='flipbookLink' name='alternating polygons' index='4'>Higher vertex counts</span> have strong <a shape='rect' href='http://en.wikipedia.org/wiki/Moire_pattern'>Moire patterns</a>. These depend on a variety of factors and contain a lot of interesting patterns, like parabolic-looking arcs and <span class='flipbookLink' name='alternating polygons' index='7'>thumbprint artifacts</span>. It&apos;s like looking into the soul of the rendering engine. For a potential Twilight Zone experience, take a look at high-resolution <a shape='rect' href='img/star120k.png'>120k-vertex</a> and <a shape='rect' href='img/twighlightzone.png'>4k-vertex</a> renderings at different zooms.
+            </p>
+
+            <p>
+            $(-1)^x$ generates $\{1, -1\}$ cyclically. What if we use
+            $i^x$ instead? It generates $\{1, i, -1, -i\}$. What if we make the distance taper up or down as we generate the vertices? What if we use logarithms, or hyperbolic sines and cosines. What if we add color depending on the performance of the stock market?? What if we get totally smashed and plot points at different positions depending on how many chunks of pizza we can identify after we projectile vomit all over ourselves??? <b><a shape='rect' href='http://www.youtube.com/watch?v=KDwODbl3muE&amp;t=20s'>YEA!!!</a></b>
+        
+            </p><ol class='flipbook static' name='epicsauce polygons'><li>
+                    <h4> $(-1)^x x e^{\frac{i 2 \pi x}{n}}$ with 128 vertices</h4>
+                    <img src='img/epicsaucetaper1.png' width='600' height='600' />
+                </li><li>
+                    <h4> $i^x i^{\frac{i 2 \pi  x}{n}}$ &#160; with 128 vertices </h4>
+                    <img src='img/epicsaucetaper4.png' width='600' height='600' />
+                </li><li>
+                    <h4> $i^x \log(x)^{e^{\frac{i 2 \pi  x}{n}}}$ &#160; with 600 vertices </h4>
+                    <img src='img/epicsaucetaper6.png' width='600' height='600' />
+                </li><li>
+                    <h4> $i^x x e^{\frac {i 2 \pi p_x} n}$ &#160; ($p_x$ the $x$th prime) with 500 vertices </h4>
+                    <img src='img/epicsaucetaper5.png' width='600' height='600' />
+                </li><li>
+                <h4> $\text{krabby patty formul&apos;r}$ </h4>
+                    <img src='img/epicsaucetaper8.png' width='600' height='600' />
+                </li><li name='source'>
+                <pre>
+<span class='Identifier'>draw</span>[<span class='Type'>expr_</span>, <span class='Type'>v_</span>] <span class='Statement'>:=</span> <span class='Identifier'>Module</span>[{vertices},
+   vertices <span class='Statement'>=</span> <span class='Identifier'>Table</span>[expr <span class='Statement'>/.</span> n <span class='Statement'>-&gt;</span> v, {x, v}];
+   <span class='Identifier'>Graphics</span>[<span class='Identifier'>Polygon</span>[{<span class='Identifier'>Re</span>[<span class='Statement'>#</span>], <span class='Identifier'>Im</span>[<span class='Statement'>#</span>]} <span class='Statement'>&amp;</span> <span class='Statement'>/@</span> vertices]]];
+
+<span class='Identifier'>draw</span>[(<span class='Statement'>-</span><span class='Type'>1</span>)<span class='Statement'>^</span>x x <span class='Identifier'>E</span><span class='Statement'>^</span>(<span class='Identifier'>I</span> <span class='Type'>2</span> <span class='Identifier'>Pi</span> x<span class='Statement'>/</span>n), <span class='Type'>128</span>]</pre>
+                </li></ol>
+
+            <p>
+            Sadly there is a small storm on our parade. Since we have to eventually convert the points to regular cartesian coordinates using <span style='font-family: monospace'>{<span class='Identifier'>Re</span>[<span class='Statement'>#</span>], <span class='Identifier'>Im</span>[<span class='Statement'>#</span>]} <span class='Statement'>&amp;</span></span>, it&apos;s more prudent for us to skip complex numbers and just use sines and cosines instead:
+
+        </p><ol class='flipbook static' default='2' name='its hexagon what more do you need to know 2'><li name='image'>
+            <img src='img/zomghexagon2.png' width='360' height='313' />
+            </li><li name='source'>
+<pre>
+<span class='Identifier'>Graphics</span>[<span class='Identifier'>Polygon</span>[{<span class='Identifier'>Cos</span>[<span class='Statement'>#</span>], <span class='Identifier'>Sin</span>[<span class='Statement'>#</span>]} <span class='Statement'>&amp;</span> <span class='Statement'>/@</span> (<span class='Type'>2</span> <span class='Identifier'>Pi</span> <span class='Identifier'>Range</span>[<span class='Type'>6</span>]<span class='Statement'>/</span><span class='Type'>6</span>)]]
+</pre>
+            </li></ol>
+
+        <p>
+        $\cos(\phi)$ and $\sin(\phi)$ themselves are the $x$ and $y$ coordinates of a point at angle $\phi$, which trigonometrists think of as the adjacent and opposite legs of the right triangle specified by that point. This is about as direct as it gets, so we have to accept the straightforwardness of cos-sine vs re-im-E^I.
+        </p>
+
+        <br clear='none' />
+
+        <br /></div>
+
+        <div class="section" style="margin-top: -22px; margin-bottom: -11px"> </div>
+
+        <div class="links centered">
+            <a href="/" title="home" style="color: #333333" class="pagelink">&lt;&lt;</a>
+        </div>
+
+    </div>
+
+</body>
+</html>

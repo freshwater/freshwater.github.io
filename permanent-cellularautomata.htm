@@ -1,0 +1,247 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+    <head>
+        <title> oftenpaper.net/cellularautomata </title>
+
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.9.0/build/reset-fonts-grids/reset-fonts-grids.css" />
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.9.0/build/base/base-min.css" />
+        <link rel="stylesheet" type="text/css" href="oftencss.css" />
+
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+
+        <script type="text/javascript" id="mathjax" src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax:{inlineMath:[['$','$']]}})</script>
+
+        <script type="text/javascript" src="flipbook.js"></script>
+    </head>
+
+<body>
+    <h1><a href="/"> oftenpaper.net </a></h1>
+    <h3>
+                 <img src='img/aspect1.png' /> <span> Cellular Automata </span>  &#8482;</h3>
+
+    <div class="content">
+
+        <div class='section'>
+            
+
+            <p>
+                As everyone learns in grade school, typical 1-dimensional cellular automata are identified at the edges
+                and thus their evolutions form topological cylinders. An obvious method of visualization then
+                is a proper geometric cylinder:
+            </p>
+
+            <ol class='flipbook static' name='cellular automata'><li>
+                    <img src='img/automata1.png' width='648' height='584' />
+                </li><li>
+                    <img src='img/automata2.png' width='648' height='628' />
+                </li><li>
+                    <img src='img/automata3.png' width='649' height='587' />
+                </li><li>
+                    <img src='img/automata4.png' width='648' height='628' />
+                </li><li>
+                    <img src='img/automatamenu.png' width='235' height='534' />
+                </li><li name='source'>
+<pre style='font-size: 2px'>
+
+
+
+
+
+graphicsSize <span class='Statement'>=</span> {<span class='Type'>600</span>, <span class='Type'>400</span>};
+gridControlHeight <span class='Statement'>=</span> <span class='Type'>14</span>;
+shapeChoicesIconSize <span class='Statement'>=</span> {<span class='Type'>25</span>, <span class='Type'>25</span>};
+
+{widthDefault, widthMin, widthMax} <span class='Statement'>=</span> {<span class='Type'>40</span>, <span class='Type'>30</span>, <span class='Type'>60</span>};
+{iterationsDefault, iterationsMin, iterationsMax} <span class='Statement'>=</span> {<span class='Type'>60</span>, <span class='Type'>10</span>, <span class='Type'>80</span>};
+
+<span class='Comment'>(*shape choices*)</span>
+<span class='Identifier'>createShapeChoices</span>[<span class='Type'>ls_</span>] <span class='Statement'>:=</span> <span class='Identifier'>Module</span>[{},
+   (<span class='Identifier'>shapeOverlap</span>[<span class='Statement'>#</span>[[<span class='Type'>1</span>]]] <span class='Statement'>=</span> <span class='Statement'>#</span>[[<span class='Type'>4</span>]]) <span class='Statement'>&amp;</span> <span class='Statement'>/@</span> ls;
+   <span class='Statement'>#</span>[[<span class='Type'>1</span>]] <span class='Statement'>-&gt;</span> <span class='Identifier'>Tooltip</span>[<span class='Identifier'>Graphics3D</span>[{<span class='Identifier'>EdgeForm</span>[], <span class='Identifier'>Dynamic</span>[color], <span class='Identifier'>Rotate</span>[<span class='Identifier'>Cuboid</span>[{<span class='Type'>0</span>, <span class='Type'>0</span>, <span class='Type'>0</span>}, {<span class='Type'>1</span>, <span class='Type'>1</span>, <span class='Statement'>#</span>[[<span class='Type'>1</span>]]}], <span class='Statement'>#</span>[[<span class='Type'>3</span>]], {<span class='Type'>0</span>, <span class='Type'>1</span>, <span class='Type'>0</span>}]},
+        Background <span class='Statement'>-&gt;</span> <span class='Identifier'>Dynamic</span>[background], Lighting <span class='Statement'>-&gt;</span> <span class='String'>&quot;Neutral&quot;</span>, Boxed <span class='Statement'>-&gt;</span> <span class='Identifier'>False</span>, ImageSize <span class='Statement'>-&gt;</span> shapeChoicesIconSize], <span class='Statement'>#</span>[[<span class='Type'>2</span>]], TooltipDelay <span class='Statement'>-&gt;</span> <span class='Statement'>.</span><span class='Type'>3</span>] <span class='Statement'>&amp;</span> <span class='Statement'>/@</span> ls];
+
+shapeChoices <span class='Statement'>=</span> <span class='Identifier'>createShapeChoices</span>[{{<span class='Statement'>.</span><span class='Type'>2</span>, <span class='String'>&quot;wafer&quot;</span>, <span class='Type'>0</span>, <span class='Type'>0</span>}, {<span class='Type'>1</span>, <span class='String'>&quot;block&quot;</span>, <span class='Type'>0</span>, <span class='Statement'>.</span><span class='Type'>14</span>}, {<span class='Type'>12</span>, <span class='String'>&quot;spaghetti&quot;</span>, <span class='String'>\[Pi]</span><span class='Statement'>/</span><span class='Type'>5</span>, <span class='Statement'>.</span><span class='Type'>14</span>}}];
+
+<span class='Comment'>(*CellularAutomaton choices and the range of the &apos;rule&apos; slider*)</span>
+automata <span class='Statement'>=</span> {
+   {{n, <span class='Type'>2</span>, <span class='Type'>1</span>}, <span class='String'>&quot; E &quot;</span>, <span class='String'>&quot;Elementary&quot;</span>, <span class='Type'>255</span>},
+   {{n, {<span class='Type'>2</span>, <span class='Type'>1</span>}, <span class='Type'>2</span>}, <span class='String'>&quot;T2&quot;</span>, <span class='String'>&quot;Totalistic, Range 2&quot;</span>, <span class='Type'>63</span>},
+   {{n, {<span class='Type'>2</span>, <span class='Type'>1</span>}, <span class='Type'>3</span>}, <span class='String'>&quot;T3&quot;</span>, <span class='String'>&quot;Totalistic, Range 3&quot;</span>, <span class='Type'>255</span>},
+   {{n, {<span class='Type'>2</span>, <span class='Type'>1</span>}, <span class='Type'>4</span>}, <span class='String'>&quot;T4&quot;</span>, <span class='String'>&quot;Totalistic, Range 4&quot;</span>, <span class='Type'>1023</span>},
+   {{n, {<span class='Type'>2</span>, <span class='Type'>1</span>}, <span class='Type'>5</span>}, <span class='String'>&quot;T5&quot;</span>, <span class='String'>&quot;Totalistic, Range 5&quot;</span>, <span class='Type'>4095</span>}};
+
+typeChoices <span class='Statement'>=</span> <span class='Statement'>#</span>[[<span class='Type'>1</span>]] <span class='Statement'>-&gt;</span> <span class='Identifier'>Tooltip</span>[<span class='Statement'>#</span>[[<span class='Type'>2</span>]], <span class='Statement'>#</span>[[<span class='Type'>3</span>]], TooltipDelay <span class='Statement'>-&gt;</span> <span class='Statement'>.</span><span class='Type'>1</span>] <span class='Statement'>&amp;</span> <span class='Statement'>/@</span> automata;
+<span class='Identifier'>Do</span>[<span class='Identifier'>ruleMax</span>[<span class='Identifier'>a</span>[[<span class='Type'>1</span>]]] <span class='Statement'>=</span> <span class='Identifier'>a</span>[[<span class='Type'>4</span>]], {a, automata}];
+
+<span class='Comment'>(*initial array operations*)</span>
+opList <span class='Statement'>=</span> {
+   <span class='Comment'>(*reset*)</span> <span class='Identifier'>Grid</span>[<span class='Identifier'>List</span><span class='Statement'>@</span>{<span class='Identifier'>Dynamic</span>[ <span class='Identifier'>ArrayPlot</span>[{<span class='Identifier'>Table</span>[<span class='Identifier'>If</span>[i <span class='Statement'>==</span> <span class='Type'>1</span>, <span class='Type'>1</span>, <span class='Type'>0</span>], {i, <span class='Type'>1</span>, <span class='Type'>9</span>}]}, Mesh <span class='Statement'>-&gt;</span> <span class='Identifier'>All</span>, ColorFunction <span class='Statement'>-&gt;</span> arrayColor, ColorFunctionScaling <span class='Statement'>-&gt;</span> <span class='Identifier'>False</span>], TrackedSymbols <span class='Statement'>:&gt;</span> {arrayColor}], <span class='String'>&quot;reset&quot;</span>},
+     Alignment <span class='Statement'>-&gt;</span> {Center, Center}]
+    <span class='Statement'>:&gt;</span> (initialArray <span class='Statement'>=</span> <span class='Identifier'>ConstantArray</span>[<span class='Type'>0</span>, width]; <span class='Identifier'>initialArray</span>[[<span class='Type'>1</span>]] <span class='Statement'>=</span> <span class='Type'>1</span>),
+   <span class='Comment'>(*invert*)</span> <span class='Identifier'>Grid</span>[<span class='Identifier'>List</span><span class='Statement'>@</span>{<span class='Identifier'>Dynamic</span>[ <span class='Identifier'>ArrayPlot</span>[{<span class='Identifier'>Table</span>[<span class='Identifier'>If</span>[i <span class='Statement'>==</span> <span class='Type'>1</span>, <span class='Type'>0</span>, <span class='Type'>1</span>], {i, <span class='Type'>1</span>, <span class='Type'>9</span>}]}, Mesh <span class='Statement'>-&gt;</span> <span class='Identifier'>All</span>, ColorFunction <span class='Statement'>-&gt;</span> arrayColor, ColorFunctionScaling <span class='Statement'>-&gt;</span> <span class='Identifier'>False</span>], TrackedSymbols <span class='Statement'>:&gt;</span> {arrayColor}], <span class='String'>&quot;invert&quot;</span>},
+     Alignment <span class='Statement'>-&gt;</span> {Center, Center}]
+    <span class='Statement'>:&gt;</span> (initialArray <span class='Statement'>=</span> <span class='Identifier'>Boole</span>[<span class='Statement'>#</span> <span class='Statement'>==</span> <span class='Type'>0</span>] <span class='Statement'>&amp;</span> <span class='Statement'>/@</span> initialArray),
+   <span class='Comment'>(*randomize*)</span><span class='Identifier'>Module</span>[{conjure, entropyList},
+    <span class='Identifier'>conjure</span>[] <span class='Statement'>:=</span> <span class='Identifier'>While</span>[<span class='Identifier'>Entropy</span>[entropyList <span class='Statement'>=</span> <span class='Identifier'>RandomInteger</span>[{<span class='Type'>0</span>, <span class='Type'>1</span>}, <span class='Type'>9</span>]] <span class='Statement'>&lt;</span> <span class='Statement'>.</span><span class='Type'>65</span>]; <span class='Identifier'>conjure</span>[];
+    <span class='Identifier'>Grid</span>[<span class='Identifier'>List</span><span class='Statement'>@</span>{<span class='Identifier'>Dynamic</span>[<span class='Identifier'>ArrayPlot</span>[{entropyList}, Mesh <span class='Statement'>-&gt;</span> <span class='Identifier'>All</span>, ColorFunction <span class='Statement'>-&gt;</span> arrayColor, ColorFunctionScaling <span class='Statement'>-&gt;</span> <span class='Identifier'>False</span>], TrackedSymbols <span class='Statement'>:&gt;</span> {arrayColor, entropyList}], <span class='String'>&quot;randomize&quot;</span>},
+      Alignment <span class='Statement'>-&gt;</span> {Center, Center}]
+     <span class='Statement'>:&gt;</span> (initialArray <span class='Statement'>=</span> <span class='Identifier'>RandomInteger</span>[{<span class='Type'>0</span>, <span class='Type'>1</span>}, width]; <span class='Identifier'>conjure</span>[])]};
+
+<span class='Comment'>(*color scheme bookmarks*)</span>
+<span class='Identifier'>ColorSchemeIcon</span>[<span class='Type'>foreground_</span>, <span class='Type'>background_</span>] <span class='Statement'>:=</span>
+ <span class='Identifier'>Graphics</span>[{background, <span class='Identifier'>Rectangle</span>[{<span class='Type'>0</span>, <span class='Type'>0</span>}, {<span class='Type'>1</span>, <span class='Type'>1</span>}], foreground, <span class='Identifier'>Rectangle</span>[{<span class='Statement'>.</span><span class='Type'>25</span>, <span class='Statement'>.</span><span class='Type'>25</span>}, {<span class='Statement'>.</span><span class='Type'>75</span>, <span class='Statement'>.</span><span class='Type'>75</span>}]}, ImageSize <span class='Statement'>-&gt;</span> {<span class='Type'>20</span>, <span class='Type'>20</span>}]
+<span class='Identifier'>ColorSchemeIcon</span>[<span class='Type'>foreground_</span>, <span class='Type'>background_</span>, <span class='Identifier'>True</span>] <span class='Statement'>:=</span> <span class='Identifier'>Graphics</span>[{
+    foreground, <span class='Identifier'>Rectangle</span>[{<span class='Type'>0</span>, <span class='Type'>0</span>}, {<span class='Statement'>.</span><span class='Type'>5</span>, <span class='Type'>1</span>}],
+    background, <span class='Identifier'>Rectangle</span>[{<span class='Statement'>.</span><span class='Type'>25</span>, <span class='Statement'>.</span><span class='Type'>25</span>}, {<span class='Statement'>.</span><span class='Type'>5</span>, <span class='Statement'>.</span><span class='Type'>75</span>}],
+    background, <span class='Identifier'>Rectangle</span>[{<span class='Statement'>.</span><span class='Type'>5</span>, <span class='Type'>0</span>}, {<span class='Type'>1</span>, <span class='Type'>1</span>}],
+    foreground, <span class='Identifier'>Rectangle</span>[{<span class='Statement'>.</span><span class='Type'>5</span>, <span class='Statement'>.</span><span class='Type'>25</span>}, {<span class='Statement'>.</span><span class='Type'>75</span>, <span class='Statement'>.</span><span class='Type'>75</span>}]}, ImageSize <span class='Statement'>-&gt;</span> {<span class='Type'>20</span>, <span class='Type'>20</span>}];
+
+colorSchemes <span class='Statement'>=</span> {
+   {<span class='Identifier'>Darker</span>[<span class='Identifier'>Blend</span>[{<span class='Identifier'>Yellow</span>, <span class='Identifier'>Green</span>}], <span class='Statement'>.</span><span class='Type'>1</span>], <span class='Identifier'>Lighter</span>[<span class='Identifier'>Gray</span>, <span class='Statement'>.</span><span class='Type'>7</span>], <span class='String'>&quot;default&quot;</span>},
+   {invert, <span class='String'>&quot;invert colors&quot;</span>},
+   {<span class='Identifier'>RGBColor</span>[<span class='Type'>1</span>, <span class='Statement'>.</span><span class='Type'>9495</span>, <span class='Statement'>.</span><span class='Type'>125</span>], <span class='Identifier'>RGBColor</span>[<span class='Type'>0</span>, <span class='Statement'>.</span><span class='Type'>5384</span>, <span class='Statement'>.</span><span class='Type'>04806</span>]},
+   {<span class='Identifier'>RGBColor</span>[<span class='Type'>1</span>, <span class='Statement'>.</span><span class='Type'>3846</span>, <span class='Statement'>.</span><span class='Type'>7143</span>], <span class='Identifier'>Lighter</span>[<span class='Identifier'>Gray</span>, <span class='Statement'>.</span><span class='Type'>9</span>]},
+   {<span class='Identifier'>RGBColor</span>[<span class='Statement'>.</span><span class='Type'>577</span>, <span class='Statement'>.</span><span class='Type'>1539</span>, <span class='Type'>1</span>], <span class='Identifier'>RGBColor</span>[<span class='Statement'>.</span><span class='Type'>0879</span>, <span class='Type'>0</span>, <span class='Statement'>.</span><span class='Type'>3077</span>]},
+   {<span class='Identifier'>RGBColor</span>[<span class='Type'>0</span>, <span class='Statement'>.</span><span class='Type'>8182</span>, <span class='Statement'>.</span><span class='Type'>7918</span>], <span class='Identifier'>White</span>},
+   {<span class='Identifier'>White</span>, <span class='Identifier'>Black</span>}};
+
+colorSchemeList <span class='Statement'>=</span>
+  (<span class='Statement'>#</span> <span class='Statement'>/.</span> {
+       {invert, <span class='Type'>t_</span>} <span class='Statement'>:&gt;</span> (<span class='Identifier'>Grid</span>[ <span class='Identifier'>List</span><span class='Statement'>@</span>{<span class='Identifier'>Dynamic</span><span class='Statement'>@</span><span class='Identifier'>ColorSchemeIcon</span>[background, color, <span class='Identifier'>True</span>], t}, Spacings <span class='Statement'>-&gt;</span> <span class='Statement'>.</span><span class='Type'>5</span>, Alignment <span class='Statement'>-&gt;</span> {Center, Center}] <span class='Statement'>:&gt;</span>
+          <span class='Identifier'>With</span>[{swap <span class='Statement'>=</span> color}, {color <span class='Statement'>=</span> background, background <span class='Statement'>=</span> swap}]),
+       {<span class='Type'>f_</span>, <span class='Type'>b_</span>} <span class='Statement'>:&gt;</span> (<span class='Identifier'>Grid</span>[<span class='Identifier'>List</span><span class='Statement'>@</span>{<span class='Identifier'>ColorSchemeIcon</span>[f, b]}, Spacings <span class='Statement'>-&gt;</span> <span class='Statement'>.</span><span class='Type'>5</span>, Alignment <span class='Statement'>-&gt;</span> {Center, Center}] <span class='Statement'>:&gt;</span> {color <span class='Statement'>=</span> f, background <span class='Statement'>=</span> b}),
+       {<span class='Type'>f_</span>, <span class='Type'>b_</span>, <span class='Type'>t_</span>} <span class='Statement'>:&gt;</span> (<span class='Identifier'>Grid</span>[<span class='Identifier'>List</span><span class='Statement'>@</span>{<span class='Identifier'>ColorSchemeIcon</span>[f, b], t}, Spacings <span class='Statement'>-&gt;</span> <span class='Statement'>.</span><span class='Type'>5</span>, Alignment <span class='Statement'>-&gt;</span> {Center, Center}] <span class='Statement'>:&gt;</span> {color <span class='Statement'>=</span> f, background <span class='Statement'>=</span> b})
+       }) <span class='Statement'>&amp;</span> <span class='Statement'>/@</span> colorSchemes;
+
+fullRandomBookmark <span class='Statement'>=</span> <span class='Identifier'>Grid</span>[{{<span class='String'>&quot;Full Random&quot;</span>}}] <span class='Statement'>:&gt;</span> <span class='Identifier'>Module</span>[{},
+    color <span class='Statement'>=</span> <span class='Identifier'>RGBColor</span>[<span class='Identifier'>RandomReal</span>[{<span class='Type'>0</span>, <span class='Type'>1</span>}, <span class='Type'>3</span>]];
+    background <span class='Statement'>=</span> <span class='Identifier'>RGBColor</span>[<span class='Identifier'>RandomReal</span>[{<span class='Type'>0</span>, <span class='Type'>1</span>}, <span class='Type'>3</span>]];
+    thickness <span class='Statement'>=</span> <span class='Identifier'>RandomChoice</span>[{<span class='Statement'>.</span><span class='Type'>5</span>, <span class='Statement'>.</span><span class='Type'>3</span>, <span class='Statement'>.</span><span class='Type'>2</span>} <span class='Statement'>-&gt;</span> shapeChoices][[<span class='Type'>1</span>]];
+    width <span class='Statement'>=</span> <span class='Identifier'>RandomInteger</span>[{widthMin, widthMax}];
+    iterations <span class='Statement'>=</span> <span class='Identifier'>RandomInteger</span>[{iterationsMin, iterationsMax}];
+    type <span class='Statement'>=</span> <span class='Identifier'>RandomChoice</span>[typeChoices][[<span class='Type'>1</span>]];
+
+    rule <span class='Statement'>=</span> <span class='Identifier'>RandomInteger</span>[{<span class='Type'>0</span>, <span class='Identifier'>ruleMax</span>[type]}];
+    initialArray <span class='Statement'>=</span> <span class='Identifier'>RandomInteger</span>[{<span class='Type'>0</span>, <span class='Type'>1</span>}, width]];
+
+<span class='Comment'>(*the control used for adjusting the initial array*)</span>
+<span class='Identifier'>gridControl</span>[<span class='Identifier'>Dynamic</span>[<span class='Type'>var_</span>], <span class='Type'>colorFunction_</span>, <span class='Type'>maxWidth_</span>, <span class='Type'>height_</span>] <span class='Statement'>:=</span>
+  <span class='Identifier'>DynamicModule</span>[{lastValue, lastIndex <span class='Statement'>=</span> <span class='Statement'>-</span><span class='Type'>1</span>, mouseLoc},
+
+   <span class='Identifier'>mouseLoc</span>[] <span class='Statement'>:=</span> <span class='Identifier'>Module</span>[{pos <span class='Statement'>=</span> <span class='Identifier'>MousePosition</span>[<span class='String'>&quot;Graphics&quot;</span>]},
+     <span class='Identifier'>If</span>[pos <span class='Statement'>===</span> <span class='Identifier'>None</span>, <span class='Identifier'>None</span>, <span class='Identifier'>Ceiling</span>[<span class='Identifier'>Abs</span>[<span class='Identifier'>First</span><span class='Statement'>@</span>pos]]]];
+
+   <span class='Comment'>(*main gridControl output*)</span>
+   <span class='Identifier'>Panel</span>[<span class='Statement'>#</span>, ImageSize <span class='Statement'>-&gt;</span> maxWidth, Alignment <span class='Statement'>-&gt;</span> Center, Appearance <span class='Statement'>-&gt;</span> <span class='String'>&quot;Frameless&quot;</span>, FrameMargins <span class='Statement'>-&gt;</span> <span class='Type'>0</span>] <span class='Statement'>&amp;</span><span class='Statement'>@</span>
+    <span class='Identifier'>EventHandler</span>[
+     <span class='Identifier'>Dynamic</span>[<span class='Identifier'>ArrayPlot</span>[{var}, Mesh <span class='Statement'>-&gt;</span> <span class='Identifier'>All</span>, ImageSize <span class='Statement'>-&gt;</span> {{maxWidth}, height}, ColorFunction <span class='Statement'>-&gt;</span> colorFunction, ColorFunctionScaling <span class='Statement'>-&gt;</span> <span class='Identifier'>False</span>, PlotRangePadding <span class='Statement'>-&gt;</span> <span class='Type'>0</span>]],
+
+     {<span class='String'>&quot;MouseDown&quot;</span> <span class='Statement'>:&gt;</span> <span class='Identifier'>Module</span>[{x <span class='Statement'>=</span> <span class='Identifier'>Clip</span>[<span class='Identifier'>mouseLoc</span>[], {<span class='Type'>1</span>, <span class='Identifier'>Length</span>[var]}]},
+        <span class='Identifier'>If</span>[<span class='Identifier'>Head</span>[x] <span class='Statement'>=!=</span> <span class='Identifier'>Integer</span>, <span class='Identifier'>Return</span>[]];
+        <span class='Identifier'>var</span>[[x]] <span class='Statement'>=</span> <span class='Identifier'>Boole</span>[<span class='Identifier'>var</span>[[x]] <span class='Statement'>==</span> <span class='Type'>0</span>];
+        lastValue <span class='Statement'>=</span> <span class='Identifier'>var</span>[[x]]],
+
+      <span class='String'>&quot;MouseDragged&quot;</span> <span class='Statement'>:&gt;</span> <span class='Identifier'>Module</span>[{x <span class='Statement'>=</span> <span class='Identifier'>Clip</span>[<span class='Identifier'>mouseLoc</span>[], {<span class='Type'>1</span>, <span class='Identifier'>Length</span>[var]}]},
+        <span class='Identifier'>If</span>[<span class='Identifier'>Head</span>[x] <span class='Statement'>=!=</span> <span class='Identifier'>Integer</span>, <span class='Identifier'>Return</span>[]];
+        <span class='Identifier'>If</span>[x <span class='Statement'>=!=</span> lastIndex,<span class='Comment'>(*only when entering new cell*)</span>
+         lastIndex <span class='Statement'>=</span> x;
+         <span class='Identifier'>var</span>[[x]] <span class='Statement'>=</span> lastValue]]}]];
+
+<span class='Comment'>(*function that creates the Cuboids*)</span>
+<span class='Identifier'>render</span>[<span class='Type'>stack_</span>, <span class='Type'>iterations_</span>, <span class='Type'>color_</span>, <span class='Type'>thickness_</span>, <span class='Type'>overlap_</span>] <span class='Statement'>:=</span> <span class='Identifier'>Module</span>[{
+    center, interval, width <span class='Statement'>=</span> <span class='Identifier'>Length</span>[<span class='Identifier'>stack</span>[[<span class='Type'>1</span>]]]},
+   interval <span class='Statement'>=</span> <span class='Type'>2</span><span class='Statement'>.</span> <span class='String'>\[Pi]</span><span class='Statement'>/</span>width;
+
+   <span class='Identifier'>Last</span><span class='Statement'>@</span><span class='Identifier'>Reap</span>[<span class='Identifier'>Do</span>[
+      <span class='Identifier'>Sow</span>[<span class='Identifier'>Rotate</span>[
+        <span class='Identifier'>Last</span><span class='Statement'>@</span><span class='Identifier'>Reap</span>[<span class='Identifier'>Do</span>[
+           <span class='Identifier'>If</span>[<span class='Identifier'>stack</span>[[level, rad]] <span class='Statement'>==</span> <span class='Type'>1</span>,
+            center <span class='Statement'>=</span> {<span class='Identifier'>Cos</span>[interval<span class='Statement'>*</span>rad]<span class='Statement'>/</span>interval, <span class='Identifier'>Sin</span>[interval<span class='Statement'>*</span>rad]<span class='Statement'>/</span>interval, <span class='Type'>0</span>} <span class='Statement'>//</span><span class='Identifier'> N</span>;
+            <span class='Identifier'>Sow</span>[<span class='Identifier'>Cuboid</span>[center <span class='Statement'>+</span> {<span class='Type'>0</span>, <span class='Type'>0</span>, <span class='Statement'>-</span>level} <span class='Statement'>+</span> {thickness, overlap<span class='Statement'>/</span><span class='Type'>2</span> <span class='Statement'>+</span> <span class='Statement'>.</span><span class='Type'>52</span>, <span class='Statement'>.</span><span class='Type'>52</span>}, center <span class='Statement'>+</span> {<span class='Type'>0</span>, <span class='Type'>0</span>, <span class='Statement'>-</span>level} <span class='Statement'>-</span> {<span class='Type'>0</span>, overlap<span class='Statement'>/</span><span class='Type'>2</span> <span class='Statement'>+</span> <span class='Statement'>.</span><span class='Type'>52</span>, <span class='Statement'>.</span><span class='Type'>52</span>}], color];
+            <span class='Comment'>(*make the cylinder darker on the inside*)</span><span class='Identifier'>Sow</span>[<span class='Identifier'>Cuboid</span>[ center <span class='Statement'>+</span> {<span class='Type'>0</span>, <span class='Type'>0</span>, <span class='Statement'>-</span>level} <span class='Statement'>+</span> {<span class='Type'>0</span>, overlap<span class='Statement'>/</span><span class='Type'>2</span> <span class='Statement'>+</span> <span class='Statement'>.</span><span class='Type'>52</span>, <span class='Statement'>.</span><span class='Type'>52</span>}, center <span class='Statement'>+</span> {<span class='Type'>0</span>, <span class='Type'>0</span>, <span class='Statement'>-</span>level} <span class='Statement'>-</span> {<span class='Statement'>.</span><span class='Type'>02</span>, overlap<span class='Statement'>/</span><span class='Type'>2</span> <span class='Statement'>+</span> <span class='Statement'>.</span><span class='Type'>52</span>, <span class='Statement'>.</span><span class='Type'>52</span>}],
+             <span class='Identifier'>Darker</span>[color, <span class='Statement'>.</span><span class='Type'>5</span>]]],
+           {level, <span class='Type'>1</span>, iterations}], <span class='Type'>_</span>, {<span class='Statement'>#1</span>, <span class='Statement'>#2</span>} <span class='Statement'>&amp;</span>],
+        interval<span class='Statement'>*</span>rad, {<span class='Type'>0</span>, <span class='Type'>0</span>, <span class='Type'>1</span>}, center]]
+
+      , {rad, <span class='Type'>1</span>, width}]]];
+
+<span class='Comment'>(*Manipulate*)</span>
+<span class='Identifier'>Manipulate</span>[<span class='Identifier'>Module</span>[{stack},
+  <span class='Comment'>(*mention these so that they are saved in CDF*)</span>
+  {opList, colorSchemeList, fullRandomBookmark};
+
+  <span class='Comment'>(*clamp &apos;rule&apos; slider max*)</span>
+  <span class='Identifier'>If</span>[rule <span class='Statement'>&gt;</span> <span class='Identifier'>ruleMax</span>[type], rule <span class='Statement'>=</span> <span class='Identifier'>ruleMax</span>[type]];
+
+  <span class='Comment'>(*readjust length of initial array*)</span>
+  <span class='Identifier'>If</span>[<span class='Identifier'>Length</span>[initialArray] <span class='Statement'>!=</span> width, initialArray <span class='Statement'>=</span> <span class='Identifier'>PadRight</span>[initialArray, width]];
+
+  <span class='Comment'>(*the 2D matrix*)</span>
+  stack <span class='Statement'>=</span> <span class='Identifier'>CellularAutomaton</span>[type <span class='Statement'>/.</span> n <span class='Statement'>-&gt;</span> rule, initialArray, iterations];
+
+  <span class='Comment'>(*prevent recursive updating*)</span>
+  <span class='Identifier'>If</span>[<span class='Identifier'>arrayColor</span>[<span class='Type'>0</span>] <span class='Statement'>=!=</span> background <span class='Statement'>||</span> <span class='Identifier'>arrayColor</span>[<span class='Type'>1</span>] <span class='Statement'>=!=</span> color,
+   <span class='Identifier'>arrayColor</span>[<span class='Type'>0</span>] <span class='Statement'>=</span> background; <span class='Identifier'>arrayColor</span>[<span class='Type'>1</span>] <span class='Statement'>=</span> color];
+
+  <span class='Comment'>(*main output. this Overlay/ControlActive structure is to prevent the user&apos;s adjustments</span>
+<span class='Comment'>   to the Graphics3D pane from being lost, as they would be with a simple ControlActive[a,b] setup*)</span>
+  <span class='Identifier'>Overlay</span>[{
+    <span class='Identifier'>Graphics3D</span>[{<span class='Identifier'>EdgeForm</span>[], <span class='Identifier'>ControlActive</span>[<span class='Identifier'>Null</span>, <span class='Identifier'>If</span>[<span class='Identifier'>Total</span><span class='Statement'>@</span><span class='Identifier'>Total</span><span class='Statement'>@</span>stack <span class='Statement'>&gt;</span> <span class='Type'>0</span>, a <span class='Statement'>=</span> <span class='Identifier'>render</span>[stack, iterations <span class='Statement'>+</span> <span class='Type'>1</span>, color, thickness, <span class='Identifier'>shapeOverlap</span>[thickness]]]]},
+          Lighting <span class='Statement'>-&gt;</span> <span class='String'>&quot;Neutral&quot;</span>, Background <span class='Statement'>-&gt;</span> background, Boxed <span class='Statement'>-&gt;</span> <span class='Identifier'>False</span>, ImageSize <span class='Statement'>-&gt;</span> graphicsSize],
+    <span class='Identifier'>ControlActive</span>[<span class='Identifier'>ArrayPlot</span>[stack <span class='Statement'>//</span><span class='Identifier'> Transpose</span>, ColorFunction <span class='Statement'>-&gt;</span> arrayColor, ColorFunctionScaling <span class='Statement'>-&gt;</span> <span class='Identifier'>False</span>, Frame <span class='Statement'>-&gt;</span> <span class='Identifier'>False</span>, ImageSize <span class='Statement'>-&gt;</span> graphicsSize], <span class='String'>&quot;&quot;</span>]},
+   <span class='Identifier'>All</span>, <span class='Type'>1</span>, Alignment <span class='Statement'>-&gt;</span> Center]
+
+  <span class='Comment'>(*endModule*)</span>]
+
+ <span class='Comment'>(*Manipulate options*)</span>
+ , <span class='Identifier'>OpenerView</span>[{<span class='String'>&quot;Style&quot;</span>, <span class='Identifier'>Grid</span>[<span class='Identifier'>List</span><span class='Statement'>@</span>{
+      <span class='Identifier'>Control</span><span class='Statement'>@</span>{color, <span class='Identifier'>Darker</span>[<span class='Identifier'>Blend</span>[{<span class='Identifier'>Yellow</span>, <span class='Identifier'>Green</span>}], <span class='Statement'>.</span><span class='Type'>1</span>], ImageSize <span class='Statement'>-&gt;</span> Small, ContinuousAction <span class='Statement'>-&gt;</span> <span class='Identifier'>False</span>},
+      <span class='Identifier'>Control</span><span class='Statement'>@</span>{background, <span class='Identifier'>Lighter</span>[<span class='Identifier'>Gray</span>, <span class='Statement'>.</span><span class='Type'>7</span>], ImageSize <span class='Statement'>-&gt;</span> Small, ContinuousAction <span class='Statement'>-&gt;</span> <span class='Identifier'>False</span>},
+      <span class='Identifier'>Control</span><span class='Statement'>@</span>{{thickness, <span class='Statement'>.</span><span class='Type'>2</span>, <span class='String'>&quot;shape&quot;</span>}, shapeChoices, ControlType <span class='Statement'>-&gt;</span> SetterBar, Background <span class='Statement'>-&gt;</span> background}},
+    Dividers <span class='Statement'>-&gt;</span> {{<span class='Identifier'>False</span>, <span class='Identifier'>False</span>, <span class='Identifier'>False</span>, <span class='Identifier'>True</span>}, {<span class='Identifier'>False</span>, <span class='Identifier'>True</span>}}, FrameStyle <span class='Statement'>-&gt;</span> <span class='Identifier'>Directive</span>[<span class='Identifier'>Opacity</span>[<span class='Statement'>.</span><span class='Type'>5</span>], <span class='Identifier'>Darker</span><span class='Statement'>@</span><span class='Identifier'>Gray</span>]]}],
+
+ <span class='Identifier'>Grid</span>[<span class='Identifier'>List</span><span class='Statement'>@</span>{
+    <span class='Identifier'>Control</span><span class='Statement'>@</span>{{width, widthDefault}, widthMin, widthMax, <span class='Type'>1</span>, Appearance <span class='Statement'>-&gt;</span> <span class='String'>&quot;Labeled&quot;</span>, ImageSize <span class='Statement'>-&gt;</span> Small},
+    <span class='Identifier'>Control</span><span class='Statement'>@</span>{{iterations, iterationsDefault}, iterationsMin, iterationsMax, <span class='Type'>1</span>, Appearance <span class='Statement'>-&gt;</span> <span class='String'>&quot;Labeled&quot;</span>, ImageSize <span class='Statement'>-&gt;</span> Small},
+    <span class='Identifier'>Control</span><span class='Statement'>@</span>{{type, <span class='Identifier'>typeChoices</span>[[<span class='Type'>1</span>, <span class='Type'>1</span>]]}, typeChoices, ControlType <span class='Statement'>-&gt;</span> SetterBar}},
+  Spacings <span class='Statement'>-&gt;</span> <span class='Type'>0</span>],
+
+ {{rule, <span class='Type'>30</span>}, <span class='Type'>0</span>, <span class='Identifier'>ruleMax</span>[type], <span class='Type'>1</span>, Appearance <span class='Statement'>-&gt;</span> <span class='String'>&quot;Labeled&quot;</span>, ImageSize <span class='Statement'>-&gt;</span> Large},
+ {{initialArray, {<span class='Type'>1</span>}, <span class='Identifier'>Null</span>}, <span class='Identifier'>gridControl</span>[<span class='Statement'>#1</span>, arrayColor, <span class='Identifier'>graphicsSize</span>[[<span class='Type'>1</span>]], gridControlHeight] <span class='Statement'>&amp;</span>, ControlPlacement <span class='Statement'>-&gt;</span> Bottom},
+
+ Alignment <span class='Statement'>-&gt;</span> Center,
+ AppearanceElements <span class='Statement'>-&gt;</span> <span class='String'>&quot;ManipulateMenu&quot;</span>,
+ SaveDefinitions <span class='Statement'>-&gt;</span> <span class='Identifier'>True</span>,
+
+ Bookmarks <span class='Statement'>:&gt;</span> {
+   <span class='Identifier'>Sequence </span><span class='Statement'>@@</span> opList,
+   <span class='Identifier'>Sequence </span><span class='Statement'>@@</span> colorSchemeList,
+   fullRandomBookmark}
+ <span class='Comment'>(*endManipulate*)</span>]
+
+
+
+
+
+</pre>
+                </li></ol>
+
+            <p>
+            The awesomeness of this program is acceptable, I suppose. However I wrote it when I was just starting to get the hang of Mathematica. For a more idiomatic approach to the geometry (one using <span style='font-family: monospace'>Position</span>), see my more recent <a shape='rect' href='flipbook-cellularautomata3D1.htm'>cellular automata 3D 1</a>. And for a more methodical approach to structuring larger programs of this kind, see my <a shape='rect' href='flipbook-matrixreplacement2.htm'>matrix replacement 2</a>.
+            </p>
+
+
+        
+    <br /></div>
+
+        <div class="section" style="margin-top: -22px; margin-bottom: -11px"> </div>
+
+        <div class="links centered">
+            <a href="/" title="home" style="color: #333333" class="pagelink">&lt;&lt;</a>
+        </div>
+
+    </div>
+
+</body>
+</html>

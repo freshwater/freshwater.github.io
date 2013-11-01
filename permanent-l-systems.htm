@@ -1,0 +1,362 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+    <head>
+        <title> oftenpaper.net/lsystems </title>
+
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.9.0/build/reset-fonts-grids/reset-fonts-grids.css" />
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.9.0/build/base/base-min.css" />
+        <link rel="stylesheet" type="text/css" href="oftencss.css" />
+
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+
+        <script type="text/javascript" id="mathjax" src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax:{inlineMath:[['$','$']]}})</script>
+
+        <script type="text/javascript" src="flipbook.js"></script>
+    </head>
+
+<body>
+    <h1><a href="/"> oftenpaper.net </a></h1>
+    <h3>
+                 <img src='img/mlogo1.png' /> <span> L-systems </span>
+             &#8482;</h3>
+
+    <div class="content">
+
+        <div class='section'>
+            
+
+            <p>
+            L-systems are simple rule-based constructions that can make pretty fractals. Ergo the obligatory Mathematica program:
+            </p>
+
+            <ol class='flipbook static' name='l-systems 0'><li>
+                    <img src='img/lsys6.png' width='449' height='565' />
+                </li><li>
+                    <img src='img/lsys2.png' width='449' height='565' />
+                </li><li>
+                    <img src='img/lsys3.png' width='449' height='565' />
+                </li><li>
+                    <img src='img/lsys5.png' width='449' height='565' />
+                </li><li name='source'>
+                <pre style='font-size: 1px'>
+
+
+
+
+
+imageSize <span class='Statement'>=</span> {<span class='Type'>400</span>, <span class='Type'>400</span>};
+thumbSize <span class='Statement'>=</span> {<span class='Type'>26</span>, <span class='Type'>26</span>};
+thumbPadding <span class='Statement'>=</span> <span class='Type'>2</span>;
+nextStyle <span class='Statement'>=</span> {<span class='Identifier'>RGBColor</span>[<span class='Type'>1</span>, <span class='Statement'>.</span><span class='Type'>6</span>, <span class='Statement'>.</span><span class='Type'>6</span>], <span class='Identifier'>Dashing</span>[<span class='Type'>1</span> <span class='Statement'>/</span> (<span class='Type'>40</span> <span class='Statement'>+</span> <span class='Type'>3</span><span class='Statement'>^</span>(i<span class='Statement'>+</span><span class='Type'>1</span>))]};
+maxIterations <span class='Statement'>=</span> <span class='Type'>5</span>; <span class='Comment'>(* initialized so it&apos;s not Null *)</span>
+
+<span class='Comment'>(* ignore these warnings *)</span>
+<span class='Identifier'>Off</span>[<span class='Type'>Part::</span><span class='Special'>partw</span>];
+<span class='Identifier'>Off</span>[<span class='Type'>Rule::</span><span class='Special'>rhs</span>];
+<span class='Identifier'>Off</span>[<span class='Type'>Join::</span><span class='Special'>heads</span>];
+
+<span class='Comment'>(* main LSystem function. it does ReplaceAll</span>
+<span class='Comment'>    in a way that splices into the list *)</span>
+<span class='Identifier'>Module</span>[{adjustment <span class='Statement'>=</span> {
+    <span class='Identifier'>Rule</span>[<span class='Type'>a_</span>, <span class='Type'>b_</span>] <span class='Statement'>:&gt;</span> <span class='Identifier'>Rule</span>[a, <span class='Identifier'>Sequence </span><span class='Statement'>@@</span> b],
+    <span class='Identifier'>RuleDelayed</span>[<span class='Type'>a_</span>, <span class='Type'>b_</span>] <span class='Statement'>:&gt;</span> <span class='Identifier'>RuleDelayed</span>[a, <span class='Identifier'>Sequence </span><span class='Statement'>@@</span> b]}},
+
+    <span class='Identifier'>LSystem</span>[<span class='Type'>0</span>, <span class='Type'>axiom_</span>, <span class='Type'>_</span>] <span class='Statement'>:=</span> axiom;
+    <span class='Identifier'>LSystem</span>[<span class='Type'>iterations_</span>, <span class='Type'>axiom_</span>, <span class='Type'>rule_</span>] <span class='Statement'>:=</span>
+            <span class='Identifier'>LSystem</span>[iterations <span class='Statement'>-</span> <span class='Type'>1</span>, axiom, rule] <span class='Statement'>/.</span> (rule <span class='Statement'>/.</span> adjustment);
+];
+
+<span class='Comment'>(* main drawing function. executes a sequence of movement commands *)</span>
+<span class='Identifier'>LOGO</span>[<span class='Type'>commands_</span>, {<span class='Type'>startx_</span>, <span class='Type'>starty_</span>, <span class='Type'>starta_</span>}] <span class='Statement'>:=</span> <span class='Identifier'>Block</span>[{
+    <span class='Comment'>(* note that these commands are functions</span><span class='Special'> *which construct*</span>
+<span class='Comment'>        transformations that operate on the turtle&apos;s state *)</span>
+    forward <span class='Statement'>=</span> {<span class='Type'>x_Real</span>, <span class='Type'>y_Real</span>, <span class='Type'>a_Real</span>} <span class='Statement'>-&gt;</span> {x <span class='Statement'>+</span> <span class='Statement'>#</span> <span class='Identifier'>Cos</span>[a], y <span class='Statement'>+</span> <span class='Statement'>#</span> <span class='Identifier'>Sin</span>[a], a} <span class='Statement'>&amp;</span>,
+    left <span class='Statement'>=</span> {<span class='Type'>x_Real</span>, <span class='Type'>y_Real</span>, <span class='Type'>a_Real</span>} <span class='Statement'>-&gt;</span> {x, y, a <span class='Statement'>+</span> <span class='Statement'>#</span> <span class='Identifier'>Degree</span>} <span class='Statement'>&amp;</span>,
+    backward <span class='Statement'>=</span> <span class='Identifier'>forward</span>[<span class='Statement'>-</span><span class='Statement'>#</span>] <span class='Statement'>&amp;</span>,
+    right <span class='Statement'>=</span> <span class='Identifier'>left</span>[<span class='Statement'>-</span><span class='Statement'>#</span>] <span class='Statement'>&amp;</span>,
+    push, pop},
+
+    <span class='Comment'>(* LIFO stack *)</span>
+    {push, pop} <span class='Statement'>=</span> <span class='Identifier'>Module</span>[{list <span class='Statement'>=</span> {}},
+        {<span class='Type'>triple_</span> <span class='Statement'>:&gt;</span> (<span class='Identifier'>AppendTo</span>[list, triple]; triple),
+        <span class='Type'>_</span> <span class='Statement'>:&gt;</span> <span class='Identifier'>Module</span>[
+            {val <span class='Statement'>=</span> <span class='Identifier'>list</span>[[<span class='Statement'>-</span><span class='Type'>1</span>]]},
+            list <span class='Statement'>=</span> <span class='Identifier'>Delete</span>[list,<span class='Statement'>-</span><span class='Type'>1</span>];
+            val]}];
+
+    <span class='Identifier'>Block</span>[{
+        <span class='Comment'>(* remove non-commands *)</span>
+        filteredCommands <span class='Statement'>:=</span> filteredCommands <span class='Statement'>=</span> <span class='Identifier'>Cases</span>[commands, <span class='Type'>_Rule</span> <span class='Statement'>|</span> <span class='Type'>_RuleDelayed</span>],
+
+        <span class='Comment'>(* split lines where there is a pop command *)</span>
+        spans <span class='Statement'>:=</span> spans <span class='Statement'>=</span> <span class='Identifier'>Join</span>[{<span class='Type'>0</span>},
+            <span class='Identifier'>Position</span>[filteredCommands, pop] <span class='Statement'>//</span><span class='Identifier'> Flatten</span>,
+            <span class='Identifier'>If</span>[<span class='Identifier'>filteredCommands</span>[[<span class='Statement'>-</span><span class='Type'>1</span>]] <span class='Statement'>=!=</span> pop, {<span class='Identifier'>Length</span>[filteredCommands]<span class='Statement'>+</span><span class='Type'>1</span>}, {}]],
+        removeAngles <span class='Statement'>=</span> <span class='Identifier'>ArrayPad</span>[<span class='Statement'>#</span>, {{<span class='Type'>0</span>, <span class='Type'>0</span>}, {<span class='Type'>0</span>, <span class='Statement'>-</span><span class='Type'>1</span>}}] <span class='Statement'>&amp;</span>,
+        splitLines <span class='Statement'>=</span> <span class='Identifier'>Function</span>[lines,
+            <span class='Identifier'>Cases</span>[<span class='Identifier'>Partition</span>[spans, <span class='Type'>2</span>, <span class='Type'>1</span>],
+                {<span class='Type'>start_</span>, <span class='Type'>end_</span>} <span class='Statement'>:&gt;</span> <span class='Identifier'>lines</span>[[ (start <span class='Statement'>+</span> <span class='Type'>1</span>) ;; end ]]]]},
+
+        <span class='Comment'>(* execute commands. *)</span>
+        <span class='Comment'>(* note that duplicate points created by left/right are not removed *)</span>
+        <span class='Identifier'>FoldList</span>[Replace, {startx, starty, starta <span class='Identifier'>Degree</span>}, filteredCommands]
+        <span class='Statement'>//</span><span class='Identifier'> removeAngles</span>
+        <span class='Statement'>//</span><span class='Identifier'> splitLines</span>]
+];
+
+<span class='Comment'>(* executes LOGO commands within the context of the given L-system *)</span>
+<span class='Identifier'>geometry</span>[<span class='Type'>system_</span>, <span class='Type'>iterations_</span>] <span class='Statement'>:=</span> <span class='Identifier'>Block</span>[{
+    i <span class='Statement'>=</span> iterations,
+    <span class='Comment'>(* set a default offset if one isn&apos;t defined *)</span>
+    offset <span class='Statement'>=</span> (offset <span class='Statement'>/.</span> system) <span class='Statement'>/.</span> (offset <span class='Statement'>-&gt;</span> {<span class='Type'>0</span><span class='Statement'>.</span>, <span class='Type'>0</span><span class='Statement'>.</span>})},
+
+    <span class='Identifier'>Hold</span>[<span class='Identifier'>LOGO</span>[<span class='Identifier'>LSystem</span>[i, axiom, rules] <span class='Statement'>/.</span> conversions,
+        <span class='Identifier'>Append</span>[offset, orientation]]]
+    <span class='Statement'>/.</span> system
+    <span class='Statement'>//</span><span class='Identifier'> ReleaseHold</span>
+];
+
+<span class='Comment'>(* generates the thumbnail for the given L-system *)</span>
+<span class='Identifier'>thumbnail</span>[<span class='Type'>system_</span>] <span class='Statement'>:=</span> <span class='Identifier'>Tooltip</span>[
+    <span class='Identifier'>Graphics</span>[<span class='Identifier'>Line </span><span class='Statement'>/@</span> <span class='Identifier'>geometry</span>[system, (thumbIterations <span class='Statement'>/.</span> system)],
+        ImagePadding <span class='Statement'>-&gt;</span> thumbPadding, ImageSize <span class='Statement'>-&gt;</span> thumbSize],
+    (name <span class='Statement'>/.</span> system), TooltipDelay <span class='Statement'>-&gt;</span> <span class='Statement'>.</span><span class='Type'>3</span>];
+
+<span class='Comment'>(* these are the structure definitions for the curves.  the list replacement</span>
+<span class='Comment'>    is very flexible since it uses Mathematica&apos;s symbolic transformations --</span>
+<span class='Comment'>    I have two different methods of scaling here as examples.</span>
+<span class='Comment'> a scaling option that I didn&apos;t implement is to use matrix transformations *)</span>
+curves <span class='Statement'>=</span> {
+
+{ name <span class='Statement'>-&gt;</span> <span class='String'>&quot;L\[EAcute]vy C Curve&quot;</span>,
+    orientation <span class='Statement'>-&gt;</span> <span class='Type'>0</span><span class='Statement'>.</span>,
+    axiom <span class='Statement'>-&gt;</span> {<span class='Identifier'>forward</span>[<span class='Type'>1</span>]},
+
+    <span class='Comment'>(* scaling method 1. scale within the rules of the L-system itself *)</span>
+    rules <span class='Statement'>-&gt;</span> { <span class='Identifier'>forward</span>[<span class='Type'>x_</span>] <span class='Statement'>-&gt;</span>
+        {R, <span class='Identifier'>forward</span>[<span class='Identifier'>Cos</span>[<span class='Type'>45</span><span class='Statement'>.</span> <span class='Identifier'>Degree</span>] x], L, L, <span class='Identifier'>forward</span>[<span class='Identifier'>Cos</span>[<span class='Type'>45</span><span class='Statement'>.</span> <span class='Identifier'>Degree</span>] x], R}},
+
+    conversions <span class='Statement'>-&gt;</span> {
+        L <span class='Statement'>-&gt;</span> <span class='Identifier'>left</span>[<span class='Type'>45</span>], R <span class='Statement'>-&gt;</span> <span class='Identifier'>right</span>[<span class='Type'>45</span>]},
+    plotRange <span class='Statement'>-&gt;</span> {{<span class='Statement'>-.</span><span class='Type'>5</span>, <span class='Type'>1.5</span>}, {<span class='Statement'>-</span><span class='Type'>1</span>, <span class='Statement'>.</span><span class='Type'>25</span>}},
+    thumbIterations <span class='Statement'>-&gt;</span> <span class='Type'>5</span>,
+    maxIters <span class='Statement'>-&gt;</span> <span class='Type'>13</span>,
+    maxShowNext <span class='Statement'>-&gt;</span> <span class='Type'>8</span> },
+
+{ name <span class='Statement'>-&gt;</span> <span class='String'>&quot;Sierpinski Triangle&quot;</span>,
+    orientation <span class='Statement'>-&gt;</span> <span class='Type'>60</span><span class='Statement'>.</span> <span class='Identifier'>Mod</span>[i, <span class='Type'>2</span>],
+    axiom <span class='Statement'>-&gt;</span> {A},
+    rules <span class='Statement'>-&gt;</span> {
+        A <span class='Statement'>-&gt;</span> {B, R, A, R, B},
+        B <span class='Statement'>-&gt;</span> {A, L, B, L, A}},
+
+    <span class='Comment'>(* scaling method 2. scale </span><span class='String'>&quot;globally&quot;</span><span class='Comment'> after iteration *)</span>
+    conversions <span class='Statement'>-&gt;</span> {
+        A <span class='Statement'>-&gt;</span> <span class='Identifier'>forward</span>[<span class='Type'>2</span><span class='Statement'>.^</span>(<span class='Statement'>-</span>i)],
+        B <span class='Statement'>-&gt;</span> <span class='Identifier'>forward</span>[<span class='Type'>2</span><span class='Statement'>.^</span>(<span class='Statement'>-</span>i)],
+        L <span class='Statement'>-&gt;</span> <span class='Identifier'>left</span>[<span class='Type'>60</span>],
+        R <span class='Statement'>-&gt;</span> <span class='Identifier'>right</span>[<span class='Type'>60</span>]},
+    plotRange <span class='Statement'>-&gt;</span> {{<span class='Type'>0</span>, <span class='Type'>1</span>}, {<span class='Statement'>-.</span><span class='Type'>1</span>, <span class='Type'>1</span>}},
+    thumbIterations <span class='Statement'>-&gt;</span> <span class='Type'>3</span>,
+    maxIters <span class='Statement'>-&gt;</span> <span class='Type'>9</span>,
+    maxShowNext <span class='Statement'>-&gt;</span> <span class='Type'>6</span> },
+
+{ name <span class='Statement'>-&gt;</span> <span class='String'>&quot;Hilbert Curve&quot;</span>,
+    orientation <span class='Statement'>-&gt;</span> <span class='Type'>180</span><span class='Statement'>.</span>,
+    axiom <span class='Statement'>-&gt;</span> {A},
+    rules <span class='Statement'>-&gt;</span> {
+        A <span class='Statement'>-&gt;</span> {L, B, F, R, A, F, A, R, F, B, L},
+        B <span class='Statement'>-&gt;</span> {R, A, F, L, B, F, B, L, F, A, R}},
+    conversions <span class='Statement'>-&gt;</span> {
+        F <span class='Statement'>-&gt;</span> <span class='Identifier'>forward</span>[<span class='Type'>2</span><span class='Statement'>.^</span>(<span class='Statement'>-</span>i)],
+        L <span class='Statement'>-&gt;</span> <span class='Identifier'>left</span>[<span class='Type'>90</span>], R <span class='Statement'>-&gt;</span> <span class='Identifier'>right</span>[<span class='Type'>90</span>]},
+    plotRange <span class='Statement'>-&gt;</span> {{<span class='Statement'>-</span><span class='Type'>1</span>, <span class='Statement'>.</span><span class='Type'>01</span>}, {<span class='Statement'>-</span><span class='Type'>1.01</span>, <span class='Statement'>.</span><span class='Type'>01</span>}},
+    thumbIterations <span class='Statement'>-&gt;</span> <span class='Type'>3</span>,
+    offset <span class='Statement'>-&gt;</span> {<span class='Statement'>-</span><span class='Type'>2</span><span class='Statement'>.^</span>(<span class='Statement'>-</span>i<span class='Statement'>-</span><span class='Type'>1</span>), <span class='Statement'>-</span><span class='Type'>2</span><span class='Statement'>.^</span>(<span class='Statement'>-</span>i<span class='Statement'>-</span><span class='Type'>1</span>) },
+    maxIters <span class='Statement'>-&gt;</span> <span class='Type'>7</span>,
+    minIters <span class='Statement'>-&gt;</span> <span class='Type'>1</span>,
+    maxShowNext <span class='Statement'>-&gt;</span> <span class='Type'>5</span> },
+
+{ name <span class='Statement'>-&gt;</span> <span class='String'>&quot;Heighway Dragon Curve&quot;</span>,
+    orientation <span class='Statement'>-&gt;</span> <span class='Type'>45</span><span class='Statement'>.</span> i,
+    axiom <span class='Statement'>-&gt;</span> {F, X},
+    rules <span class='Statement'>-&gt;</span> {
+        X <span class='Statement'>-&gt;</span> {X, R, Y, F, R},
+        Y <span class='Statement'>-&gt;</span> {L, F, X, L, Y}},
+    conversions <span class='Statement'>-&gt;</span> {
+        F <span class='Statement'>-&gt;</span> <span class='Identifier'>forward</span>[<span class='Identifier'>Sqrt</span>[<span class='Type'>2</span><span class='Statement'>.</span>]<span class='Statement'>^</span>(<span class='Statement'>-</span>i)],
+        R <span class='Statement'>-&gt;</span> <span class='Identifier'>right</span>[<span class='Type'>90</span>], L <span class='Statement'>-&gt;</span> <span class='Identifier'>left</span>[<span class='Type'>90</span>]},
+    plotRange <span class='Statement'>-&gt;</span> {{<span class='Statement'>-.</span><span class='Type'>4</span>, <span class='Type'>1.22</span>}, {<span class='Statement'>-.</span><span class='Type'>5</span>, <span class='Statement'>.</span><span class='Type'>8</span>}},
+    thumbIterations <span class='Statement'>-&gt;</span> <span class='Type'>5</span>,
+    maxIters <span class='Statement'>-&gt;</span> <span class='Type'>13</span>,
+    maxShowNext <span class='Statement'>-&gt;</span> <span class='Type'>8</span> },
+
+{ name <span class='Statement'>-&gt;</span> <span class='String'>&quot;Pinwheel Embroidery&quot;</span>,
+    orientation <span class='Statement'>-&gt;</span> <span class='Type'>45</span><span class='Statement'>.</span>,
+    axiom <span class='Statement'>-&gt;</span> {X, push, L, X, R, R, X, pop, R, X, L, L, X, R, F},
+    rules <span class='Statement'>-&gt;</span> {
+        F <span class='Statement'>-&gt;</span> {F, push, L, X, R, R, X, pop, R, X, L, L, X, R, F},
+        X <span class='Statement'>-&gt;</span> {F, push, L, F, R, R, R, F, pop, R, F, L, L, F, R, F}},
+    conversions <span class='Statement'>-&gt;</span> {
+        F <span class='Statement'>-&gt;</span> <span class='Identifier'>forward</span>[<span class='Type'>1</span>], R <span class='Statement'>-&gt;</span> <span class='Identifier'>right</span>[<span class='Type'>45</span>], L <span class='Statement'>-&gt;</span> <span class='Identifier'>left</span>[<span class='Type'>45</span>]},
+    plotRange <span class='Statement'>-&gt;</span> <span class='Identifier'>Automatic</span>,
+    thumbIterations <span class='Statement'>-&gt;</span> <span class='Type'>2</span>,
+    maxIters <span class='Statement'>-&gt;</span> <span class='Type'>4</span>,
+    maxShowNext <span class='Statement'>-&gt;</span> <span class='Statement'>-</span><span class='Type'>1</span> },
+
+{ name <span class='Statement'>-&gt;</span> <span class='String'>&quot;Koch Snowflake&quot;</span>,
+    orientation <span class='Statement'>-&gt;</span> <span class='Type'>0</span><span class='Statement'>.</span>,
+    axiom <span class='Statement'>-&gt;</span> {F, <span class='Identifier'>right</span>[<span class='Type'>120</span>], F, <span class='Identifier'>right</span>[<span class='Type'>120</span>], F},
+    rules <span class='Statement'>-&gt;</span> {
+        F <span class='Statement'>-&gt;</span> {F, <span class='Identifier'>left</span>[<span class='Type'>60</span>], F, <span class='Identifier'>right</span>[<span class='Type'>120</span>], F, <span class='Identifier'>left</span>[<span class='Type'>60</span>], F}},
+    conversions <span class='Statement'>-&gt;</span> {
+        F <span class='Statement'>-&gt;</span> <span class='Identifier'>forward</span>[<span class='Type'>3</span><span class='Statement'>.^</span>(<span class='Statement'>-</span>i)]},
+    plotRange <span class='Statement'>-&gt;</span> {{<span class='Statement'>-.</span><span class='Type'>1</span>, <span class='Type'>1.1</span>}, {<span class='Statement'>-.</span><span class='Type'>92</span>, <span class='Statement'>.</span><span class='Type'>33</span>}},
+    thumbIterations <span class='Statement'>-&gt;</span> <span class='Type'>2</span>,
+    maxIters <span class='Statement'>-&gt;</span> <span class='Type'>5</span>,
+    maxShowNext <span class='Statement'>-&gt;</span> <span class='Type'>3</span> },
+
+{ name <span class='Statement'>-&gt;</span> <span class='String'>&quot;Ces\[AGrave]ro Curve&quot;</span>,
+    orientation <span class='Statement'>-&gt;</span> <span class='Type'>0</span><span class='Statement'>.</span>,
+    axiom <span class='Statement'>-&gt;</span> {F},
+    rules <span class='Statement'>-&gt;</span> {
+        F <span class='Statement'>-&gt;</span> {F, L, F, R, R, F, L, F}},
+    conversions <span class='Statement'>-&gt;</span> {
+        F <span class='Statement'>-&gt;</span> <span class='Identifier'>forward</span>[(<span class='Type'>2</span> <span class='Statement'>+</span> <span class='Type'>2</span> <span class='Identifier'>Cos</span>[<span class='Type'>85</span><span class='Statement'>.</span> <span class='Identifier'>Degree</span>])<span class='Statement'>^</span>(<span class='Statement'>-</span>i)],
+        R <span class='Statement'>-&gt;</span> <span class='Identifier'>right</span>[<span class='Type'>85</span>], L <span class='Statement'>-&gt;</span> <span class='Identifier'>left</span>[<span class='Type'>85</span>]},
+    plotRange <span class='Statement'>-&gt;</span> {{<span class='Type'>0</span>, <span class='Type'>1</span>}, {<span class='Statement'>-.</span><span class='Type'>1</span>, <span class='Statement'>.</span><span class='Type'>5</span>}},
+    thumbIterations <span class='Statement'>-&gt;</span> <span class='Type'>2</span>,
+    maxIters <span class='Statement'>-&gt;</span> <span class='Type'>7</span>,
+    maxShowNext <span class='Statement'>-&gt;</span> <span class='Type'>5</span> },
+
+<span class='Comment'>(* empirically find magnitude/rotation transform for Gosper curve</span>
+<span class='Comment'>    since it&apos;s not immediately straightforward *)</span>
+<span class='Identifier'>Module</span>[{gosper, abs, arg},
+    <span class='Identifier'>gosper</span>[<span class='Type'>abs_</span>, <span class='Type'>arg_</span>, <span class='Type'>baseAngle_</span>] <span class='Statement'>:=</span> {
+        name <span class='Statement'>-&gt;</span> <span class='String'>&quot;Gosper Curve&quot;</span>,
+        orientation <span class='Statement'>-&gt;</span> baseAngle <span class='Statement'>+</span> arg <span class='Identifier'>Degree</span><span class='Statement'>^</span>(<span class='Statement'>-</span><span class='Type'>1</span>) i,
+        axiom <span class='Statement'>-&gt;</span> {F, X},
+        rules <span class='Statement'>-&gt;</span> {
+            X <span class='Statement'>-&gt;</span> {X, R, Y, F, R, R, Y, F, L, F, X, L, L, F, X, F, X, L, Y, F, R},
+            Y <span class='Statement'>-&gt;</span> {L, F, X, R, Y, F, Y, F, R, R, Y, F, R, F, X, L, L, F, X, L, Y}},
+        conversions <span class='Statement'>-&gt;</span> {
+            F <span class='Statement'>-&gt;</span> <span class='Identifier'>forward</span>[abs<span class='Statement'>^</span>(<span class='Statement'>-</span>i)],
+            R <span class='Statement'>-&gt;</span> <span class='Identifier'>right</span>[<span class='Type'>60</span>], L <span class='Statement'>-&gt;</span> <span class='Identifier'>left</span>[<span class='Type'>60</span>]},
+        plotRange <span class='Statement'>-&gt;</span> {{<span class='Statement'>-.</span><span class='Type'>4</span>, <span class='Type'>1</span>}, {<span class='Statement'>-.</span><span class='Type'>2</span>, <span class='Type'>1.2</span>}},
+        thumbIterations <span class='Statement'>-&gt;</span> <span class='Type'>2</span>,
+        maxIters <span class='Statement'>-&gt;</span> <span class='Type'>5</span>,
+        maxShowNext <span class='Statement'>-&gt;</span> <span class='Type'>3</span> };
+
+    {abs, arg} <span class='Statement'>=</span> <span class='Identifier'>Complex </span><span class='Statement'>@@</span> (<span class='Identifier'>geometry</span>[<span class='Identifier'>gosper</span>[<span class='Type'>1</span><span class='Statement'>.</span>, <span class='Type'>0</span><span class='Statement'>.</span>, <span class='Type'>0</span><span class='Statement'>.</span>], <span class='Type'>1</span>] <span class='Statement'>//</span><span class='Identifier'> Last</span> <span class='Statement'>//</span><span class='Identifier'> Last</span>) <span class='Comment'>(* last point *)</span>
+                 <span class='Statement'>//</span> {<span class='Statement'>#</span> <span class='Statement'>//</span><span class='Identifier'> Abs</span>, <span class='Statement'>#</span> <span class='Statement'>//</span><span class='Identifier'> Arg</span>} <span class='Statement'>&amp;</span>;
+
+    <span class='Identifier'>gosper</span>[abs, <span class='Statement'>-</span>arg, <span class='Type'>90</span><span class='Statement'>.</span>]],
+
+{ name <span class='Statement'>-&gt;</span> <span class='String'>&quot;Penrose Tiling&quot;</span>,
+    orientation <span class='Statement'>-&gt;</span> <span class='Identifier'>If</span>[i <span class='Statement'>&gt;</span> <span class='Type'>6</span>, <span class='Type'>0</span><span class='Statement'>.</span>, {<span class='Type'>36</span><span class='Statement'>.</span>, <span class='Type'>0</span><span class='Statement'>.</span>, <span class='Type'>0</span><span class='Statement'>.</span>, <span class='Type'>36</span><span class='Statement'>.</span>, <span class='Type'>36</span><span class='Statement'>.</span>}[[i]]],
+    axiom <span class='Statement'>-&gt;</span>
+        {SV, <span class='Type'>7</span>, RS, 2R, SV, <span class='Type'>7</span>, RS, 2R, SV, <span class='Type'>7</span>, RS, 2R, SV, <span class='Type'>7</span>, RS, 2R, SV, <span class='Type'>7</span>, RS},
+    rules <span class='Statement'>-&gt;</span> {
+        <span class='Type'>6</span> <span class='Statement'>-&gt;</span> {<span class='Type'>8</span>, <span class='Type'>1</span>, 2R, <span class='Type'>9</span>, <span class='Type'>1</span>, 4L, <span class='Type'>7</span>, <span class='Type'>1</span>, SV, L, <span class='Type'>8</span>, <span class='Type'>1</span>, 4L, <span class='Type'>6</span>, <span class='Type'>1</span>, RS, 2R},
+        <span class='Type'>7</span> <span class='Statement'>-&gt;</span> {R, <span class='Type'>8</span>, <span class='Type'>1</span>, 2L, <span class='Type'>9</span>, <span class='Type'>1</span>, SV, 3L, <span class='Type'>6</span>, <span class='Type'>1</span>, 2L, <span class='Type'>7</span>, <span class='Type'>1</span>, RS, R},
+        <span class='Type'>8</span> <span class='Statement'>-&gt;</span> {L, <span class='Type'>6</span>, <span class='Type'>1</span>, 2R, <span class='Type'>7</span>, <span class='Type'>1</span>, SV, 3R, <span class='Type'>8</span>, <span class='Type'>1</span>, 2R, <span class='Type'>9</span>, <span class='Type'>1</span>, RS, L},
+        <span class='Type'>9</span> <span class='Statement'>-&gt;</span> {2L, <span class='Type'>8</span>, <span class='Type'>1</span>, 4R, <span class='Type'>6</span>, <span class='Type'>1</span>, SV, R, <span class='Type'>9</span>, <span class='Type'>1</span>, 4R, <span class='Type'>7</span>, <span class='Type'>1</span>, RS, 2L, <span class='Type'>7</span>, <span class='Type'>1</span>},
+        <span class='Type'>1</span> <span class='Statement'>-&gt;</span> {}},
+    conversions <span class='Statement'>-&gt;</span> {
+        <span class='Type'>1</span> <span class='Statement'>-&gt;</span> <span class='Identifier'>forward</span>[<span class='Type'>1</span>], (<span class='Type'>x_</span> <span class='Statement'>:</span> <span class='Type'>1</span>) L <span class='Statement'>-&gt;</span> <span class='Identifier'>left</span>[<span class='Type'>36</span> x],
+        (<span class='Type'>x_</span> <span class='Statement'>:</span> <span class='Type'>1</span>) R <span class='Statement'>-&gt;</span> <span class='Identifier'>right</span>[<span class='Type'>36</span> x], SV <span class='Statement'>-&gt;</span> push, RS <span class='Statement'>-&gt;</span> pop},
+    plotRange <span class='Statement'>-&gt;</span> <span class='Identifier'>Automatic</span>,
+    customStyle <span class='Statement'>-&gt;</span> {<span class='Identifier'>JoinForm</span>[<span class='String'>&quot;Round&quot;</span>]},
+    thumbIterations <span class='Statement'>-&gt;</span> <span class='Type'>1</span>,
+    maxIters <span class='Statement'>-&gt;</span> <span class='Type'>5</span>,
+    minIters <span class='Statement'>-&gt;</span> <span class='Type'>1</span>,
+    maxShowNext <span class='Statement'>-&gt;</span> <span class='Type'>3</span> },
+
+{ name <span class='Statement'>-&gt;</span> <span class='String'>&quot;Plant&quot;</span>,
+    orientation <span class='Statement'>-&gt;</span> <span class='Type'>90</span><span class='Statement'>.</span>,
+    axiom <span class='Statement'>-&gt;</span> {F},
+    rules <span class='Statement'>-&gt;</span> {
+        F <span class='Statement'>-&gt;</span> {F, push, L, F, F, pop, F, push, R, F, F, pop, F}},
+    conversions <span class='Statement'>-&gt;</span> {
+        F <span class='Statement'>-&gt;</span> <span class='Identifier'>forward</span>[<span class='Type'>3</span><span class='Statement'>.^</span>(<span class='Statement'>-</span>i)], L <span class='Statement'>-&gt;</span> <span class='Identifier'>left</span>[<span class='Type'>25</span>], R <span class='Statement'>-&gt;</span> <span class='Identifier'>right</span>[<span class='Type'>25</span>]},
+    plotRange <span class='Statement'>-&gt;</span> {{<span class='Statement'>-.</span><span class='Type'>4</span>, <span class='Statement'>.</span><span class='Type'>48</span>}, {<span class='Statement'>-.</span><span class='Type'>01</span>, <span class='Type'>1.36</span>}},
+    thumbIterations <span class='Statement'>-&gt;</span> <span class='Type'>2</span>,
+    maxIters <span class='Statement'>-&gt;</span> <span class='Type'>4</span>,
+    maxShowNext <span class='Statement'>-&gt;</span> <span class='Type'>3</span> }
+};
+
+<span class='Comment'>(* the choices that will populate the SetterBar *)</span>
+choices <span class='Statement'>=</span> (<span class='Statement'>#</span> <span class='Statement'>-&gt;</span> <span class='Identifier'>thumbnail</span>[<span class='Statement'>#</span>]) <span class='Statement'>&amp;</span> <span class='Statement'>/@</span> curves;
+
+<span class='Identifier'>Manipulate</span>[
+
+maxIterations <span class='Statement'>=</span> (maxIters <span class='Statement'>/.</span> system); <span class='Comment'>(* readjust slider max *)</span>
+iterations <span class='Statement'>=</span> <span class='Identifier'>Min</span>[iterations, (maxIters <span class='Statement'>/.</span> system)];
+
+<span class='Comment'>(* main Manipulate output *)</span>
+<span class='Identifier'>Tooltip</span>[
+    <span class='Identifier'>Show</span>[
+
+    <span class='Comment'>(* next iteration *)</span>
+    <span class='Identifier'>If</span>[showNext <span class='Statement'>&amp;&amp;</span> (iterations <span class='Statement'>&lt;=</span> (maxShowNext <span class='Statement'>/.</span> system)),
+            <span class='Identifier'>Graphics</span>[<span class='Identifier'>Join</span>[
+                <span class='Identifier'>Block</span>[{i <span class='Statement'>=</span> iterations <span class='Statement'>+</span> <span class='Type'>1</span>}, nextStyle],
+                {<span class='Identifier'>Thickness</span>[lineThickness<span class='Statement'>/</span><span class='Type'>2</span>]},
+                <span class='Identifier'>Line </span><span class='Statement'>/@</span> <span class='Identifier'>geometry</span>[system, iterations <span class='Statement'>+</span> <span class='Type'>1</span>]]],
+        {}],
+
+    <span class='Comment'>(* current iteration *)</span>
+    <span class='Identifier'>Graphics</span>[<span class='Identifier'>Join</span>[
+        {color, <span class='Identifier'>Thickness</span>[lineThickness]},
+        (customStyle <span class='Statement'>/.</span> system) <span class='Statement'>/.</span> (customStyle <span class='Statement'>-&gt;</span> {}),
+        <span class='Identifier'>Line </span><span class='Statement'>/@</span> <span class='Identifier'>geometry</span>[system, iterations]]],
+    PlotRange <span class='Statement'>-&gt;</span> (plotRange <span class='Statement'>/.</span> system), ImageSize <span class='Statement'>-&gt;</span> imageSize],
+
+<span class='Comment'>(* tooltip content *)</span>
+<span class='Identifier'>Framed</span>[<span class='Identifier'>Column</span>[{
+    (name <span class='Statement'>/.</span> system) <span class='Statement'>&lt;&gt;</span> <span class='String'>&quot; L-system at &quot;</span> <span class='Statement'>&lt;&gt;</span>
+    <span class='Identifier'>ToString</span>[iterations] <span class='Statement'>&lt;&gt;</span> <span class='String'>&quot; iteration&quot;</span> <span class='Statement'>&lt;&gt;</span> <span class='Identifier'>If</span>[iterations <span class='Statement'>=!=</span> <span class='Type'>1</span>, <span class='String'>&quot;s&quot;</span>, <span class='String'>&quot;&quot;</span>], <span class='Identifier'>Null</span>,
+    <span class='Identifier'>ToString</span>[(name <span class='Statement'>/.</span> system)] <span class='Statement'>&lt;&gt;</span> <span class='String'>&quot; Construction:&quot;</span>, <span class='Identifier'>Null</span>,
+    <span class='Identifier'>Grid</span>[{{<span class='String'>&quot;Axiom:&quot;</span>, (axiom <span class='Statement'>/.</span> system)}}], <span class='Identifier'>Null</span>,
+    <span class='Identifier'>Grid</span>[{{<span class='String'>&quot;Transformation rules:&quot;</span>, <span class='Identifier'>MatrixForm</span>[{rules <span class='Statement'>/.</span> system}<span class='Statement'>//</span><span class='Identifier'>Transpose</span>]}}], <span class='Identifier'>Null</span>,
+    <span class='Identifier'>Grid</span>[{{<span class='String'>&quot;Definitions:&quot;</span>, <span class='Identifier'>MatrixForm</span>[{conversions <span class='Statement'>/.</span> system} <span class='Statement'>//</span><span class='Identifier'> Transpose</span>],
+    <span class='Identifier'>If</span>[<span class='Identifier'>Count</span>[conversions <span class='Statement'>/.</span> system, i, <span class='Identifier'>Infinity</span>] <span class='Statement'>&gt;</span> <span class='Type'>0</span>,
+        <span class='String'>&quot;With i = the current iteration&quot;</span>]}}]}],
+ImageMargins <span class='Statement'>-&gt;</span> <span class='Type'>3</span>, FrameMargins <span class='Statement'>-&gt;</span> <span class='Type'>0</span>, FrameStyle <span class='Statement'>-&gt;</span> <span class='Identifier'>None</span>],
+
+TooltipDelay <span class='Statement'>-&gt;</span> <span class='Statement'>.</span><span class='Type'>6</span>],
+
+<span class='Identifier'>OpenerView</span>[{<span class='String'>&quot;Style&quot;</span>, <span class='Identifier'>Column</span>[{
+    <span class='Identifier'>Control</span>[{{color, <span class='Identifier'>Black</span>, <span class='String'>&quot;line color&quot;</span>}, ColorSlider}],
+    <span class='Identifier'>Control</span>[{{lineThickness, <span class='Type'>0.005</span>, <span class='String'>&quot;line thickness&quot;</span>}, <span class='Type'>0</span>, <span class='Statement'>.</span><span class='Type'>02</span>, <span class='Statement'>.</span><span class='Type'>005</span>}],
+    <span class='Identifier'>Control</span>[{{showNext, <span class='Identifier'>True</span>, <span class='String'>&quot;show next iteration&quot;</span>}, {<span class='Identifier'>True</span>, <span class='Identifier'>False</span>}}]}]}],
+{{system, <span class='Identifier'>curves</span>[[<span class='Type'>2</span>]], <span class='String'>&quot;L-system&quot;</span>}, choices, ControlType <span class='Statement'>-&gt;</span> SetterBar},
+{{iterations, <span class='Type'>1</span>, <span class='String'>&quot;iterations&quot;</span>}, <span class='Type'>0</span>, <span class='Identifier'>Dynamic</span>[maxIterations], <span class='Type'>1</span>, Appearance <span class='Statement'>-&gt;</span> <span class='String'>&quot;Labeled&quot;</span>,
+
+<span class='Comment'>(* disable animation, since it plays poorly with Dynamic[maxIterations] *)</span>
+ContinuousAction <span class='Statement'>-&gt;</span> <span class='Identifier'>False</span>, ControlType <span class='Statement'>-&gt;</span> Slider},
+SynchronousUpdating <span class='Statement'>-&gt;</span> <span class='Identifier'>False</span>]
+
+
+
+
+
+</pre>
+                </li></ol>
+
+            <p>
+            This is however basically the first Mathematica program I wrote. For a slightly different, not necessarily better approach, see my 3D-capable <a shape='rect' href='flipbook-l-system3D1.htm'>l-system 3D 1</a>, and some of the <a shape='rect' href='flipbook-l-system3D2.htm'>images</a> I produced with it. For a soup-to-nuts L-system in a minimal piece of code, see <a shape='rect' href='flipbook-l-system.htm'>l-system</a>.
+            </p>
+        <br /></div>
+
+        <div class="section" style="margin-top: -22px; margin-bottom: -11px"> </div>
+
+        <div class="links centered">
+            <a href="/" title="home" style="color: #333333" class="pagelink">&lt;&lt;</a>
+        </div>
+
+    </div>
+
+</body>
+</html>

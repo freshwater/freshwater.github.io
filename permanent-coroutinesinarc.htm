@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+    <head>
+        <title> oftenpaper.net/coroutinesinarc </title>
+
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.9.0/build/reset-fonts-grids/reset-fonts-grids.css" />
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.9.0/build/base/base-min.css" />
+        <link rel="stylesheet" type="text/css" href="oftencss.css" />
+
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+
+        <script type="text/javascript" id="mathjax" src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax:{inlineMath:[['$','$']]}})</script>
+
+        <script type="text/javascript" src="flipbook.js"></script>
+    </head>
+
+<body>
+    <h1><a href="/"> oftenpaper.net </a></h1>
+    <h3> <img src='img/arclogo1.png' /> <span> Coroutines in Arc </span>  &#8482;</h3>
+
+    <div class="content">
+
+        <div class='section'>
+            
+
+            <p>
+            One of the nice things about Lisp is that you can color the parentheses pink, which looks pretty:
+            </p>
+
+        <ol class='flipbook static' default='4' name='coroutines in Arc'><li>
+        <pre style='background: white'>
+<span class='Comment'>; simple iterator</span>
+
+<span class='Delimiter'>(</span><span class='Identifier'>=</span> f <span class='Delimiter'>(</span>co
+    <span class='Delimiter'>(</span><span class='Statement'>let</span> x <span class='Constant'>0</span>
+      <span class='Delimiter'>(</span><span class='Statement'>while</span> <span class='Statement'>t</span>
+          <span class='Delimiter'>(</span>yield <span class='Delimiter'>(</span><span class='Statement'>++</span> x<span class='Delimiter'>))))))</span>
+
+
+<span class='Delimiter'>(</span>f<span class='Delimiter'>)</span> <span class='Comment'>;returns 1</span>
+<span class='Delimiter'>(</span>f<span class='Delimiter'>)</span> <span class='Comment'>;returns 2</span>
+<span class='Delimiter'>(</span>f<span class='Delimiter'>)</span> <span class='Comment'>;returns 3</span>
+        </pre>
+            </li><li>
+        <pre style='background: white'>
+<span class='Comment'>;passing yield into a tree-traversal function</span>
+
+<span class='Delimiter'>(</span><span class='Identifier'>=</span> f <span class='Delimiter'>(</span>co
+    <span class='Delimiter'>(</span>co:treewise
+     <span class='Delimiter'>(</span><span class='Statement'>fn</span> <span class='Delimiter'>(</span>a b<span class='Delimiter'>))</span> <span class='Comment'>;empty function given as the join function</span>    
+     yield   <span class='Comment'>;yield given as the leaf function</span>
+     <span class='Delimiter'>&apos;(</span>a <span class='Constant'>.</span> <span class='Delimiter'>((</span>b <span class='Constant'>.</span> c<span class='Delimiter'>)</span> <span class='Constant'>.</span> d<span class='Delimiter'>)))))</span>
+
+<span class='Delimiter'>(</span>f<span class='Delimiter'>)</span> <span class='Comment'>;returns &apos;a</span>
+<span class='Delimiter'>(</span>f<span class='Delimiter'>)</span> <span class='Comment'>;returns &apos;b</span>
+<span class='Delimiter'>(</span>f<span class='Delimiter'>)</span> <span class='Comment'>;returns &apos;c</span>
+<span class='Delimiter'>(</span>f<span class='Delimiter'>)</span> <span class='Comment'>;returns &apos;d</span>
+<span class='Delimiter'>(</span>f<span class='Delimiter'>)</span> <span class='Comment'>;returns nil</span>
+</pre>
+            </li><li>
+        <pre style='background: white'>
+<span class='Comment'>;passing values into the coroutine</span>
+
+<span class='Delimiter'>(</span><span class='Identifier'>=</span> x <span class='Constant'>1</span><span class='Delimiter'>)</span>
+<span class='Delimiter'>(</span><span class='Identifier'>=</span> f <span class='Delimiter'>(</span>co
+    <span class='Delimiter'>(</span><span class='Statement'>while</span> <span class='Statement'>t</span>
+        <span class='Delimiter'>(</span><span class='Statement'>if</span> <span class='Delimiter'>(</span><span class='Identifier'>=</span> in <span class='Delimiter'>(</span>yield x<span class='Delimiter'>))</span> <span class='Comment'>;if the call supplied an argument</span>
+            <span class='Delimiter'>(</span><span class='Statement'>do</span> <span class='Delimiter'>(</span><span class='Identifier'>=</span> x in<span class='Delimiter'>)</span> <span class='Comment'>;reassign x and print message</span>
+                <span class='Delimiter'>(</span><span class='Statement'>prn</span> <span class='Delimiter'>(</span><span class='Identifier'>string</span> <span class='String'>&quot;you gave me: &quot;</span> x<span class='Delimiter'>)))))))</span>
+
+<span class='Delimiter'>(</span>f<span class='Delimiter'>)</span> <span class='Comment'>;returns 1</span>
+<span class='Delimiter'>(</span>f<span class='Delimiter'>)</span> <span class='Comment'>;returns 1</span>
+<span class='Delimiter'>(</span>f <span class='Constant'>0</span><span class='Delimiter'>)</span> <span class='Comment'>;prints &quot;you gave me: 0&quot; and returns 0</span>
+<span class='Delimiter'>(</span>f<span class='Delimiter'>)</span> <span class='Comment'>;returns 0</span>
+<span class='Delimiter'>(</span>f<span class='Delimiter'>)</span> <span class='Comment'>;returns 0</span>
+<span class='Delimiter'>(</span>f <span class='Delimiter'>&apos;</span>hello<span class='Delimiter'>)</span> <span class='Comment'>;prints &quot;you gave me: hello&quot; and returns &apos;hello</span>
+<span class='Delimiter'>(</span>f<span class='Delimiter'>)</span> <span class='Comment'>;returns &apos;hello</span>
+</pre>
+            </li><li name='definition'>
+<pre style='background: white'>
+<span class='Delimiter'>(</span><span class='Statement'>mac</span> co body
+  <span class='Delimiter'>(</span><span class='Statement'>w/uniq</span> <span class='Delimiter'>(</span>con1 con2 argl<span class='Delimiter'>)</span>
+
+    <span class='Delimiter'>`(</span>withs <span class='Delimiter'>(,</span>con1 nil <span class='Delimiter'>,</span>con2 nil
+             yield <span class='Delimiter'>(</span>fn <span class='Delimiter'>((</span>o val nil<span class='Delimiter'>))</span>
+                      <span class='Delimiter'>(</span>ccc <span class='Delimiter'>[</span>do <span class='Delimiter'>(</span>= <span class='Delimiter'>,</span>con2 _<span class='Delimiter'>)</span> <span class='Delimiter'>(,</span>con1 val<span class='Delimiter'>)])))</span>
+
+      <span class='Delimiter'>(</span>def <span class='Delimiter'>,</span>con2 <span class='Delimiter'>,</span>argl
+          <span class='Comment'>;(while t ;make generation cyclic</span>
+          <span class='Delimiter'>,@</span>body
+          <span class='Comment'>;)</span>
+          <span class='Delimiter'>(</span>def <span class='Delimiter'>,</span>con2 args nil<span class='Delimiter'>)</span>
+          <span class='Delimiter'>(,</span>con1 nil<span class='Delimiter'>))</span>
+
+      <span class='Delimiter'>(</span>fn args
+        <span class='Delimiter'>(</span>ccc <span class='Delimiter'>[</span>do <span class='Delimiter'>(</span>= <span class='Delimiter'>,</span>con1 _<span class='Delimiter'>)</span> <span class='Delimiter'>(</span>apply <span class='Delimiter'>,</span>con2 <span class='Delimiter'>(</span>or args <span class='Delimiter'>(</span>list nil<span class='Delimiter'>)))]))</span>
+<span class='Delimiter'>)))</span>
+</pre>
+            </li></ol>
+
+        <p>
+        Speaking of pink, just the other day I saw this awesome Hello Kitty folder at Target, and even though she didn&apos;t ask, I let the cashier know that I was buying it for myself. That&apos;s how secure I am in my manliness.
+        </p>
+
+        <p>
+        On a serious note, the design of <a shape='rect' href='http://www.arclanguage.org/'>Arc</a> is very pretty on many levels. My own language that I&apos;m currently designing has a similar kind of aesthetic, although it&apos;s a completely different language.
+        </p>
+
+
+        <br /></div>
+
+        <div class="section" style="margin-top: -22px; margin-bottom: -11px"> </div>
+
+        <div class="links centered">
+            <a href="/" title="home" style="color: #333333" class="pagelink">&lt;&lt;</a>
+        </div>
+
+    </div>
+
+</body>
+</html>
