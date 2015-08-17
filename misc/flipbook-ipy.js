@@ -1,189 +1,191 @@
-var constructFlipbook = function( $, flipbook, flipbookParent, indexInParent ) {
+if (typeof constructFlipbook === 'undefined') {
+    constructFlipbook = function( $, flipbook, flipbookParent, indexInParent ) {
 
-    // this flipbook has already been processed by a nested call
-    if (flipbook.hasClass('live')) { return; }
+        // this flipbook has already been processed by a nested call
+        if (flipbook.hasClass('live')) { return; }
 
-    var lis = flipbook.children('li');
+        var lis = flipbook.children('li');
 
-    var showButtons = flipbook.attr('show-buttons') === 'true';
-    var default1 = flipbook.attr('default');
+        var showButtons = flipbook.attr('show-buttons') === 'true';
+        var default1 = flipbook.attr('default');
 
-    var obj = (function() { // block
-        var index = 0;
+        var obj = (function() { // block
+            var index = 0;
 
-        var listeners = [];
-        var register = function( f ) {
-            listeners.push(f);
-        }
-
-        var hoverIndex = 0;
-        var isHovering = false;
-
-        var hover = function( i ) {
-            isHovering = true;
-            hoverIndex = i;
-            update();
-
-            if (flipbookParent !== undefined) {
-                flipbookParent.hover(indexInParent)
+            var listeners = [];
+            var register = function( f ) {
+                listeners.push(f);
             }
-        }
 
-        var unhover = function() {
-            isHovering = false;
-            update();
+            var hoverIndex = 0;
+            var isHovering = false;
 
-            if (flipbookParent !== undefined) {
-                flipbookParent.unhover();
-            }
-        }
-
-        var update = function( newIndex ) {
-            if( newIndex !== undefined ) {
-                index = newIndex;
+            var hover = function( i ) {
+                isHovering = true;
+                hoverIndex = i;
+                update();
 
                 if (flipbookParent !== undefined) {
-                    flipbookParent.update(indexInParent);
+                    flipbookParent.hover(indexInParent)
                 }
             }
 
-            // take care of cycling
-            index = (index + lis.length) % lis.length;
+            var unhover = function() {
+                isHovering = false;
+                update();
 
-            if( isHovering ) {
-                i = hoverIndex; }
-            else {
-                i = index; }
+                if (flipbookParent !== undefined) {
+                    flipbookParent.unhover();
+                }
+            }
 
-            // update LI display
-            lis.css('display','none')
-               .eq(i)
-               .css('display','table-cell');
+            var update = function( newIndex ) {
+                if( newIndex !== undefined ) {
+                    index = newIndex;
 
-            // update listeners (tabs etc)
-            $.each( listeners, function( i, f ) {
-                f(index, isHovering, hoverIndex);
-            } );
-        };
+                    if (flipbookParent !== undefined) {
+                        flipbookParent.update(indexInParent);
+                    }
+                }
 
-        return {
-            back: function() { index -= 1; update(); },
-            forward: function() { index += 1; update(); },
-            update: update,
-            register: register,
-            getActiveIndex: function() { return index; },
-            hover: hover,
-            unhover: unhover
-        };
-    })();
+                // take care of cycling
+                index = (index + lis.length) % lis.length;
 
-    // handle nested flipbooks
-    lis.map( function( index, b ) {
-        var innerFlipbooks = $(b).find('.flipbook');
-        innerFlipbooks.each( function() {
-            constructFlipbook( $, $(this), obj, index );
-        } );
-    } );
-
-    /* buttons */
-    var buttonSetup = function() {
-        var leftbutton = $(document.createElement('button'))
-            .html('<').click( obj.back );
-        var rightbutton = $(document.createElement('button'))
-            .html('>').click( obj.forward );
-
-        var buttonDiv = $(document.createElement('div'))
-            .append(leftbutton)
-            .append(rightbutton)
-            .addClass('buttonDiv');
-
-        buttonDiv.insertAfter(flipbook);
-
-        return buttonDiv;
-    }
-
-
-    /* tabs */
-    var tabSetup = function() {
-        var constructTab = function( element, index ) {
-            var tab =
-                element
-                .attr('title', lis.eq(index).find('h4').html())
-                .mouseenter( function(){
-                    $(this).addClass('hovering');
-                    obj.hover(index); } )
-                .mouseleave( function(){
-                    $(this).removeClass('hovering');
-                    obj.unhover(); } )
-                .click( function(){
-                    obj.unhover();
-                    obj.update(index); } );
-
-            var handler = function( thenIndex, isHovering, hoveringIndex ) {
-                if( isHovering && hoveringIndex == index ) {
-                    tab.addClass('hovering'); }
+                if( isHovering ) {
+                    i = hoverIndex; }
                 else {
-                    tab.removeClass('hovering'); }
+                    i = index; }
 
-                if( thenIndex == index ) {
-                    tab.addClass('selected'); }
-                else {
-                    tab.removeClass('selected'); }
+                // update LI display
+                lis.css('display','none')
+                   .eq(i)
+                   .css('display','table-cell');
+
+                // update listeners (tabs etc)
+                $.each( listeners, function( i, f ) {
+                    f(index, isHovering, hoverIndex);
+                } );
             };
 
-            obj.register(handler);
+            return {
+                back: function() { index -= 1; update(); },
+                forward: function() { index += 1; update(); },
+                update: update,
+                register: register,
+                getActiveIndex: function() { return index; },
+                hover: hover,
+                unhover: unhover
+            };
+        })();
 
-            return tab;
+        // handle nested flipbooks
+        lis.map( function( index, b ) {
+            var innerFlipbooks = $(b).find('.flipbook');
+            innerFlipbooks.each( function() {
+                constructFlipbook( $, $(this), obj, index );
+            } );
+        } );
+
+        /* buttons */
+        var buttonSetup = function() {
+            var leftbutton = $(document.createElement('button'))
+                .html('<').click( obj.back );
+            var rightbutton = $(document.createElement('button'))
+                .html('>').click( obj.forward );
+
+            var buttonDiv = $(document.createElement('div'))
+                .append(leftbutton)
+                .append(rightbutton)
+                .addClass('buttonDiv');
+
+            buttonDiv.insertAfter(flipbook);
+
+            return buttonDiv;
         }
 
-        // create a tab for each LI page
-        tabs = lis.map( function( index, b ) {
-            var name = $(b).attr('name');
-            if (name === undefined)
-            { name = index + 1 }
 
-            return constructTab(
-                $(document.createElement('span'))
-                .addClass('tab')
-                .html(name)
-                , index); 
-        } ).get();
+        /* tabs */
+        var tabSetup = function() {
+            var constructTab = function( element, index ) {
+                var tab =
+                    element
+                    .attr('title', lis.eq(index).find('h4').html())
+                    .mouseenter( function(){
+                        $(this).addClass('hovering');
+                        obj.hover(index); } )
+                    .mouseleave( function(){
+                        $(this).removeClass('hovering');
+                        obj.unhover(); } )
+                    .click( function(){
+                        obj.unhover();
+                        obj.update(index); } );
 
-        // create a tab for flipbook links
-        // format is <span class="flipbookLink" name="flipbookname" index="index"> stuff </span>
-        $('.flipbookLink[name="' + flipbook.attr('name') + '"]').map( function() {
-            constructTab($(this).addClass('liveLink'), + $(this).attr('index') - 1);
-        } );
-        
-        return $(document.createElement('div')).addClass('underDiv').append(tabs);
-    };
+                var handler = function( thenIndex, isHovering, hoveringIndex ) {
+                    if( isHovering && hoveringIndex == index ) {
+                        tab.addClass('hovering'); }
+                    else {
+                        tab.removeClass('hovering'); }
+
+                    if( thenIndex == index ) {
+                        tab.addClass('selected'); }
+                    else {
+                        tab.removeClass('selected'); }
+                };
+
+                obj.register(handler);
+
+                return tab;
+            }
+
+            // create a tab for each LI page
+            tabs = lis.map( function( index, b ) {
+                var name = $(b).attr('name');
+                if (name === undefined)
+                { name = index + 1 }
+
+                return constructTab(
+                    $(document.createElement('span'))
+                    .addClass('tab')
+                    .html(name)
+                    , index); 
+            } ).get();
+
+            // create a tab for flipbook links
+            // format is <span class="flipbookLink" name="flipbookname" index="index"> stuff </span>
+            $('.flipbookLink[name="' + flipbook.attr('name') + '"]').map( function() {
+                constructTab($(this).addClass('liveLink'), + $(this).attr('index') - 1);
+            } );
+            
+            return $(document.createElement('div')).addClass('underDiv').append(tabs);
+        };
 
 
-    /* initialize */
-    flipbook.css('display','table');
-    flipbook.removeClass('static').addClass('live');
-    buttonDiv = buttonSetup();
-    table = tabSetup(buttonDiv);
+        /* initialize */
+        flipbook.css('display','table');
+        flipbook.removeClass('static').addClass('live');
+        buttonDiv = buttonSetup();
+        table = tabSetup(buttonDiv);
 
-    if (!showButtons) {
-        buttonDiv.children().attr('style', 'visibility: hidden');
+        if (!showButtons) {
+            buttonDiv.children().attr('style', 'visibility: hidden');
+        }
+
+        table.insertAfter(buttonDiv.children().last());
+
+        if (default1 !== undefined)
+        { obj.update(default1 - 1); }
+        else
+        { obj.update(0); }
+
+        /* maximize all list item heights so buttons don't jump around
+         * when shuffling through items of different sizes */
+        var maxHeight = Math.max.apply( null,
+                lis.map(function(){ return $(this).height(); }).get() );
+
+        lis.each(function(){ $(this).height(maxHeight + 10); });
     }
-
-    table.insertAfter(buttonDiv.children().last());
-
-    if (default1 !== undefined)
-    { obj.update(default1 - 1); }
-    else
-    { obj.update(0); }
-
-    /* maximize all list item heights so buttons don't jump around
-     * when shuffling through items of different sizes */
-    var maxHeight = Math.max.apply( null,
-            lis.map(function(){ return $(this).height(); }).get() );
-
-    lis.each(function(){ $(this).height(maxHeight + 10); });
 }
 
-$('.flipbook').each( function() {
-    constructFlipbook( $, $(this) );
-} );
+// $('.flipbook').each( function() {
+//     constructFlipbook( $, $(this) );
+// } );

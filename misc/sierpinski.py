@@ -208,10 +208,6 @@ class SVGTabView:
         id = uuid.uuid4()
         
         return ("""
-            <script type="text/javascript">
-
-            </script>
-            
             <ol id="%(id)s" class="flipbook static" name='%(name)s'>
             <li>
                 """
@@ -222,13 +218,11 @@ class SVGTabView:
             
             <script type="text/javascript" src="flipbook-ipy.js"></script>
             <script type="text/javascript">
-                $('head').append('<link rel="stylesheet" type="text/css" href="oftencss_ipy.css" />');
-                
-                if (typeof constructFlipbook === 'undefined') {
-                    setTimeout( function() { constructFlipbook($, $("#%(id)s")); }, 200 )
-                } else {
-                    constructFlipbook($, $("#%(id)s"));
+                if ($('head').children('#oftencsslink').length === 0) {
+                    $('head').append('<link id="oftencsslink" rel="stylesheet" type="text/css" href="oftencss_ipy.css" />');
                 }
+
+                constructFlipbook($, $("#%(id)s"));
             </script>
             
                 """) % {'id': id, 'name': name}
