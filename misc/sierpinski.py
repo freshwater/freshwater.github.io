@@ -245,8 +245,8 @@ def graphics(directives=[], width=None, height=None, **attributes):
 
     # convert width height keywords to style directives
     style = ";" + "; ".join([
-                'width: ' + str(width) if width != None else '',
-                'height: ' + str(height) if height != None else ''])
+                'width: ' + str(width) + 'px' if width != None else '',
+                'height: ' + str(height) + 'px' if height != None else ''])
 
     structure.attrib['style'] = structure.attrib.get('style', '') + style
 
