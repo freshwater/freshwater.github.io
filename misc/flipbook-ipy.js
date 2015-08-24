@@ -1,5 +1,11 @@
 if (typeof constructFlipbook === 'undefined') {
+    futureProc = [];
+
     constructFlipbook = function( $, flipbook, flipbookParent, indexInParent ) {
+
+        // alert('semiinner');
+        // alert($('.flipbookLink[name="' + flipbook.attr('name') + '"]').length);
+
 
         // this flipbook has already been processed by a nested call
         if (flipbook.hasClass('live')) { return; }
@@ -152,9 +158,15 @@ if (typeof constructFlipbook === 'undefined') {
 
             // create a tab for flipbook links
             // format is <span class="flipbookLink" name="flipbookname" index="index"> stuff </span>
-            $('.flipbookLink[name="' + flipbook.attr('name') + '"]').map( function() {
-                constructTab($(this).addClass('liveLink'), + $(this).attr('index') - 1);
-            } );
+            var processAllTabs = function() {
+                $('.flipbookLink[name="' + flipbook.attr('name') + '"]').map( function() {
+                    constructTab($(this).addClass('liveLink'), + $(this).attr('index') - 1);
+                } );
+            };
+
+            processAllTabs();
+            setTimeout(function() { processAllTabs(); }, 2000);
+            futureProc.push(processAllTabs);
             
             return $(document.createElement('div')).addClass('underDiv').append(tabs);
         };
@@ -184,8 +196,15 @@ if (typeof constructFlipbook === 'undefined') {
 
         lis.each(function(){ $(this).height(maxHeight + 10); });
     }
+
+    processFlipbooks = function() {
+        $('.flipbook').each( function() {
+            constructFlipbook( $, $(this) );
+        } );
+
+        for (var k in futureProc) {
+            futureProc[k]();
+        }
+    };
 }
 
-// $('.flipbook').each( function() {
-//     constructFlipbook( $, $(this) );
-// } );
