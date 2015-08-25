@@ -1,8 +1,8 @@
-
+﻿
 import numpy as np
 import matplotlib
 import matplotlib.pyplot as plt
-from itertools import chain, combinations
+# from itertools import chain, combinations
 from IPython.display import SVG
 
 
@@ -11,7 +11,7 @@ _colors = matplotlib.colors.cnames
 
 # svg defaults
 _defaults = {
-    'svg': {'padding': 1.02},
+    'padding': 1.02,
     'radius': 50,
     'point-radius': 1,
 }
@@ -22,22 +22,77 @@ _defaults = {
     xml structuring
 """
 
-import xml.etree.ElementTree as etree
+# multiple issues with xml.etree.ElementTree so made my own Xml class
 
-def xml(tag, attributes={}, children=None):
-    attributes = dict((k, str(v)) for k, v in attributes.items())
-    node = etree.Element(tag, attributes)
+class Xml():
+    def __init__(self, tag, attributes={}, children=None, data=None):
+        self.tag = tag
+        self.attributes = attributes
 
-    if children != None:
-        if isinstance(children, list):
-            for child in children:
-                node.append(child)
-        elif isinstance(children, str):
-            node.text = children
-        else:
-            node.append(children)
+        if children != None and not(isinstance(children, list)):
+            if not(isinstance(children, str)):
+                children = [children]
 
-    return node
+        self.children = children
+        self.data = data
+
+    def append(self, child):
+        if self.children == None:
+            self.children = []
+
+        self.children.append(child)
+
+    def set(self, **attributes):
+        self.attributes.update(attributes)
+
+    def get(self, attribute, default=None):
+        return self.attributes.get(attribute, default)
+
+    def _all_data(self, item):
+        if isinstance(item, Xml):
+            if item.data != None:
+                yield item.data
+            
+            if item.children != None:
+                for el in item.children:
+                    yield from self._all_data(el)
+
+        elif isinstance(item, list):
+            for el in item:
+                yield from self._all_data(el)
+
+    def all_data(self):
+        """Extract all embedded data items."""
+        return list(self._all_data(self))
+
+    def to_str(self):
+        attrs = self.attributes
+        chl = self.children
+
+        if attrs is not None or attrs != {}:
+            _attributes = ' '.join([k + '=\'' + str(v) + '\'' for k, v in attrs.items()])
+
+        if chl is not None:
+            _children = ''.join([str(el) for el in chl])
+
+        _tail = ('>' + _children + '</' + self.tag + '>') if chl is not None else '/>'
+
+        return ('<' + self.tag
+                + ((' ' + _attributes) if len(attrs) > 0 else '')
+                + _tail)
+
+    __str__ = to_str
+    __repr__ = to_str
+    _repr_html_ = to_str
+
+
+_flipbook_lib = Xml('script', {'type': 'text/javascript', 'src': 'flipbook-ipy.js'}, ' ')
+_oftencss_link = Xml('script', {'type': 'text/javascript'},
+"""
+if ($('head').children('#oftencsslink').length === 0) {
+    $('head').append('<link id="oftencsslink" rel="stylesheet" type="text/css" href="oftencss_ipy.css" />');
+}
+""")
 
 
 
@@ -45,22 +100,23 @@ def xml(tag, attributes={}, children=None):
     graphics primitives
 """
 
-def tooltip(obj, s):
+def Tooltip(obj, s):
     """Attach a tooltip to a graphics primitive."""
 
-    title = xml('title', {}, str(s))
+    title = Xml('title', {}, str(s))
 
-    if isinstance(obj, dict):
-        obj['svg'].append(title)
+    if isinstance(obj, Xml):
+        obj.append(title)
     elif isinstance(obj, list):
         for el in obj:
-            tooltip(el, s)
+            Tooltip(el, s)
 
     return obj
 
-def Attributes(obj, **attrs):
-    if isinstance(obj, dict):
-        obj['svg'].attrib.update(attrs)
+
+def Attributes(obj, **attributes):
+    if isinstance(obj, Xml):
+        obj.attributes.update(attributes)
 
     return obj
 
@@ -72,34 +128,33 @@ def line(ls, is_poly=False):
     xs, ys = np.transpose(ls)
     
     svgp = [str(x) + ' ' + str(y) for x, y in ls];
-    commands = 'M ' + " L ".join(svgp) + (' Z ' if is_poly else '')
-    
+    commands = 'M ' + " L ".join(svgp) + (' Z' if is_poly else '')
+
     style = '' if is_poly else 'fill: none'
 
-    res = { 'svg': xml('path', {'d': commands, 'style': style}),
-            'bounds': (min(xs), max(xs), min(ys), max(ys)) }
-
-    return res
+    return Xml('path', {'d': commands, 'style': style},
+               data=(min(xs), max(xs), min(ys), max(ys)))
    
 
-def polygon(ls, **kwargs):
+def polygon(ls):
     """Polygon primitive, to be used inside graphics."""
 
-    return line(ls, is_poly=True, **kwargs)
+    return line(ls, is_poly=True)
 
 
 def disk(c=[0,0], r=_defaults['radius'], is_disk=False):
     """Disk primitive, to be used inside graphics."""
+    c = np.array(c)
 
-    return { 'svg': xml('circle', {'cx': c[0], 'cy': c[1], 'r': r}),
-             'bounds': (c[0] - r, c[0] + r, c[1] - r, c[1] + r) }
+    return Xml('circle', {'cx': c[0], 'cy': c[1], 'r': r},
+               data = (c[0] - r, c[0] + r, c[1] - r, c[1] + r))
 
 
 def circle(c=[0,0], r=_defaults['radius']):
     """Circle primitive, to be used inside graphics."""
 
     circ = disk(c=c, r=r)
-    circ['svg'].set('style', 'fill: none')
+    circ.set(style='fill: none')
 
     return circ
 
@@ -108,14 +163,17 @@ def point(c=[0,0], r=_defaults['point-radius']):
     """Point primitive, to be used inside graphics."""
 
     circ = disk(c=c, r=r)
-    circ['svg'].set('style', 'stroke: none')
+    circ.set(style='stroke: none')
 
     return circ
 
 
 def rectangle(corners=_defaults['radius']*np.array([[-1, -1], [1, 1]]),
         c=None, wh=[_defaults['radius']]*2):
-    """Rectangle primitive, to be used inside graphics."""
+    """
+    Rectangle primitive, to be used inside graphics.
+    Accepts both center width-height and corner1 corner2 specifications.
+    """
 
     x, y, w, h = [None]*4
     
@@ -131,8 +189,8 @@ def rectangle(corners=_defaults['radius']*np.array([[-1, -1], [1, 1]]),
 
     (min_x, max_x), (min_y, max_y) = map(sorted, np.transpose(corners))
 
-    return { 'svg': xml('rect', {'x': x, 'y': y, 'width': w, 'height': h}),
-             'bounds': (min_x, max_x, min_y, max_y) }
+    return Xml('rect', {'x': x, 'y': y, 'width': w, 'height': h},
+               data = (min_x, max_x, min_y, max_y))
 
 def RGB(r, g, b, a=1):
     return 'rgba(' + ",".join([str(n) for n in [r,g,b,a]]) + ');'
@@ -143,24 +201,13 @@ def RGB(r, g, b, a=1):
     utilities
 """
 
-def _extract_key(ls, key):
-    if isinstance(ls, list):
-        for elem in ls:
-            yield from _extract_key(elem, key)
-            
-    if isinstance(ls, dict):
-        if key in ls:
-            yield ls[key]
+def _intersperse(ls, sep):
+    it = iter(ls)
 
-def _replace_key(ls, key):
-    if isinstance(ls, list):
-        return [_replace_key(elem, key) for elem in ls]
-            
-    if isinstance(ls, dict):
-        if key in ls:
-            return ls[key]
-        
-    return ls
+    yield next(it)
+    for el in it:
+        yield sep
+        yield el
 
 
 
@@ -171,13 +218,15 @@ def _replace_key(ls, key):
 def re_im(z):
     return [z.real, z.imag]
 
+
 def circle_points(n, c=[0,0], r=_defaults['radius'], radial_offset=0):
     return c + np.array(
         [re_im(r * np.e**(1j * (radial_offset + 2*np.pi * k / n))) for k in range(n)])
 
-def subsets(S):
-    return chain.from_iterable(combinations(S,k) for k in range(0,len(S)+1))
-    
+
+# def subsets(S):
+#     return chain.from_iterable(combinations(S,k) for k in range(0,len(S)+1))
+
 
 
 """
@@ -189,8 +238,8 @@ def _subgraphics(ls):
     result = []
     
     # iterate through flat region without running through stack
-    while(i < len(ls) and isinstance(ls[i], dict)):
-        result.append(ls[i]['svg'])
+    while(i < len(ls) and isinstance(ls[i], Xml)):
+        result.append(ls[i])
         i += 1
         
     if ls[i:] == []:
@@ -201,15 +250,14 @@ def _subgraphics(ls):
     if isinstance(elem, list):
         return result + _subgraphics(elem) + _subgraphics(rest)
     elif elem in _colors:
-        return result + [xml('g', {'style': 'fill: ' + elem }, _subgraphics(rest))]
+        return result + [Xml('g', {'style': 'fill: ' + elem }, _subgraphics(rest))]
     elif isinstance(elem, str):
-        return result + [xml('g', {'style': elem}, _subgraphics(rest))]
+        return result + [Xml('g', {'style': elem}, _subgraphics(rest))]
     else:
         return result + _subgraphics(rest)
 
 
-# main graphics function. use `data` method to get raw svg.
-# default width/height defined in CSS to enable certain containments
+# default width/height is defined in CSS to enable certain containments
 # e.g. to automatically make the svg pane smaller when inside a Table
 def graphics(directives=[], width=None, height=None, **attributes):
     """Render a sequence of graphics primitives to SVG."""
@@ -218,7 +266,8 @@ def graphics(directives=[], width=None, height=None, **attributes):
         return graphics([directives], width=width, height=height, **attributes)
     
     # extract all bounds
-    bounds = list(_extract_key(directives, 'bounds'))
+    bounds = Xml("", {}, directives).all_data()
+
     if bounds == []: # no primitives. output a blank pane
         return graphics(["stroke: none", line([[0, 0], [50, 50]])],
                 width=width, height=height, **attributes)
@@ -228,7 +277,7 @@ def graphics(directives=[], width=None, height=None, **attributes):
     
     # viewbox values, with some padding
     center = (maxs + mins) / 2
-    spans = (maxs - mins) * _defaults['svg']['padding'] # padding
+    spans = (maxs - mins) * _defaults['padding'] # padding
     [x, y], [w, h] = center - spans/2, spans
     
     view_box = " ".join(map(str, [x, y, w, h]))
@@ -239,18 +288,21 @@ def graphics(directives=[], width=None, height=None, **attributes):
 
     attrs.update(attributes)
 
-    structure = xml('svg', attrs,
-            xml('g', {'style': "stroke: black; stroke-width: 1; fill: black"},
+    default_style = {'style': "stroke: black; stroke-width: 1; fill: black"}
+
+    svg = Xml('svg', attrs,
+            Xml('g', default_style,
                 _subgraphics(directives)))
 
     # convert width height keywords to style directives
-    style = ";" + "; ".join([
+    # and append to user-specified style
+    wh_style = "; ".join([
                 'width: ' + str(width) + 'px' if width != None else '',
                 'height: ' + str(height) + 'px' if height != None else ''])
 
-    structure.attrib['style'] = structure.attrib.get('style', '') + style
+    svg.set(style=svg.get('style', '') + ';' + wh_style)
 
-    return HTML(etree.tostring(structure).decode())
+    return Xml('span', {}, [_oftencss_link, svg])
 
 
 
@@ -258,50 +310,51 @@ def graphics(directives=[], width=None, height=None, **attributes):
     ipython display
 """
 
-from IPython.display import HTML, Javascript, display
+from IPython.display import HTML, display
 
 def _first_repr(a):
-    for rep in ['_repr_svg_', '_repr_html_']:
-        if rep in dir(a):
-            return getattr(a, rep)()
+    if isinstance(a, Xml):
+        return a
+    else:
+        for rep in ['_repr_svg_', '_repr_html_']:
+            if rep in dir(a):
+                return getattr(a, rep)()
     
-    return str(a)
+        return str(a)
 
 import uuid
 
-# needs to be made into a general tab view
-def Gallery(ls, name=""):
+
+# index names
+def Gallery(ls, name=None, **attributes):
     """
     Creates a tabbed view pane. Link to it with
         <span class='flipbookLink' name='<gallery name>' index='<tab number>'>link</span>
     """
 
     id = uuid.uuid4()
-    
-    return HTML(("""
-        <ol id="s%(id)s" class="flipbook static" name="%(name)s">
-        <li>
-            """
-            + "</li><li>".join([_first_repr(el) for el in ls])
-            + """
-        </li>
-        </ol>
-        
-        <script type="text/javascript" src="flipbook-ipy.js"></script>
-        <script type="text/javascript">
-            if ($('head').children('#oftencsslink').length === 0) {
-                $('head').append('<link id="oftencsslink" rel="stylesheet" type="text/css" href="oftencss_ipy.css" />');
-            }
 
-            constructFlipbook($, $("#s%(id)s"));
-        </script>
-        
-            """) % {'id': id, 'name': name})
+    attrs = {'id': 's' + str(id), 'class': 'flipbook static'}
+    attrs.update({'name': name} if name != None else {})
+    attrs.update(attributes)
+
+    construct_js = Xml('script', {'type': 'text/javascript'},
+                       'constructFlipbook($, $("#' + attrs['id'] + '"));')
+
+    return Xml('ol', attrs,
+        [Xml('li', {}, _first_repr(el)) for el in ls]
+        + [_flipbook_lib, _oftencss_link, construct_js])
 
 
-def Javascript(*js, scope=True):
+import re
+
+def Javascript(*js, scope=True, minify=True):
     """Concatenate and auto scope Javascript code."""
+
     js = " ".join(js)
+
+    if minify:
+        js = re.sub(r'\s+', ' ', js)
 
     if scope:
         return "(function(){" + js + "})();"
@@ -309,72 +362,85 @@ def Javascript(*js, scope=True):
         return js    
 
 
+def Column(ls, item_style=None, **attributes):
+    """Display a list of items in a column."""
 
-def Column(ls, style="", item_style=""):
-    return HTML(('<table class="sierpinski Column" style="%(style)s">' 
-                + " ".join(['<tr style="%(item_style)s"><td>' + _first_repr(el) + '</td></tr>' for el in ls])
-                + '</table>') % { 'style': style, 'item_style': item_style })
-
-
-def Row(ls, style="", item_style=""):
     if not(isinstance(ls, list)):
-        return Row([ls], style=style)
-    
-    return HTML(('<table class="sierpinski Row" style="%(style)s"><tr>'
-                + " ".join(['<td style="%(item_style)s">' + _first_repr(el) + '</td>' for el in ls])
-                + '</tr></table>') % { 'style': style, 'item_style': item_style })
+        return Column([ls], item_style=item_style, **attributes)
+
+    attrs = {'class': 'sierpinski Column'}
+    attrs.update(attributes)
+
+    item_attrs = {'style': item_style} if item_style != None else {}
+
+    return Xml('table', attrs,
+            [Xml('tr', item_attrs, Xml('td', {}, el)) for el in ls])
 
 
-def List(ls, style="", separator=", ", before="[", after="]"):
-    return HTML(('<span class="sierpinski List" style="%(style)s"> '
-                + before + separator.join(['<span>' + _first_repr(el) + '</span>' for el in ls]) + after
-                + '</span>') % { 'style': style })
+def Row(ls, item_style=None, **attributes):
+    """Display a list of items in a row."""
+
+    if not(isinstance(ls, list)):
+        return Row([ls], item_style=item_style, **attributes)
+
+    attrs = {'class': 'sierpinski Row'}
+    attrs.update(attributes)
+
+    item_attrs = {'style': item_style} if item_style != None else {}
+
+    return Xml('table', attrs, Xml('tr', {},
+               [Xml('td', item_attrs,
+                    _first_repr(el)) for el in ls]))
 
 
-def Frame(item, style=""):
-    return HTML(('<span class="sierpinski Frame" style="%(style)s">'
-                 + _first_repr(item)
-                 + '</span>') % { 'style': style })
+def List(ls, separator=", ", before="[", after="]", item_style=None, **attributes):
+    """Display a list of items in a list. Unlike a Row, List can wrap."""
+
+    separator, before, after = [Xml('span', {}, s)
+                                for s in [separator, before, after]]
+
+    attrs = {'class': 'sierpinski List'}
+    attrs.update(attributes)
+
+    item_attrs = {'style': item_style} if item_style != None else {}
+
+    inner = [Xml('span', item_attrs, _first_repr(el)) for el in ls]
+
+    return Xml('span', attrs,
+               [before] + list(_intersperse(inner, separator)) + [after])
 
 
-### need to refactor system to preserve XML structure.
-def EventHandler(item, **kwargs):
-    attributes = " ".join([str(k) + '=\'' + str(v) + '\'' for k, v in kwargs.items()])
-    # attrs = { 'class': "sierpinski EventHandler" }
-    # attrs.update(attributes)
+def Frame(item, **attributes):
+    """Display an item in a frame."""
 
-    # return etree.tostring(xml('span', attrs, _first_repr(item))).decode()
+    attrs = {'class': 'sierpinski Frame'}
+    attrs.update(attributes)
 
-    return HTML(('<span class="sierpinski EventHandler" %(attributes)s>'
-                 + _first_repr(item)
-                 + '</span>') % { 'attributes': attributes })
+    return Xml('span', attrs, _first_repr(item))
 
 
-def Button(item, **kwargs):
-    attributes = " ".join([str(k) + '=\'' + str(v) + '\'' for k, v in kwargs.items()])
-    return HTML(('<button class="sierpinski Button" %(attributes)s>'
-                 + _first_repr(item)
-                 + '</span>') % { 'attributes': attributes })
+def EventHandler(item, **attributes):
+    """Set Javascript event attributes."""
+
+    attrs = { 'class': "sierpinski EventHandler" }
+    attrs.update(attributes)
+
+    return Xml('span', attrs, _first_repr(item))
 
 
-# def Table(ls, style="", row_style="", item_style=""):
-def Table(ls, **kwargs):
-    kw = {'row_style': "", 'item_style': ""}
+def Table(ls, row_style=None, item_style=None, **attributes):
+    """Display a rectangular array in a grid."""
 
-    opts = dict([(k, kwargs.get(k, "")) for k in kw.keys()])
-    attributes = " ".join([str(k) + '=\'' + str(v) + '\''
-                           for k, v in kwargs.items() if not(k in kw)])
+    attrs = {'class': 'sierpinski Table'}
+    attrs.update(attributes)
 
-    kw.update(opts)
-    kw.update({ 'attributes': attributes })
+    row_attrs = {'style': row_style} if row_style != None else {}
+    item_attrs = {'style': item_style} if item_style != None else {}
 
-    return HTML(('<table class="sierpinski Table" %(attributes)s">'
-                + " ".join(['<tr style="%(row_style)s">'
-                            + " ".join(['<td style="%(item_style)s">' + _first_repr(el) + '</td>' for el in row])
-                            + '</tr>'
-                   for row in ls])
-                + '</table>') % kw)
-
+    return Xml('table', attrs,
+               [Xml('tr', row_attrs,
+                    [Xml('td', item_attrs, _first_repr(el)) for el in row])
+                for row in ls])
 
 import uuid
 from scipy import misc
@@ -447,7 +513,6 @@ class Graph(nx.classes.graph.Graph):
         .nodes(d3.values(nodes))
         .links(links)
         .size([width, height])
-        // .linkDistance((edge_distance)s)
         .linkDistance(edgeDistance)
         .charge(-300)
         .on("tick", tick)
@@ -585,36 +650,3 @@ def point_plot(ls, **kwargs):
     plt.yticks([])
     plt.axis('off')
     plt.show()
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -164,7 +164,7 @@ if (typeof constructFlipbook === 'undefined') {
                 } );
             };
 
-            processAllTabs();
+            // processAllTabs();
             setTimeout(function() { processAllTabs(); }, 2000);
             futureProc.push(processAllTabs);
             
