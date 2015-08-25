@@ -29,7 +29,7 @@ class Xml():
         self.tag = tag
         self.attributes = attributes
 
-        if children != None and not(isinstance(children, list)):
+        if children is not None and not(isinstance(children, list)):
             if not(isinstance(children, str)):
                 children = [children]
 
@@ -37,7 +37,7 @@ class Xml():
         self.data = data
 
     def append(self, child):
-        if self.children == None:
+        if self.children is None:
             self.children = []
 
         self.children.append(child)
@@ -50,10 +50,10 @@ class Xml():
 
     def _all_data(self, item):
         if isinstance(item, Xml):
-            if item.data != None:
+            if item.data is not None:
                 yield item.data
             
-            if item.children != None:
+            if item.children is not None:
                 for el in item.children:
                     yield from self._all_data(el)
 
@@ -297,8 +297,8 @@ def graphics(directives=[], width=None, height=None, **attributes):
     # convert width height keywords to style directives
     # and append to user-specified style
     wh_style = "; ".join([
-                'width: ' + str(width) + 'px' if width != None else '',
-                'height: ' + str(height) + 'px' if height != None else ''])
+                'width: ' + str(width) + 'px' if width is not None else '',
+                'height: ' + str(height) + 'px' if height is not None else ''])
 
     svg.set(style=svg.get('style', '') + ';' + wh_style)
 
@@ -335,7 +335,7 @@ def Gallery(ls, name=None, **attributes):
     id = uuid.uuid4()
 
     attrs = {'id': 's' + str(id), 'class': 'flipbook static'}
-    attrs.update({'name': name} if name != None else {})
+    attrs.update({'name': name} if name is not None else {})
     attrs.update(attributes)
 
     construct_js = Xml('script', {'type': 'text/javascript'},
@@ -371,7 +371,7 @@ def Column(ls, item_style=None, **attributes):
     attrs = {'class': 'sierpinski Column'}
     attrs.update(attributes)
 
-    item_attrs = {'style': item_style} if item_style != None else {}
+    item_attrs = {'style': item_style} if item_style is not None else {}
 
     return Xml('table', attrs,
             [Xml('tr', item_attrs, Xml('td', {}, el)) for el in ls])
@@ -386,7 +386,7 @@ def Row(ls, item_style=None, **attributes):
     attrs = {'class': 'sierpinski Row'}
     attrs.update(attributes)
 
-    item_attrs = {'style': item_style} if item_style != None else {}
+    item_attrs = {'style': item_style} if item_style is not None else {}
 
     return Xml('table', attrs, Xml('tr', {},
                [Xml('td', item_attrs,
@@ -402,7 +402,7 @@ def List(ls, separator=", ", before="[", after="]", item_style=None, **attribute
     attrs = {'class': 'sierpinski List'}
     attrs.update(attributes)
 
-    item_attrs = {'style': item_style} if item_style != None else {}
+    item_attrs = {'style': item_style} if item_style is not None else {}
 
     inner = [Xml('span', item_attrs, _first_repr(el)) for el in ls]
 
@@ -434,8 +434,8 @@ def Table(ls, row_style=None, item_style=None, **attributes):
     attrs = {'class': 'sierpinski Table'}
     attrs.update(attributes)
 
-    row_attrs = {'style': row_style} if row_style != None else {}
-    item_attrs = {'style': item_style} if item_style != None else {}
+    row_attrs = {'style': row_style} if row_style is not None else {}
+    item_attrs = {'style': item_style} if item_style is not None else {}
 
     return Xml('table', attrs,
                [Xml('tr', row_attrs,
